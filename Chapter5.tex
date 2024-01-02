@@ -10,11 +10,11 @@ AB has conducted all of the research presented in this chapter under the supervi
 \end{center}
 
 \section{Introduction}
-As described in Chapter \ref{chap:intro}, hyperspectral imaging (HSI) is able to capture spatially resolved, diffuse reflectance spectra via non-contact imaging. It has been posed that this could enable quantitative, spatially-resolved, tissue oxygenation ($StO_2$) extraction from intra-operative HSI data, with the analytical models investigated in Chapters \ref{chap:1layer} and \ref{chap:2layer} being some of the prominent methods of doing so. 
+As described in Chapter \ref{chap:intro}, hyperspectral imaging (HSI) is able to capture spatially resolved, diffuse reflectance spectra via non-contact imaging\cite{Lu2014,Giannoni2018,Calin2014,Shapey2019}. It has been posed that this could enable quantitative, spatially-resolved, tissue oxygenation ($StO_2$) extraction from intra-operative HSI data, with the analytical models investigated in Chapters \ref{chap:1layer} and \ref{chap:2layer} being some of the prominent methods of doing so \cite{Yudovsky2009, Jacques1999, Clancy2015, Clancy2020}. 
 
-HSI data is often of lower spectral resolution than the spectrophotometer data tested in the previous chapters, particularly that of snapshot HSI data which compromises spectral resolution in favour of shorter aquisition times. Additionally, these sensors may have increased noise levels due to the lack of spatial averaging.
+HSI data is often of lower spectral resolution than the spectrophotometer data tested in the previous chapters, particularly that of snapshot HSI data which compromises spectral resolution in favour of shorter aquisition times\cite{Geelen2014}. Additionally, Hyperspectral imaging is known to suffer from spectral noise which may be reduced significantly by spatial averaging until comparable to traditional optical methods \cite{Zhang2020}.
 
-In this chapter, I will quantify the impact of reducing the spectral resolution and introduction of noise on the performance of the analytical models investigated in Chapters \ref{chap:1layer} and \ref{chap:2layer} by simulating a snapshot camera response from the Monte Carlo datasets used in the previous chapters. These impacts are then evaluated with experimental HSI data taken of the phantoms detailed in Chapter \ref{chap:1layer}. Finally, the models are applied to a subset of neurosurgical HSI data obtained intra-operatively as part of the HELICoiD and NHSI datasets. 
+In this chapter, I will quantify the impact of reducing the spectral resolution and introduction of noise on the performance of the analytical models investigated in Chapters \ref{chap:1layer} and \ref{chap:2layer} by simulating a snapshot camera response from the Monte Carlo datasets used in these previous chapters. These impacts are then evaluated with experimental HSI data of the phantoms detailed in Chapter \ref{chap:1layer}. Finally, the models are applied to a subset of neurosurgical HSI data obtained intra-operatively as part of the HELICoiD and NHSI datasets. 
 
 \section{Methods}
 \subsection{Camera response simulation from Monte Carlo datasets}\label{sec:MCcameras}
@@ -32,7 +32,7 @@ Here $c_n$ is the measured value from band $n$ by the camera when the true spect
 \end{figure}
 
 \subsection{Hyperspectral imaging of gelatin-based phantoms}\label{sec:imagingphantoms}
-To obtain a measured hyperspectral dataset with known ground truth, HSI images are taken of the two-dye configuration gelatin-based phantoms detailed in Section \ref{sec:methodsphantoms}. The imaging configuration is similar to that described in Section \ref{materials} using a 4x4 16 band visible range snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) alongside an f=35mm coupler (Karl Storz, NDTec, VCam HD-F-35 - Camera Lens Adapter, Germany) and a $0^\circ$ exoscope (Karl Storz Endoscopy, VITOM Telescope 0° w Integ. Illuminator, UK), as detailed in \cite{Ebner2021} and pictured in Figure \ref{fig:imagephantoms}.
+To obtain a measured hyperspectral dataset with known ground truth, HSI images are taken of the two-dye configuration gelatin-based phantoms detailed in Section \ref{sec:methodsphantoms}. The imaging configuration is similar to that described in Section \ref{materials} using a 4x4 16 band visible range snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) alongside an f=35mm coupler (Karl Storz, NDTec, VCam HD-F-35 - Camera Lens Adapter, Germany), a $0^\circ$ exoscope (Karl Storz Endoscopy, VITOM Telescope 0° w Integ. Illuminator, UK) and a Xenon light source (Karl Storz Endoscopy, Cold Light Fountain D light C, UK), as detailed in \cite{Ebner2021} and pictured in Figure \ref{fig:imagephantoms}.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.3\textwidth]{imagephantoms.jpg}
@@ -60,10 +60,11 @@ The configurations imaged are detailed in Table \ref{tb:imagedphantoms} and cove
     \end{tabular}
     \label{tb:imagedphantoms}
 \end{table}
-Each image is annotated using ImFusion Labels software to capture pixels corresponding to phantoms while avoiding regions with high specular reflection. 
+A white reference of a Spectralon tile of 95\% is taken under the same lighting conditions and imaging plane as the phantoms. This white reference is either used directly for white balancing quantitative data or to generate spectral sensitivities used to generate mean normalised relative as in Chapter \ref{chap:SWB}. This demonstrates both the highest fidelity and more realistic data processing pathways. Following this, bilinear demosaicing is used and cross-talk correction is applied per pixel of the image also detailed in Chapter \ref{chap:SWB}. 
+Each image is manually annotated using ImFusion Labels software to capture pixels corresponding to phantoms while avoiding regions with high specular reflection. This allows a mean spectrum of the phantom to be generated and compared per pixel processing of the annotated region. 
 
 \subsection{Neurosurgical HSI datasets}\label{sec:NeuroHSIdata}
-Two neurosurgical HSI datasets are leveraged in this preliminary work. Initially, the HELICoiD dataset is used which captures data in the wavelength range 400-1000nm using a pushbroom spatial scanning HSI camera\cite{Fabelo2019}. This provides 36 images of high spectral resolution which are annotated with use of spectral angle mapper to identify four key classes: "normal tissue, tumor tissue, blood vessel, and background elements". For this work we consider only the spectral range of 450-600nm as this is the range of use for the analytical models considered. Secondly, a NeuroHSI dataset is considered which is obtained using the same snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) as in Section \ref{sec:imagingphantoms} whose bands are within the 450-600nm wavelength range. In contrast to Section \ref{sec:imagingphantoms}, this is mounted to a neurosurgical microscope (Zeiss Kinevo 900, Germany) for simpler integration into the neurosurgical workflow, allowing for use in a wide variety of neurosurgical cases. This dataset is manually annotated using ImFusion Labels software to identify over 30 classes.
+Two neurosurgical HSI datasets are leveraged in this preliminary work. Initially, the HELICoiD dataset is used which captures data in the wavelength range 400-1000nm using a pushbroom spatial scanning HSI camera\cite{Fabelo2019}. This provides 36 images of high spectral resolution which are annotated with use of spectral angle mapper to identify four key classes: "normal tissue, tumor tissue, blood vessel, and background elements". For this work we consider only the spectral range of 450-600nm as this is the range of use for the analytical models considered. Secondly, a NeuroHSI dataset is considered which is obtained using the same snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) as in Section \ref{sec:imagingphantoms} whose bands are within the 450-600nm wavelength range. In contrast to Section \ref{sec:imagingphantoms}, this is mounted to a neurosurgical microscope (Zeiss Kinevo 900, Germany) whose integrated light source and lenses are used for simpler integration into the neurosurgical workflow, allowing for use in a wide variety of neurosurgical cases. For each imaging timepoint, the position of the neurosurgical microscope is recorded and used to obtain a flatfield reference outside the sterile field in a closely correlated position and lighting conditions. Similarly to the phantom HSI processing pipeline, this is either used to provide quantitative data from flatfield imaging or used to generate spectral senstivities for relative data before demosaicing and cross-talk correction. These spectral sensitivities are found to be similar to those pre-calculated from the light source spectrum. This dataset is manually annotated using ImFusion Labels software to identify over 30 classes. 
 
 \subsection{Evaluation of analytical models}
 The Yudovsky 2009 single and double layer models and Jacques 1999 models are evaluated as these are found to be the most effective in Chapters \ref{chap:1layer} and \ref{chap:2layer}. When using these analytical models with the snapshot HSI datasets outlined in Sections \ref{sec:MCcameras} to \ref{sec:NeuroHSIdata}, the predicted $R$ (detailed in Sections \ref{sec:Jacques}, \ref{sec:Yudovskysingle}, and \ref{sec:Yudovsky2009}) is used to simulate noiseless camera responses as described by Equation \ref{eq:simulatingcam}, however this simulation is not performed for the HELICoiD dataset as the camera band responses are not available and the high spectral resolution limits the deviation from the true spectrum. This allows the forwards and inverse models to be evaluated and quantified as described in Sections \ref{sec:methodevaluate} and \ref{sec:methodevaluate2} against the Monte Carlo datasets, and similarly for the single-layer models for the gelatin-based phantom datsets. For the gelatin-based phantom datasets, either the mean spectrum of the annotated region is used for fitting the inverse model to reduce the impact of noise, or each pixel in the annotated region is used for fitting. The quality of camera simulation can also be evaluated using $NRMSE$ and Pearson correlation coefficients by comparing simulated camera spectra from the spectrophotometer measurements of the gelatin-based phantoms in Section \ref{sec:methodsphantoms}, to the measured HSI data in Section \ref{sec:imagingphantoms}. Finally, for each neurosurgical dataset image, the mean spectrum of each class annotation is calculated and the inverse analytical models are fitted to this. This provides a set of physiological parameters for each class of each image which are then collated to provide a range of values which are evaluated for plausibility. % Need to find better academic phrasing here 
@@ -75,7 +76,7 @@ The most effective model is chosen to evaluate an exemplary image on a pixel-by-
 The forwards analytical models are assessed using simulated camera responses generated from Monte Carlo data. 
 %The Yudovsky 2009 and Jacques 1999 single-layer models are evaluated for three refractive indices, whereas the Yudovsky 2009 double-layer model is evaluated for $n=1.44$ only as in Chapters \ref{chap:1layer} and \ref{chap:2layer}. 
 These are evaluated in Table \ref{tb:forwardsHSIMC} for $n=1.44$ (further refractive indices can be found in Appendices \ref{ap:forwardsHSIMCq} and \ref{ap:forwardsHSIMCr}) and examples for the single and double layer configurations shown in Figure \ref{fig:forwardsHSIMC}. 
-\begin{table}[bhp] %could remove noise levels here
+\begin{table}[h!] %could remove noise levels here
     \centering
     \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for quantitative and relative data at a variety of noise levels (0, 0.01, 0.03). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|cc|c|ccc|ccc|}
@@ -97,7 +98,7 @@ These are evaluated in Table \ref{tb:forwardsHSIMC} for $n=1.44$ (further refrac
     \label{tb:forwardsHSIMC}
 \end{table}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_noise_Q.pdf}
@@ -125,7 +126,7 @@ These are evaluated in Table \ref{tb:forwardsHSIMC} for $n=1.44$ (further refrac
 
 The inverse models are fitted to these varying noise level datasets and the evaluation of these results can be seen in Table \ref{tb:backwardsHSIMC} for $n=1.44$ (with further refractive indices in Appendices \ref{ap:backwardsHSIMCq} and \ref{ap:backwardsHSIMCr}) and examples of the $StO_2$ extraction quality in Figure \ref{fig:backwardsHSIMC1} for single-layer models and Figure \ref{fig:backwardsHSIMC2} for the double-layer model. 
 
-\begin{table}[htb!]
+\begin{table}[h!]
     \centering
     \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative (Q) or relative (R) Monte-Carlo datasets for $n=1.44$ at each noise level (0, 0.01, 0.03). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
@@ -181,7 +182,7 @@ The inverse models are fitted to these varying noise level datasets and the eval
 \end{table}
 
 %could reduce number of things shown below/put some in supplementary but unsure
-\begin{figure}[htbp]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0Q.pdf}
@@ -217,7 +218,7 @@ The inverse models are fitted to these varying noise level datasets and the eval
     \label{fig:backwardsHSIMC1}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0Q2.pdf}
@@ -255,6 +256,43 @@ The inverse models are fitted to these varying noise level datasets and the eval
 
 \subsection{Gelatin-based tissue phantoms}
 To evaluate the quality of camera response simulation, the mean spectrum from the annotated region of each HSI image of a phantom is compared to the camera response simulation generated from the spectrophotometer diffuse reflectance measurement of these phantoms. This is also compared to the forwards models using ground truth parameters in Table \ref{tb:forwardsHSIphantoms} and an example seen in Figure \ref{fig:forwardsHSIphantoms}. 
+
+\begin{table}[h!] %could remove noise levels here
+    \centering
+    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from the Yudovsky 2009 single-layer model (Y1), the Jacques 1999 model (J), or using spectrophotometer measurements of each phantom (S) and each mean spectrum from an annotated HSI image of each phantom using the same ground truth variable parameters for quantitative and relative data. This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against mean HSI phantom spectra for each analytical model or spectrophotometer measurements. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \begin{tabular}{|c|c|cc|}
+        \hline
+        Model & Quantitative (Q) & $NRMSE$ & $r$ \\
+         & or Relative (R) &  & \\
+        \hline
+        \multirow{2}{*}{Y1} & Q & 0.138 (0.103) & \textbf{0.995} \\
+        & R & 0.082 (0.048) & \textbf{0.994} \\
+        \hline
+        \multirow{2}{*}{J} & Q & 0.135 (0.108) & \textbf{0.995} \\
+        & R & 0.088 (0.055) & \textbf{0.992} \\
+        \hline
+        \multirow{2}{*}{S} & Q & 0.201 (0.116) & \textbf{0.997} \\
+         & R & 0.066 (0.044) & \textbf{0.994} \\
+        \hline
+    \end{tabular}
+    \label{tb:forwardsHSIphantoms}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{forwardsHSIphantomQ.pdf}
+        \caption{}
+        \label{fig:egforwardsHSIQ}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{forwardsHSIphantomR.pdf}
+        \caption{}
+        \label{fig:egforwardsHSIR}
+    \end{subfigure}
+    \caption{Example of the simulated camera response spectra from each forward single-layer analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}) and Jacques 1999 (\textcolor{MyOrange}{orange dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted using spectrophotometer measurements (\textcolor{purple}{purple dash-dotted} and the mean spectrum from an HSI image of the same phantom (\textcolor{MyBlue}{blue solid}) for quantitative (left) and relative (right) data.}
+    \label{fig:forwardsHSIphantoms}
+\end{figure}
 
 
 \subsection{Neurosurgical HSI data}
