@@ -8,10 +8,61 @@
 \RequirePackage[l2tabu, orthodox]{nag} 
 
 \documentclass[british,a4paper,11pt,twoside]{StyleThese}
+% \documentclass[12pt]{spieman}
+
+\usepackage{silence}
+\WarningFilter[csv]{latex}{File}% Remove LaTeX warnings starting with "File `xxx.csv' already exists on the system."
+\WarningFilter{latex}{Command \@xhline  has changed}
+\WarningFilter{caption}{Unknown document class}
+
+% \usepackage{natbib}
+% \usepackage{har2nat}
+\def\newblock{\ }
+% \bibliographystyle{unsrt}
+
+\usepackage{graphicx} %package to manage images
+\usepackage{xcolor} %package to use colours
+\usepackage{csvsimple}
+\usepackage{siunitx}
+\usepackage{placeins}
+\usepackage{subcaption}
+\usepackage{comment}
+\usepackage[left]{lineno}
+% \linenumbers
+
+\expandafter\let\csname equation*\endcsname\relax
+\expandafter\let\csname endequation*\endcsname\relax
+\usepackage{amsmath}
+
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{#1}}
+\NewDocumentCommand{\rot}{O{90} O{0.25em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
+
+
+\DeclareMathOperator{\NRMSE}{NRMSE}
+% \DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\MedAPE}{MedAPE}
+% \DeclareMathOperator{\median}{median}
+
+% \usepackage{pythonhighlight}
+\graphicspath{ {./Figures/} }
+\input{tables}
+
+% \usepackage{hyperref}
+
+% \usepackage{marginnote}
+% \newcommand{\revref}[2]{\marginnote{$R_{#1}C_{#2}$}}
+
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\definecolor{MyGreen}{RGB}{141,208,138}
+\definecolor{MyBlue}{RGB}{134,190,220}
+\definecolor{MyOrange}{RGB}{252,128,96}
+\definecolor{MyPurple}{RGB}{174,173,211}
 
 \makeatletter
-\title{Lorem Ipsum}\let\thetitle\@title
-\author{Foo von Bar}\let\theauthor\@author
+\title{Computational extraction of tissue parameters from hyperspectral imaging for surgical guidance}\let\thetitle\@title
+\author{Anisha Bahl}\let\theauthor\@author
 \makeatother
 
 \include{FormatAndDefsBasic}
@@ -37,9 +88,9 @@
 \chapter{Abstract}
 \input{Abstract}
 
-\cleardoublepage
-\chapter{Impact statement}
-An impact statement is often required.
+% \cleardoublepage
+% \chapter{Impact statement}
+% An impact statement is often required.
 
 \cleardoublepage
 \chapter{Acknowledgments}
@@ -58,12 +109,20 @@ An impact statement is often required.
 
 \include{Introduction}
 
-\include{Methods}
+\include{SWB}
 
-\include{Conclusion}
+\include{1-layer}
+
+\include{2-layer}
+
+\include{Chapter5}
+
+% \include{Conclusion}
 
 \backmatter
 
-\bibliography{JNFull,ThesisBibliography}
+\bibliography{JNFull,PhD-Thesis}
+
+\include{Supplementary_material} 
 
 \end{document}
