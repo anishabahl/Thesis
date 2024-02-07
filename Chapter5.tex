@@ -23,7 +23,7 @@ To obtain datasets of simulated data with known ground truth parameters, the dat
 	c_{n} = \frac{\int r(\lambda)b_n(\lambda) d\lambda}{\int b_n(\lambda) d\lambda}
 \label{eq:simulatingcam}
 \end{equation}
-Here $c_n$ is the measured value from band $n$ by the camera when the true spectrum is $r(\lambda)$ and the band response for this band is $b_n(\lambda)$. Random Gaussian noise can also be added at this stage where the mean is taken to be 0 and varying standard deviations ($\sigma$) are added. $c_n$ is then corrected using an correction matrix to account for the parasitic cross-talk effects as in \ref{methodnecessity}. An example of the stages of this process can be seen in Figure \ref{fig:simulatingcam}. This allows a variety of datasets to be simulated with the same set of ground truth parameters for both quantitative and mean-normalised relative data. Two noise levels are investigated alongside noiseless simulations where the maximum noise level ($\sigma = 0.03$ before mean normalisation) is similar to the standard deviation size seen in the highly controlled dataset investigated in Chapter \ref{chap:SWB}.  
+Here $c_n$ is the measured value from band $n$ by the camera when the true spectrum is $r(\lambda)$ and the band response for this band is $b_n(\lambda)$. Random Gaussian noise can also be added at this stage where the mean is taken to be 0 and varying standard deviations ($\sigma$) are added. $c_n$ is then corrected using an correction matrix to account for the parasitic cross-talk effects as in \ref{methodnecessity}. An example of the stages of this process can be seen in Figure \ref{fig:simulatingcam}. This allows a variety of datasets to be simulated with the same set of ground truth parameters for both quantitative and mean-normalised relative data. Two noise levels are investigated alongside noiseless simulations where the maximum noise level ($\sigma = 3\%$ before mean normalisation) is similar to the standard deviation size seen in the highly controlled dataset investigated in Chapter \ref{chap:SWB}.  
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.7\textwidth]{simulatingcam.pdf}
@@ -110,11 +110,11 @@ The forwards analytical models are assessed using simulated camera responses gen
 These are evaluated in Table \ref{tb:forwardsHSIMC} for $n=1.44$ (further refractive indices can be found in Appendices \ref{ap:forwardsHSIMCq} and \ref{ap:forwardsHSIMCr}) and examples for the single and double layer configurations shown in Figure \ref{fig:forwardsHSIMC}. 
 \begin{table}[h!] %could remove noise levels here
     \centering
-    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for quantitative and relative data at a variety of noise levels (0, 0.01, 0.03). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for quantitative and relative data at a variety of noise levels (0, 1\%, 3\%). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|cc|c|ccc|ccc|}
         \hline
         Model & Layers & Quantitative & \multicolumn{3}{|c}{$NRMSE$} & \multicolumn{3}{|c|}{$r$} \\
-         & & (Q) or & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+         & & (Q) or & 0\% & 1\% & 3\% & 0\% & 1\% & 3\% \\
          & & Relative (R) &  &  &  &  & &  \\
         \hline
         \multirow{2}{*}{\shortstack{Yudovsky\\ 2009}} & \multirow{2}{*}{1} & Q & \shortstack{0.009 \\(0.004)} & \shortstack{0.082 \\(0.057)} & \shortstack{0.224 \\(0.125)} & \textbf{1.000} & \textbf{0.993} & \textbf{0.942} \\
@@ -160,12 +160,12 @@ The inverse models are fitted to these varying noise level datasets and the eval
 
 \begin{table}[h!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative (Q) or relative (R) Monte-Carlo datasets for $n=1.44$ at each noise level (0, 0.01, 0.03). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative (Q) or relative (R) Monte-Carlo datasets for $n=1.44$ at each noise level (0\%, 1\%, 3\%). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         Parameter & Model & Quantitative & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median} \\
         & & (Q) or & \multicolumn{3}{c}{} & \multicolumn{3}{|c|}{$APE$ (\%)} \\
-        & & Relative (R) & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+        & & Relative (R) & 0\% & 1\% & 3\% & 0\% & 1\% & 3\% \\
         \hline
         \multirow{6}{*}{$StO_2$} & \multirow{2}{*}{Y1} & Q & \textbf{0.999} & \textbf{0.825} & \textbf{0.369} & 1.90 & 24.8 & 85.2 \\
         & & R & \textbf{0.999} & \textbf{0.752} & \textbf{0.410} & 2.23 & 41.4 & 76.7 \\
@@ -246,7 +246,7 @@ The inverse models are fitted to these varying noise level datasets and the eval
         \caption{}
         \label{fig:backwardsm0.03R}
     \end{subfigure}
-    \caption{An example of the quality of parameter recovery by fitting each inverse analytical model (Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$})) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 0.01$ (middle) or $\sigma = 0.03$ (bottom).}
+    \caption{An example of the quality of parameter recovery by fitting each inverse analytical model (Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$})) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1\%$ (middle) or $\sigma = 3\%$ (bottom).}
     \label{fig:backwardsHSIMC1}
 \end{figure}
 
@@ -282,7 +282,7 @@ The inverse models are fitted to these varying noise level datasets and the eval
         \caption{}
         \label{fig:backwardsm0.03R2}
     \end{subfigure}
-    \caption{An example of the quality of parameter recovery by fitting the double-layer inverse analytical model Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 0.01$ (middle) or $\sigma = 0.03$ (bottom).}
+    \caption{An example of the quality of parameter recovery by fitting the double-layer inverse analytical model Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1\%$ (middle) or $\sigma = 3\%$ (bottom).}
     \label{fig:backwardsHSIMC2}
 \end{figure}
 \FloatBarrier
