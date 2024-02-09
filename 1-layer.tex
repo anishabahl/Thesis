@@ -15,6 +15,14 @@
 % \usepackage{subcaption}
 % \captionsetup[figure]{labelfont=normalsize}
 
+% \usepackage{marginnote}
+% %\newcommand{\revref}[2]{\marginnote{$R_{#1}C_{#2}$}}
+% %\newcommand{\revref}[2]{\marginpar[$R_{#1}C_{#2}$]{}}
+% \newcommand{\revref}[2]{\marginnote{\textcolor{purple}{$R_{#1}C_{#2}$}}}
+% %\setlength{\marginparsep}{10mm}
+% \setlength{\marginparwidth}{15mm}
+% %\usepackage{everyshi}
+
 % \articletype{article}
 
 % \graphicspath{ {./Figures/} }
@@ -22,23 +30,12 @@
 % \begin{document}
 
 \chapter[A comparative study of single layer analytical models]{A comparative study of analytical models of diffuse reflectance in homogeneous biological tissues: Gelatin based phantoms and Monte Carlo experiments.}\label{chap:1layer}
-
-\begin{center}
-\begin{minipage}[b]{0.9\linewidth}
-\small
-\textbf{Foreword\,}
-This chapter is an \emph{in extenso} reproduction of \cite{Bahl2023a} and has been submitted to Journal of Biophotonics for publication. 
-\newline
-AB identified the three major analytical tissue models for comparison, designed and conducted the simulations and synthetic experiments and measurements to construct the datasets for evaluation, and conducted the evaluation of the models under the supervision of JS, MB, and TV. AB worked collaboratively with SS and YX to identify and validate the appropriate IAD method to use in this work. 
-\end{minipage}
-\end{center}
-
 % \author[1]{Anisha Bahl*}
 % \author[1]{Silvere Segaud}
 % %\author[1]{Jenasee Mynerich}
 % \author[1]{Yijing Xie}
 % \author[1,3]{Jonathan Shapey}
-% \author[2]{Mads Bergholt}
+% \author[2]{Mads S. Bergholt}
 % \author[1]{Tom Vercauteren}
 
 % \address[1]{\orgdiv{School of Biomedical Engineering \& Imaging Sciences}, 
@@ -53,7 +50,19 @@ AB identified the three major analytical tissue models for comparison, designed 
 
 % \corres{*Anisha Bahl, School of Biomedical Engineering \& Imaging Sciences, King's College London, 1 Lambeth Palace Road, London, United Kingdom. \email{anisha.bahl@kcl.ac.uk}}
 
-% \section{Abstract}
+\begin{center}
+\begin{minipage}[b]{0.9\linewidth}
+\small
+\textbf{Foreword\,}
+This chapter is an \emph{in extenso} reproduction of \cite{Bahl2023a} and has been submitted to Journal of Biophotonics for publication. 
+\newline
+AB identified the three major analytical tissue models for comparison, designed and conducted the simulations and synthetic experiments and measurements to construct the datasets for evaluation, and conducted the evaluation of the models under the supervision of JS, MB, and TV. AB worked collaboratively with SS and YX to identify and validate the appropriate IAD method to use in this work. 
+\end{minipage}
+\end{center}
+
+\minitoc
+
+% \abstract[Abstract]{
 % Information about tissue oxygen saturation ($StO_2$) and other related important physiological parameters can be extracted from diffuse reflectance spectra measured through non-contact imaging.
 % %Tissue oxygen saturation ($StO_2$) is an important physiological parameter, and it has been proposed that this could be extracted from diffuse reflectance spectra measured through non-contact imaging.
 % %however there are no established, spatially-resolved, intra-operative methods to evaluate this. It has been proposed that $StO_2$ could be extracted from diffuse reflectance spectra measured through non-contact imaging. 
@@ -67,26 +76,33 @@ AB identified the three major analytical tissue models for comparison, designed 
 % measured diffuse reflectance spectra and known ground truth composition parameters.
 % %Our results were evaluated on goodness of fit and parameter extraction accuracy.
 % The Yudovsky model performed best against Monte Carlo simulations and measured spectra of tissue phantoms in terms of goodness of fit and parameter extraction accuracy followed closely by Jacques' model. 
-% In this study, Yudovsky's model appeared most robust, however our results demonstrated that both Yudovsky and Jacques models are suitable for modelling tissue that can be approximated as a single, homogeneous, semi-infinite slab.
+% In this study, Yudovsky's model appeared most robust, however our results demonstrated that both Yudovsky and Jacques models are suitable for modelling tissue that can be approximated as a single, homogeneous, semi-infinite slab.}
 
 % \keywords{Biological models; Oxygen saturation; Monte Carlo simulations; Imaging phantoms; Gelatin}
 
 % \maketitle 
-
+% 
 \section{Introduction}\label{sec:intro}
-As mentioned in Chapter \ref{chap:intro}, $StO_2$ is a key metric that could be used in surgery to determine tissue viability, tumour localisation, and vessel flow \cite{Takami2017, Hughes2019, Richardson2023}.
+As mentioned in Chapter \ref{chap:intro}, $StO_2$ 
+%Tissue oxygen saturation ($StO_2$) 
+is a key metric that could be used in surgery to determine tissue viability, tumour localisation, and vessel flow \cite{Takami2017, Hughes2019, Richardson2023}.
 There are, however, no currently established, spatially-resolved, intra-operative methods of quantitatively determining $StO_2$ and so perfusion is often displayed (e.g. using DSA, MVD, or ICG) or global $StO_2$ is discussed from JVOS or cerebral oximetry.
 % In many clinical applications indocyanine green fluorescence angiography (ICG) is used to display perfusion as 
 % %oxygenated
 % blood flow through vessels can be visualised by the fluorescence of the indocyanine dye given to the patient \cite{Hackethal2018}.
 % Whilst this method has shown clinical benefits \cite{Renna2023, Teng2021}, it cannot quantify the $StO_2$ of the tissues being visualised leading to subjective interpretation.
-There has been increasing promise that diffuse reflectance spectroscopic techniques could be used to obtain $StO_2$ intra-operatively. As described in Chapter \ref{chap:intro}, Hyperspectral Imaging (HSI) is one such technique that obtains a diffuse reflectance spectrum for each pixel of an image \cite{Kulcke2018, Taylor-Williams2022}, enabling intra-operative, non-contact, spatially-resolved $StO_2$ extraction without the need for a contrast agent. 
+There has been increasing promise that diffuse reflectance spectroscopic techniques could be used to obtain $StO_2$ intra-operatively. Hyperspectral Imaging (HSI) is one such technique that obtains a diffuse reflectance spectrum for each pixel of an image \cite{Kulcke2018, Taylor-Williams2022}, enabling intra-operative, non-contact, spatially-resolved $StO_2$ extraction without the need for a contrast agent. 
 
-There have been many proposed methods to extract $StO_2$ parameters from tissue diffuse reflectance spectra ranging in complexity, as mentioned in Chapter \ref{chap:intro}. 
-%Using two or three wavelength models can provide good results but require data to be captured at these precise wavelengths placing large constraints on the measurement devices used and significant model assumptions. Analytical models can be applied to ranges of wavelengths for which they are developed and so these are favoured in this work. 
-Analytical models are favoured in this work due to the flexibility in application to ranges of wavelengths. These tissue models tend to either be based on modifications of the Beer-Lambert model, or on the diffusion approximation particularly using the Kulbelka-Munk approximation method\cite{MacKenzie2018}. Three models that can be applied to homogeneous semi-infinite tissue in the visible wavelength range (450-650nm) include 1) a modified Beer-Lambert model \cite{Clancy2015}; 2) a more elaborate Beer-Lambert-based model proposed by Jacques \cite{Jacques1999}; and 3) a semi-empirical model based on the Kulbelka-Munk theory as described by Yudovsky \cite{Yudovsky2009}.
-Alternatively, Monte Carlo methods may be used to model tissues for a range of wavelengths. Whilst Monte Carlo is an established approach for modelling light-tissue interaction, it is computationally challenging to apply in an inverse problem setting making the estimation of optical properties from tissue spectra non trivial on the basis of Monte Carlo simulations alone.
-To address the need for improved inverse modelling utilising Monte Carlo, Inverse Adding Doubling (IAD)\cite{Prahl2017} has been proposed, however this is also slow iterative process and therefore not as efficient as approaches based on analytical models.
+There have been many proposed methods to extract $StO_2$ parameters from tissue diffuse reflectance spectra ranging in complexity, as mentioned in Chapter \ref{chap:intro}.
+%from the simplest ratiometric two-wavelength methods to more sophisticated analytical models \cite{MacKenzie2018} or deep-learning based approaches \cite{Ayala2023}. Using two or three wavelength models can provide good results but require data to be captured at these precise wavelengths placing large constraints on the measurement devices used and significant model assumptions. 
+Analytical models can be applied to ranges of wavelengths for which they are developed and so these are favoured in this work. 
+%\revref{2}{6}\textcolor{red}{
+Here we consider only visible range models (450-650nm) as this allows for non-contact imaging using standard cold surgical light sources \cite{Clancy2011}.
+The visible light wavelength range also penetrates less deeply into tissue \cite{Eggert1987, Sabino2016}. Light-tissue interaction is therefore most likely to replicate a single homogeneous semi-infinite tissue layer and less likely to travel between layered structures.
+%}
+Tissue models tend to either be based on modifications of the Beer-Lambert model, or on the diffusion approximation particularly using the Kulbelka-Munk approximation method\cite{MacKenzie2018}. Three models that can be applied to homogeneous semi-infinite tissue in the visible wavelength range (450-650nm) include 1) a modified Beer-Lambert model \cite{Clancy2015}; 2) a more elaborate Beer-Lambert-based model proposed by Jacques \cite{Jacques1999}; and 3) a semi-empirical model based on the Kulbelka-Munk theory as described by Yudovsky \cite{Yudovsky2009}.
+Alternatively, Monte Carlo (MC) methods may be used to model tissues for a range of wavelengths. Whilst MC is an established approach for modelling light-tissue interaction, it is computationally challenging to apply in an inverse problem setting making the estimation of optical properties from tissue spectra non trivial on the basis of MC simulations alone.
+To address the need for improved inverse modelling utilising MC, Inverse Adding Doubling (IAD)\cite{Prahl2017} has been proposed, however this is also slow iterative process and therefore not as efficient as approaches based on analytical models.
 A limitation of IAD is that, although a single reflectance measurement can be used to analyse semi-infinite samples with IAD, its primary focus is the extraction of optical properties from slabs of tissue with known thickness using both transmission and reflection measurements.
 In this chapter, IAD is used to provide information on optical properties from tissue phantom slabs but is not assessed in the same capacity as the other 
 %other purely
@@ -99,8 +115,8 @@ phantoms must be used
 for testing purposes.
 Gelatin-based phantoms are commonly used to allow tunable absorption and scattering properties in solid phantoms \cite{Pogue2006, Gautam2023}.
 %
-In this chapter we compare three major analytical models against both Monte Carlo simulated spectra, and measured spectra from gelatin-based tissue phantoms with known ground-truth constituent quantities. These datasets cover a large parameter range mimicking that expected in biological tissue\cite{Jacques2013}. Gelatin phantoms are constructed to optically mimic biological tissue absorption and scattering ranges as closely as possible, whilst maintaining well-defined optical properties with known ground truth. We present a first direct comparison in the performance of these models against simulated and measured spectra, and aim to evaluate their potential for accurate $StO_2$ extraction. This evaluation is quantified in terms of the forward models (utilising ground truth values within the models to predict the diffuse reflectance spectra), and for the inverse problem solving (evaluating the fidelity of the parameter extraction when fitting to the simulated or measured data).
-Our results provide a comparison which is used to inform the translation of these models into clinical applications.
+In this chapter we compare three major analytical models against both MC simulated spectra, and measured spectra from gelatin-based tissue phantoms with known ground-truth constituent quantities. These datasets cover a large parameter range mimicking that expected in biological tissue\cite{Jacques2013}. Gelatin phantoms are constructed to optically mimic biological tissue absorption and scattering ranges as closely as possible, whilst maintaining well-defined optical properties with known ground truth. We present a first direct comparison in the performance of these models against simulated and measured spectra, and aim to evaluate their potential for accurate $StO_2$ extraction. This evaluation is quantified in terms of the forward models (utilising ground truth values within the models to predict the diffuse reflectance spectra), and for the inverse problem solving (evaluating the fidelity of the parameter extraction when fitting to the simulated or measured data).
+Our results provide a comparison which can be used to inform the translation of these models into clinical applications.
 
 \section{Materials and methods}\label{sec:methods}
 \subsection{Tissue models}\label{sec:methodtissuemodels}
@@ -153,7 +169,7 @@ The modified Beer-Lambert utilises these inputs to model absorption ($A(\lambda)
 \end{equation}
 Conventionally, $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ are quoted in units of cm\textrm{$^{-1}$}, however in this model units of mm\textrm{$^{-1}$} are required for diffuse reflectance units of \% hence a factor of 100 is included. $L$ describes a differential path length to account for the variety of photon path lengths through scattering media. $L$ is often simplified to be equal to 1 \cite{Clancy2015} and $\mu_s'(\lambda)$ is often modelled as a wavelength-independent constant\cite{Clancy2015, Ma2016}. 
 To allow for further flexibility in this model,
-we introduce linear scaling hyperparameters ($M_{1-3}$), as shown in Equation \eqref{eq:modBL2}, that can be fitted to Monte Carlo simulations at the refractive index of interest. 
+we introduce linear scaling hyperparameters ($M_{1-3}$), as shown in Equation \eqref{eq:modBL2}, that can be fitted to MC simulations at the refractive index of interest. 
 \begin{equation}
 \begin{aligned}
     & A(\lambda) = M_1\mu_a(\lambda) + M_2\mu_s'(\lambda) + M_3 \\
@@ -166,7 +182,7 @@ we introduce linear scaling hyperparameters ($M_{1-3}$), as shown in Equation \e
 The Jacques model is also based on the Beer-Lambert model, where an assumption is made that the ensemble of path lengths experienced by photons in a tissue can be approximated by a single wavelength-dependent path length $L(\lambda) = A(\lambda)\delta(\lambda)$ where $A(\lambda)$ and $\delta(\lambda)$ are defined in Equation \ref{eq:Jacques}. This results in the following model with the hyperparameters ($M_{1-3}$) which the authors
 %state are fitted
 fit
-to Adding Doubling simulations \cite{Jacques1999}. In our work, we refit these to Monte Carlo simulations since these are considered the gold standard optical simulation method and improve the model fitting results. 
+to Adding Doubling simulations \cite{Jacques1999}. In our work, we refit these to MC simulations since these are considered the gold standard optical simulation method and improve the model fitting results. 
 \begin{equation}
 \begin{aligned}
     & N'(\lambda) = \frac{\mu_s'(\lambda)}{\mu_a(\lambda)} \\
@@ -178,7 +194,7 @@ to Adding Doubling simulations \cite{Jacques1999}. In our work, we refit these t
 \end{equation}
 
 \subsubsection{Yudovsky 2009}\label{sec:Yudovskysingle}
-The original Yudovsky model presents a complex analytical derivation \cite{Yudovsky2009} with a simplified formulation subsequently presented in their Erratum \cite{Yudovsky2015}. The model takes the reduced albedo ($w'(\lambda)$) as input and returns the diffuse reflectance spectra ($R(\lambda)$). This provides an easily applicable model with hyperparameters ($M_{1-6}$) which are quoted for a refractive index ($n$) of 1.44. We found that these can be fitted to Monte Carlo spectra to allow for use with other refractive indices. 
+The original Yudovsky model presents a complex analytical derivation \cite{Yudovsky2009} with a simplified formulation subsequently presented in their Erratum \cite{Yudovsky2015}. The model takes the reduced albedo ($w'(\lambda)$) as input and returns the diffuse reflectance spectra ($R(\lambda)$). This provides an easily applicable model with hyperparameters ($M_{1-6}$) which are quoted for a refractive index ($n$) of 1.44. We found that these can be fitted to MC spectra to allow for use with other refractive indices. 
 \begin{equation}
 \begin{aligned}
     & w'(\lambda) = \frac{\mu_s'(\lambda)}{\mu_a(\lambda) + \mu_s'(\lambda)} \\
@@ -188,13 +204,13 @@ The original Yudovsky model presents a complex analytical derivation \cite{Yudov
 \end{equation} 
 
 \subsubsection{Fitting model hyperparameters}
-All analytical models considered use hyperparameters to account for the media's refractive index. A Monte Carlo dataset is generated for each refractive index as in Section \ref{sec:methodsMC}. To fit the hyperparameters, the ground truth tissue parameters are inputted into an analytical model for each spectrum in the dataset and a single set of hyperparameters are fitted using a non-linear least squares fitting approach.
+All analytical models considered use hyperparameters to account for the media's refractive index. A MC dataset is generated for each refractive index as in Section \ref{sec:methodsMC}. To fit the hyperparameters, the ground truth tissue parameters are inputted into an analytical model for each spectrum in the dataset and a single set of hyperparameters are fitted using a non-linear least squares fitting approach.
 
 \subsection{Generating reference datasets of diffuse reflectance spectra}\label{sec:methodreference}
-In this work, we aim to compare the three models discussed in Section \ref{sec:methodtissuemodels} against datasets with known ground truth. These datasets of diffuse reflectance spectra are generated either by simulation using Monte Carlo (Section \ref{sec:methodsMC}) or measurement of controlled, gelatin-based, tissue phantoms (Section \ref{sec:methodsphantoms}).
+In this work, we aim to compare the three models discussed in Section \ref{sec:methodtissuemodels} against datasets with known ground truth. These datasets of diffuse reflectance spectra are generated either by simulation using MC (Section \ref{sec:methodsMC}) or measurement of controlled, gelatin-based, tissue phantoms (Section \ref{sec:methodsphantoms}).
 
-\subsubsection{Monte Carlo}\label{sec:methodsMC}
-The models take $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ as inputs. These are given for bulk tissue in Equations \eqref{eq:mua} and \eqref{eq:Mie} and used to generate Monte Carlo simulated reference spectra. Monte Carlo takes $\mu_s(\lambda)$ as input, not $\mu_s'(\lambda)$, so a random value of anisotropy ($g$) is chosen per spectrum between 0.7-0.9\cite{Yudovsky2009} and used in Equation \eqref{eq:reducedscattering} for conversion to $\mu_s(\lambda)$. The variable parameters are $a$, $b$, $StO_2$, and $f_{blood}$ which are bounded to 8-70cm\textrm{$^{-1}$}, 0.1-3.3, 0-100\%, 0.2-7\% respectively to mimic biological tissue\cite{Yudovsky2009, Jacques2013}; a value of each of these variables is randomly selected within these bounds to generate each of the 100 simulated spectra, meaning 100 values of each parameter are sampled. When fitting the inverse models to these spectra for parameter extraction (as described in Section \ref{sec:methodevaluate}), the same bounds are imposed on the fitting routine. These simulated spectra are generated using CUDAMCML\cite{Alerstam2008}, which is a GPU accelerated adaptation of the well-established MCML programme\cite{Wang1995}. It has been shown that the semi-infinite approximation is valid for thicknesses of above 1cm\cite{Zhang2014} so 100 spectra were simulated for each refractive index of 1.33, 1.35, and 1.44, by propagating 100,000 photons through the semi-infinite slabs approximated by a thickness of 3cm. The refractive indices were chosen to represent the common phantom and tissue use-cases of these models: 1.33 for use with water-based phantoms, 1.35 for use with gelatin-based phantoms (as in this work), and 1.44 for use with biological tissue.
+\subsubsection{Monte Carlo simulations}\label{sec:methodsMC}
+The models take $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ as inputs. These are given for bulk tissue in Equations \eqref{eq:mua} and \eqref{eq:Mie} and used to generate MC simulated reference spectra. MC takes $\mu_s(\lambda)$ as input, not $\mu_s'(\lambda)$, so a random value of anisotropy ($g$) is chosen per spectrum between 0.7-0.9\cite{Yudovsky2009} and used in Equation \eqref{eq:reducedscattering} for conversion to $\mu_s(\lambda)$. The variable parameters are $a$, $b$, $StO_2$, and $f_{blood}$ which are bounded to 8-70cm\textrm{$^{-1}$}, 0.1-3.3, 0-100\%, 0.2-7\% respectively to mimic biological tissue\cite{Yudovsky2009, Jacques2013}; a value of each of these variables is randomly selected within these bounds to generate each of the 100 simulated spectra, meaning 100 values of each parameter are sampled. When fitting the inverse models to these spectra for parameter extraction (as described in Section \ref{sec:methodevaluate}), the same bounds are imposed on the fitting routine. These simulated spectra are generated using CUDAMCML\cite{Alerstam2008}, which is a GPU accelerated adaptation of the well-established MCML programme\cite{Wang1995}. It has been shown that the semi-infinite approximation is valid for thicknesses of above 1cm\cite{Zhang2014} so 100 spectra were simulated for each refractive index of 1.33, 1.35, and 1.44, by propagating 100,000 photons through the semi-infinite slabs approximated by a thickness of 3cm. The refractive indices were chosen to represent the common phantom and tissue use-cases of these models: 1.33 for use with water-based phantoms, 1.35 for use with gelatin-based phantoms (as in this work), and 1.44 for use with biological tissue.
 
 \subsubsection{Controlled gelatin-based tissue phantoms}\label{sec:methodsphantoms}
 Here we construct controlled, optical tissue phantoms with well-characterised components. By measuring these phantoms we constructed a dataset of measured spectra with well-defined ground truth which can be modelled using the analytical models.
@@ -202,7 +218,7 @@ Here we construct controlled, optical tissue phantoms with well-characterised co
 \paragraph{Phantom composition and synthesis}\label{sec:methodsphantomcomposition}
 % First the components of the optical tissue phantoms are detailed, with the full synthetic method found on page \pageref{sec:methodsphantomsynthesis}.
 
-The dyes acid red 1 (AR1, 210633, Merck, Germany) and acid red 14 (AR14, B22328, Fisher Scientific, England) are chosen to mimic the extinction coefficients of oxygenated and deoxygenated haemoglobin respectively, with a third dye of crystal violet (CV, C6158, Merck, Germany) chosen to investigate the effect of including further chromophores. As in the modelled tissue $\mu_a(\lambda)$ (Equation \eqref{eq:mua}), the total dye concentration is modelled independently of the relative ratios of each dye. To ensure the absorbance impact of each dye is approximately equal, a factor of $\frac{5}{3}$ is included for AR14 and $\frac{1}{2}$ for CV computationally by combining with the extinction coefficients to create effective extinction coefficients ($\epsilon_{eff}$) that have approximately equal impact. To reflect this experimentally, the concentrations of these dyes are modified by these factors. These effective extinction coefficients calculated from literature values\cite{PhotochemCAD}, alongside those of haemoglobin\cite{Prahl1998}, can be seen in Figure \ref{fig:exteff}. 
+The dyes acid red 1 (AR1, 210633, Merck, Germany) and acid red 14 (AR14, B22328, Fisher Scientific, England) are chosen to mimic the extinction coefficients of oxygenated and deoxygenated haemoglobin respectively, with a third dye of crystal violet (CV, C6158, Merck, Germany) chosen to investigate the effect of including further chromophores. As in the modelled tissue $\mu_a(\lambda)$ (Equation \eqref{eq:mua}), the total dye concentration is modelled independently of the relative ratios of each dye. To ensure the absorbance impact of each dye is approximately equal, a factor of $\frac{5}{3}$ is included for AR14 and $\frac{1}{2}$ for CV computationally by combining with the extinction coefficients to create effective extinction coefficients ($\epsilon_{eff}$) that have approximately equal impact. To reflect this experimentally, the concentrations of these dyes are modified by these factors. These effective extinction coefficients calculated from literature values\cite{PhotochemCAD}, alongside those of haemoglobin\cite{Prahl1998}, can be seen in Figure \ref{fig:phantommethods}a. 
 % \begin{figure}[h]
 %     \centering
 %     \includegraphics[width=0.6\textwidth]{effective_eps_lit.pdf}
@@ -218,59 +234,89 @@ Intralipid is used to modulate the scattering coefficient of these phantoms whic
 Each phantom consists of 6\% gelatin (Type A approximately 175g bloom, G2625, Merck, Germany) by mass %to mimic the properties of healthy tissue \cite{Doyley2003} 
 and 0.5\% of 4\% formaldehyde (J60401, Fisher Scientific, England) to increase the melting point of the phantoms and allow their use at room temperature \cite{Pogue2006}. The remainder of each phantom consists of the dye solutions in a variety of ratios combined with intralipid at a variety of concentrations. 
 
-\begin{figure}[htb!]
-    \centering
-    \begin{subfigure}{\textwidth}
-        \includegraphics[width=\textwidth]{Figure_1a.pdf}
-        \caption{}
-        \label{fig:exteff}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.6\textwidth}
-        \includegraphics[width=\textwidth]{Figure_1b}
-        \caption{}
-        \label{fig:icebath}
-    \end{subfigure}
-    \begin{subfigure}{0.33\textwidth}
-        \includegraphics[width=\textwidth]{Figure_1c}
-        \caption{}
-        \label{fig:DICOM_Eg}
-    \end{subfigure}
-    \caption{Figure regarding phantom development. Effective extinction coefficients of acid red 1 (AR1), acid red 14 (AR14), and crystal violet (CV) displayed with the extinction coefficients of oxygenated (HbO$_2$) and deoxygenated haemoglobin (Hb) (\ref{fig:exteff}). Image of 1cm depth (left) and 5mm depth (right) phantoms setting in ice bath (\ref{fig:icebath}). An example of a CT scan of a tissue phantom and 10 digital measurements taken of the phantom thickness calculated to be 6.11mm ($\pm$0.11mm) (\ref{fig:DICOM_Eg}).}
-    \label{fig:phantommethods}
+\begin{figure}[htb]
+    \centering%\revref{1}{3}
+    \includegraphics[width=0.5\textwidth]{Figure_1.pdf}
+    % \begin{subfigure}{0.6\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_1a.pdf}
+    %     \caption{}
+    %     \label{fig:exteff}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}{0.44\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_1b}
+    %     \caption{}
+    %     \label{fig:icebath}
+    % \end{subfigure}
+    % \begin{subfigure}{0.245\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_1c}
+    %     \caption{}
+    %     \label{fig:DICOM_Eg}
+    % \end{subfigure}
+    \caption{Figure regarding phantom development. 
+    \textbf{(a)}
+    Effective extinction coefficients of acid red 1 (AR1), acid red 14 (AR14), and crystal violet (CV) dyes 
+    %\textcolor{red}{
+    (used to synthesis gelatin-based phantoms)
+    %}
+    are displayed with the extinction coefficients of oxygenated (HbO$_2$) and deoxygenated haemoglobin (Hb) 
+    %\textcolor{red}{
+    (key tissue chromophores)
+    %}
+    .
+    \textbf{(b)}
+    Image of 1cm depth (left) and 5mm depth (right) phantoms setting in ice bath.
+    %\textcolor{red}{
+    \textbf{(c)}
+    %}
+    An example of a CT scan acquired for the purpose of measuring thickness of a tissue phantom is shown with
+    %the
+    10 digital measurements (mean=6.11mm)%
+    %taken whose mean is calculated to be 6.11mm
+    .}
+    \label{fig:phantommethods}%\revref{1}{5}
 \end{figure}
 
 Phantoms are constructed with the ratios given in Table \ref{tb:phantomratios}, where each configuration is constructed with each intralipid concentration. 
 
 \begin{table}[ht!]
     \centering
-    \caption{Table displaying the ratios of dyes [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] a used for each dye configuration alongside the total dye scaled concentration in arbitrary units.}
+    \caption{Table displaying the 
+    %\textcolor{red}{
+    percentage of each 
+    %}
+    dye [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] a used for each dye configuration alongside the total dye scaled concentration in arbitrary units.}
+    %\color{red}
     \begin{tabular}{|c|c|c|c|}
         \hline
-        Total dye scaled concentration & \multicolumn{3}{|c|}{Dye ratio} \\
+        Total dye scaled concentration & \multicolumn{3}{|c|}{Dye 
+        %\textcolor{red}{
+        percentage (\%)
+        %}
+        } \\
         (arbitrary units) & AR1 & AR14 & CV \\
         \hline
-        1 & 1 & 1 & 0 \\
-        1 & 2 & 1 & 1 \\
-        1 & 1 & 1 & 2 \\
-        10 & 1 & 0 & 0 \\
-        10 & 3 & 1 & 0 \\
-        10 & 1 & 1 & 0 \\
-        10 & 1 & 3 & 0 \\
-        10 & 0 & 1 & 0 \\
-        10 & 1 & 2 & 1 \\
-        10 & 2 & 1 & 1 \\
-        10 & 1 & 1 & 2 \\
-        20 & 1 & 1 & 0 \\
-        20 & 2 & 1 & 1 \\
-        20 & 1 & 1 & 2 \\
+        1 & 50 & 50 & 0 \\
+        1 & 50 & 25 & 25 \\
+        1 & 25 & 25 & 50 \\
+        10 & 100 & 0 & 0 \\
+        10 & 75 & 25 & 0 \\
+        10 & 50 & 50 & 0 \\
+        10 & 25 & 75 & 0 \\
+        10 & 0 & 100 & 0 \\
+        10 & 25 & 50 & 25 \\
+        10 & 50 & 25 & 25 \\
+        10 & 25 & 25 & 50 \\
+        20 & 50 & 50 & 0 \\
+        20 & 50 & 25 & 25 \\
+        20 & 25 & 25 & 50 \\
         \hline
     \end{tabular}
-    \label{tb:phantomratios}
+    \label{tb:phantomratios} %\revref{1}{4}
 \end{table}
 
 \label{sec:methodsphantomsynthesis}
-For each dye, stock solutions are made at double the required concentrations: 2x, 20x, and 40x in phosphate buffered saline (PBS, P4417, Merck, Germany) to allow for 1:1 dilution with intralipid as the final step. The stock concentrations are multiplied by a factor of $\frac{5}{3}$ for Acid Red 14 and $\frac{1}{2}$ for Crystal Violet to ensure similar absorbance impact. For each intralipid concentration, the stock solutions are made at double the required volume fractions: 2\% - 12\% to allow for 1:1 dilution with the dye solutions as the final step. The dye solutions combined in the correct ratios are heated to 45-50$^o$C with 12\% gelatin (i.e. double the required amount) until solvation. The solution is cooled to below 40$^o$C where 1\% formaldehyde (ie. double the quantity) is added and the solution is combined in equal quantities with the solution with double the desired intralipid concentration. This final solution now has the intended concentration of all constituents and is poured into a silicon mould in an ice bath, as seen in Figure \ref{fig:icebath}, to ensure homogeneity in the final phantom by rapidly setting prior to any density separation. Once cooled to below 10$^o$C these are placed in a fridge at 4$^o$C to fully set for at least 7 days before measurement. 
+For each dye, stock solutions are made at double the required concentrations: 2x, 20x, and 40x in phosphate buffered saline (PBS, P4417, Merck, Germany) to allow for 1:1 dilution with intralipid as the final step. The stock concentrations are multiplied by a factor of $\frac{5}{3}$ for Acid Red 14 and $\frac{1}{2}$ for Crystal Violet to ensure similar absorbance impact. For each intralipid concentration, the stock solutions are made at double the required volume fractions: 2\% - 12\% to allow for 1:1 dilution with the dye solutions as the final step. The dye solutions combined in the correct ratios are heated to 45-50$^o$C with 12\% gelatin (i.e. double the required amount) until solvation. The solution is cooled to below 40$^o$C where 1\% formaldehyde (ie. double the quantity) is added and the solution is combined in equal quantities with the solution with double the desired intralipid concentration. This final solution now has the intended concentration of all constituents and is poured into a silicon mould in an ice bath, as seen in Figure \ref{fig:phantommethods}b, to ensure homogeneity in the final phantom by rapidly setting prior to any density separation. Once cooled to below 10$^o$C these are placed in a fridge at 4$^o$C to fully set for at least 7 days before measurement. 
 % \begin{figure}
 %     \centering
 %     \includegraphics[width=0.6\textwidth]{Ice_bath_phantoms}
@@ -282,7 +328,7 @@ Each dye solution is also combined with gelatin with a 0\% intralipid solution f
 Additionally, each intralipid solution is combined with a gelatin solution with no dyes to allow analysis of scattering due to intralipid concentration.
 
 Moulds with a depth of 1 cm are used to allow measurement of diffuse reflectance within a semi-infinite regime\cite{Zhang2014}.
-Monte Carlo simulations were used to confirm that this thickness was sufficient to be within the semi-infinite regime.
+MC simulations were used to confirm that this thickness was sufficient to be within the semi-infinite regime.
 Some additional phantoms are constructed with a depth of 5 mm to allow for sufficient transmission for total transmittance measurements required for inverse adding doubling (IAD) analysis \cite{Prahl2017}. 
 %to extract $\mu_a$ and $\mu_s'$ from total reflectance and diffuse transmittance measurements. 
 
@@ -294,39 +340,44 @@ All 1cm phantoms are used for diffuse reflectance measurements. A subset of thes
 All configurations are depicted for our system in Figure \ref{fig:spectrophotometer}. 
 \begin{figure}[t!]
     \centering
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_2a.pdf}
-        \caption{}
-        \label{fig:spectrophotometer_abs}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_2b.pdf}
-        \caption{}
-        \label{fig:spectrophotometer_dT}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_2c.pdf}
-        \caption{}
-        \label{fig:spectrophotometer_dR}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_2d.pdf}
-        \caption{}
-        \label{fig:spectrophotometer_tR}
-    \end{subfigure}
-    \caption{Depictions of measurement set-up for spectrophotometer measurements of gelatin based tissue phantoms of absorbance (\ref{fig:spectrophotometer_abs}), total transmittance (\ref{fig:spectrophotometer_dT}), diffuse reflectance (\ref{fig:spectrophotometer_dR}), and total reflectance (\ref{fig:spectrophotometer_tR}) where an 8$^o$ wedge is used to ensure the specular reflectance is also included.}
+    \includegraphics[width=\textwidth]{Figure_2.pdf}
+    % \begin{subfigure}{0.47\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_2a.pdf}
+    %     \caption{}
+    %     \label{fig:spectrophotometer_abs}
+    % \end{subfigure}
+    % \begin{subfigure}{0.47\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_2b.pdf}
+    %     \caption{}
+    %     \label{fig:spectrophotometer_dT}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}{0.47\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_2c.pdf}
+    %     \caption{}
+    %     \label{fig:spectrophotometer_dR}
+    % \end{subfigure}
+    % \begin{subfigure}{0.47\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_2d.pdf}
+    %     \caption{}
+    %     \label{fig:spectrophotometer_tR}
+    % \end{subfigure}
+    \caption{Depictions of measurement set-up for spectrophotometer measurements of gelatin based tissue phantoms of absorbance (a), total transmittance (b), diffuse reflectance (c), and total reflectance (d) where an 8$^o$ wedge is used to ensure the specular reflectance is also included.}
     \label{fig:spectrophotometer}
 \end{figure}
 %\FloatBarrier
 
 \paragraph{Inverse adding doubling (IAD)}\label{sec:methodsphantommeasure2}
-IAD is used to obtain $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ from total reflectance and total transmittance measurements \cite{Prahl2017}. We use this with the dual beam spectrophotometer setting and an incidence angle of 8$^o$ as per the experimental set-up in Figure~\ref{fig:spectrophotometer_tR}, with $g$ fixed to 0.8 for all calculations since it was found not to change the results. Since the outputted optical properties can contain a significant number of wavelengths without convergence, a Mie scattering curve is fitted to the output $\mu_s'(\lambda)$ and a second stage of IAD is run with the $\mu_s'(\lambda)$ fixed to this spectrum.
+IAD is used to obtain $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ from total reflectance and total transmittance measurements \cite{Prahl2017}. We use this with the dual beam spectrophotometer setting and an incidence angle of 8$^o$ as per the experimental set-up in Figure~\ref{fig:spectrophotometer}d, with $g$ fixed to 0.8 for all calculations since it was found not to change the results. Since the outputted optical properties can contain a significant number of wavelengths without convergence, a Mie scattering curve is fitted to the output $\mu_s'(\lambda)$ and a second stage of IAD is run with the $\mu_s'(\lambda)$ fixed to this spectrum.
 This returns outputs which are very similar but removing noise or errors.
 Further details on this two-stage IAD fitting approach can be found in previous work\cite{Xie2021}. 
 
-In order to obtain accurate optical properties from IAD a highly accurate sample depth must be provided.
-To measure these accurately for the highly compressible gelatin phantoms, a CT scan is taken of each phantom using a Small Animal Radiotherapy System (SmART+, precision X-ray). A mean of 10 digital measurements is used for each phantom and an example of these measurements is shown in Figure \ref{fig:DICOM_Eg}.
+In order to obtain accurate optical properties from IAD a highly accurate sample depth must be provided. 
+%\textcolor{red}{
+The standard measurement technique using dial calipers is not suitable in this case due to the highly compressible nature of the gelatin-based phantoms.
+A non-contact measurement method is therefore chosen. A
+%}
+CT scan is taken of each phantom using a Small Animal Radiotherapy System (SmART+, precision X-ray). A mean of 10 digital measurements is used for each phantom and an example of these measurements is shown in Figure \ref{fig:phantommethods}c.
 % \begin{figure}
 %     \centering
 %     \includegraphics[width=0.5\textwidth]{DICOM_Eg}
@@ -339,30 +390,56 @@ Finally, a commercial calibrated phantom (BioPixS) with validated ground truth o
 \paragraph{Modelling tissue phantom optical properties}\label{sec:methodphantommodel}
 The $\mu_a(\lambda)$ of the two-dye configuration phantoms can be modelled as in Equation \eqref{eq:phantommua} where the background spectrum is determined by measuring the absorption of pure gelatin solution, whereas the scattering is modelled based on the intralipid concentration according to trends determined using IAD. 
 \begin{equation}
-    \mu_{a}(\lambda) = 8\times10^{-6}c_{tot}\ln(10)[AR1 \epsilon_{AR1, eff}(\lambda) + (1 - AR14)\epsilon_{AR14, eff}(\lambda)] + \mu_{a, background}(\lambda)
-    \label{eq:phantommua}
+    \mu_{a}(\lambda) = 8\times10^{-6}c_{tot}\ln(10)[AR1 \epsilon_{AR1, eff}(\lambda) + 
+    %\textcolor{red}{
+    (1 - AR1)
+    %}
+    \epsilon_{AR14, eff}(\lambda)] + \mu_{a, background}(\lambda)
+    \label{eq:phantommua} %\revref{2}{2}
 \end{equation}
-In this equation $c_{tot}$ is the total concentration of dye independent of dye identity, $AR1$ and $AR14$ are the relative ratios of each dye, $\epsilon_{AR1, eff}(\lambda)$ and $\epsilon_{AR14, eff}(\lambda)$ are the effective extinction coefficients of each dye, and  $\mu_{a, background}(\lambda)$ is the measured background absorbance from gelatin. This can be adapted to a three-dye configuration as follows: 
-% \begin{equation}
-\begin{multline}
-    \mu_{a}(\lambda) = 8\times10^{-6}c_{tot}\ln(10)[AR1 \epsilon_{AR1, eff}(\lambda) + AR14\epsilon_{AR14, eff}(\lambda) + \\
-    (1 - AR1 - AR14)\epsilon_{CV, eff}(\lambda)] + \mu_{a, background}(\lambda)
+In this equation $c_{tot}$ is the total concentration of dye independent of dye identity, $AR1$ and 
+%\textcolor{red}{
+$AR14 (=1-AR1)$
+%}\revref{2}{2}
+are the relative ratios of each dye, $\epsilon_{AR1, eff}(\lambda)$ and $\epsilon_{AR14, eff}(\lambda)$ are the effective extinction coefficients of each dye, and  $\mu_{a, background}(\lambda)$ is the measured background absorbance from gelatin. This can be adapted to a three-dye configuration as follows: 
+\begin{equation}
+    \mu_{a}(\lambda) = 8\times10^{-6}c_{tot}\ln(10)[AR1 \epsilon_{AR1, eff}(\lambda) + AR14\epsilon_{AR14, eff}(\lambda) + (1 - AR1 - AR14)\epsilon_{CV, eff}(\lambda)] + \mu_{a, background}(\lambda)
     \label{eq:phantommua3}
-\end{multline}
-% \end{equation}
-Where $CV$ is the relative ratio of crystal violet and $\epsilon_{CV, eff}(\lambda)$ is the effective extinction coefficient of this dye.
+\end{equation}
+Where 
+%\textcolor{red}{
+$CV (=1-AR1-AR14) $
+%}\revref{2}{2}
+is the relative ratio of crystal violet and $\epsilon_{CV, eff}(\lambda)$ is the effective extinction coefficient of this dye.
 
 \subsection{Evaluation of model performance}\label{sec:methodevaluate}
-In this work, the above models are evaluated against spectra with known ground truth. These reference spectra are either found by Monte Carlo simulation or measurement of controlled phantoms, however the evaluation of each is broadly the same. The forward models are evaluated in terms of the fit of their predicted spectra, and the inverse problem solutions (parametric fits) are investigated in terms of the quality of parameter extraction. 
+In this work, the above models are evaluated against spectra with known ground truth. These reference spectra are either found by MC simulation or measurement of controlled phantoms, however the evaluation of each is broadly the same. The forward models are evaluated in terms of the fit of their predicted spectra, and the inverse problem solutions (parametric fits) are investigated in terms of the quality of parameter extraction. 
 
-Diffuse reflectance spectra can be predicted by inputting ground truth values into each forward tissue model and compared to corresponding reference spectra. The Normalised Root Mean Squared Error ($NRMSE$), defined in Equation \eqref{eq:NRMSE}, is calculated to quantitatively evaluate the similarity between the reflectance predicted by the forward model and the associated reference reflectances. In the context of this work the wavelength ranges considered for this metric correspond to those ranges used for fitting the inverse models.
+Diffuse reflectance spectra can be predicted by inputting ground truth values into each forward tissue model and compared to corresponding reference (%\textcolor{red}{
+MC/measured%}\revref{2}{3}
+) spectra. The Normalised Root Mean Squared Error ($NRMSE$), defined in Equation \eqref{eq:NRMSE}, is calculated to quantitatively evaluate the similarity between the reflectance predicted by the forward model and the associated reference (
+%\textcolor{red}{
+MC/measured%}\revref{2}{3}
+) reflectances. In the context of this work the wavelength ranges considered for this metric correspond to those ranges used for fitting the inverse models.
 \begin{equation}
     NRMSE = \frac{\sqrt{\frac{1}{\Lambda}\sum_{\lambda}^{\Lambda}\left(s_{\lambda} - r_{\lambda}\right)^2}}{\sqrt{\frac{1}{\Lambda}\sum_{\lambda}^{\Lambda} r^2_{\lambda}}}
     \label{eq:NRMSE}
 \end{equation}
-Here the modelled spectrum $s_{\lambda}$ at any given wavelength $\lambda$ is evaluated against the intensity at the same wavelength in the reference spectrum $r_{\lambda}$ using the normalized root mean squared error ($NRMSE$) calculated across all $\Lambda$ wavelengths. These forward model reflectance spectra are also plotted against the reference reflectance spectra and a regression line calculated. This is evaluated using the Pearson correlation coefficient ($r$) and the p-value ($p$) for a hypothesis test with the null hypothesis that there is no correlation. Using a 95\% confidence interval, significant $p$ is less than 0.05, whereas a strong correlation is demonstrated by $r$ close to 1.  This gives an indication of similarity in shape, while disregarding offsets.
+Here the modelled spectrum $s_{\lambda}$ at any given wavelength $\lambda$ is evaluated against the intensity at the same wavelength in the reference (
+%\textcolor{red}{
+MC/measured
+%}\revref{2}{3}
+) spectrum $r_{\lambda}$ using the normalized root mean squared error ($NRMSE$) calculated across all $\Lambda$ wavelengths. These forward model reflectance spectra are also plotted against the reference (
+%\textcolor{red}{
+MC/measured
+%}\revref{2}{3}
+) reflectance spectra and a regression line calculated. This is evaluated using the Pearson correlation coefficient ($r$) and the p-value ($p$) for a hypothesis test with the null hypothesis that there is no correlation. Using a 95\% confidence interval, significant $p$ is less than 0.05, whereas a strong correlation is demonstrated by $r$ close to 1.  This gives an indication of similarity in shape, while disregarding offsets.
 
-The inverse problem solutions can also be evaluated by determining how well they recover the ground truth input parameters using a non-linear least-squares fitting approach (using SciPy v1.10.0 \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html}{\texttt{scipy.optimize.least\_squares}} function). The cost function for this is shown in Equation \eqref{eq:leastsquares} where $R(\lambda)$ is the reference spectrum and $M$ is the forward model function. This equation is modified to fit the parameters used to calculate $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ directly.
+The inverse problem solutions can also be evaluated by determining how well they recover the ground truth input parameters using a non-linear least squares fitting approach (using SciPy v1.10.0 \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html}{\texttt{scipy.optimize.least\_squares}} function). The cost function for this is shown in Equation \eqref{eq:leastsquares} where $R(\lambda)$ is the reference (
+%\textcolor{red}{
+MC/measured
+%}\revref{2}{3}
+) spectrum and $M$ is the forward model function. This equation is modified to fit the parameters used to calculate $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ directly.
 \begin{equation}
     argmin_{\mu_{a}(\lambda), \mu_{s}'(\lambda)} \sum (R - M(\mu_{a}(\lambda), \mu_s'(\lambda))^2
     \label{eq:leastsquares}
@@ -379,10 +456,41 @@ These evaluation methods can be done for quantitative or relative spectra. Here 
 
 \section{Results}\label{sec:results}
 \subsection{Monte Carlo}\label{sec:resultsMC}
-Each model has hyperparameters which are fitted to Monte Carlo datasets for refractive indices 1.33, 1.35, and 1.44. These are listed in Appendix Table \ref{tb:fittedmodelparams} alongside any literature hyperparameters \cite{Jacques1999, Yudovsky2009}. It should be noted that the literature hyperparameters for Jacques could not be
+Each model has hyperparameters which are fitted to MC datasets for refractive indices 1.33, 1.35, and 1.44. These are listed in 
+%\textcolor{red}{
+Table \ref{tb:fittedmodelparams}
+%}\revref{2}{4}
+alongside any literature hyperparameters \cite{Jacques1999, Yudovsky2009}.
+\begin{table}[htb!]
+    \centering
+    \caption{Table displaying single layer model hyperparameters fitted to MC datasets of each refractive index (black) with available literature values (blue).}
+    \begin{tabular}{|cc|cc|c|cc|}
+        \hline
+        \multirow{2}{*}{Model} & \multirow{2}{*}{Parameter} & \multicolumn{5}{c|}{Refractive index} \\
+         & & \multicolumn{2}{c|}{1.33} & 1.35 & \multicolumn{2}{c|}{1.44} \\
+        \hline
+        \multirow{6}{*}{Yudovsky 2009} & $M_1$ & \multicolumn{2}{c|}{-0.0253} & -0.0257 & -0.0254 & \textcolor{blue}{-0.0247} \\
+        & $M_2$ & \multicolumn{2}{c|}{0.0166} & 0.0159 & 0.0135 & \textcolor{blue}{0.0137} \\
+        & $M_3$ & \multicolumn{2}{c|}{2.873} & 2.873 & 2.873 & \textcolor{blue}{2.873} \\
+        & $M_4$ & \multicolumn{2}{c|}{1.64} & 1.64 & 1.64 & \textcolor{blue}{1.64} \\
+        & $M_5$ & \multicolumn{2}{c|}{0.0123} & 0.0124 & 0.0120 & \textcolor{blue}{0.0116} \\
+        & $M_6$ & \multicolumn{2}{c|}{1.02} & 1.02 & 1.02 & \textcolor{blue}{1.02} \\
+        \hline 
+        \multirow{3}{*}{Jacques 1999} & $M_1$ & 7.0188 & \textcolor{blue}{6.3744} & 7.1185 & \multicolumn{2}{c|}{7.0438} \\
+        & $M_2$ & 0.2464 & \textcolor{blue}{0.35688} & 0.2750 & \multicolumn{2}{c|}{0.6902} \\
+        & $M_3$ & 4.2241 & \textcolor{blue}{3.4739} & 4.2571 & \multicolumn{2}{c|}{4.1449} \\
+        \hline
+        \multirow{3}{*}{Modified Beer-Lambert} & $M_1$ & \multicolumn{2}{c|}{0.283} & 0.308 & \multicolumn{2}{c|}{0.256} \\
+        & $M_2$ & \multicolumn{2}{c|}{0.009} & 0.008 & \multicolumn{2}{c|}{0.014} \\
+        & $M_3$ & \multicolumn{2}{c|}{0.203} & 0.311 & \multicolumn{2}{c|}{0.274} \\
+        \hline
+    \end{tabular}
+    \label{tb:fittedmodelparams}%\revref{2}{4}
+\end{table}
+It should be noted that the literature hyperparameters for Jacques could not be
 %closely
 directly
-replicated by fitting to our Monte Carlo simulations. 
+replicated by fitting to our MC simulations. 
 Refitting these hyperparameters leads to the mean ($\pm$ standard deviation) $NRMSE$ of the $n=1.33$ dataset improving from 0.080($\pm$0.056) to 0.021($\pm$0.028). 
 In contrast, Yudovsky's literature hyperparameters are similar to our refitting.
 For Yudovsky, despite the expected equivalence, we observed a small discrepancy in fitting quality between the ``extensive model'' \cite{Yudovsky2009} and the ``simplified model'' described in their Erratum\cite{Yudovsky2015}.
@@ -392,7 +500,7 @@ For this reason the Erratum model is used for this work.
 
 \begin{table}[bhp]
     \centering
-    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for each refractive index dataset and each analytical model. This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between each forwards spectrum from each model and each of 100 MC simulated spectra using the same ground truth variable parameters for each refractive index dataset and each analytical model. This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against MC simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|c|c|c|c|}
         \hline
         Model & Refractive index & $NRMSE$ & $r$ \\
@@ -434,41 +542,29 @@ For this reason the Erratum model is used for this work.
     \label{tb:NRMSEsingle}
 \end{table}
 
-Example data comparing the analytical models to Monte Carlo simulations can be seen in Figures \ref{fig:egspectrasingle} and \ref{fig:egtrendsingle}.
+Example data comparing the analytical models to MC simulations can be seen in Figure \ref{fig:FwDandInverse}.
 For each model, spectra are generated with each
 %ground truth
 input
-parameter set from the Monte Carlo dataset and $NRMSE$ is calculated per spectrum. The mean ($\pm$ standard deviation) of these $NRMSE$ per model per refractive index are shown in Table~\ref{tb:NRMSEsingle}.
-Only wavelengths until 600nm are considered for these metrics as in Section \ref{sec:methodevaluate}. An example spectrum with each of the forward models and modelled spectra using ground truth parameters are shown in Figure \ref{fig:egspectrasingle} for a refractive index of 1.44. A regression line calculated between each forward model dataset and the Monte Carlo simulated dataset for each refractive index and the correlation coefficient ($r$) can be seen in Table \ref{tb:NRMSEsingle}.
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{Figure_3a.pdf}
-%     \caption{An example of the predicted spectra from each forward analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted by Monte Carlo (\textcolor{MyBlue}{blue solid}).}
-%     \label{fig:egspectrasingle}
-% \end{figure}
+parameter set from the MC dataset and $NRMSE$ is calculated per spectrum. The mean ($\pm$ standard deviation) of these $NRMSE$ per model per refractive index are shown in Table~\ref{tb:NRMSEsingle}.
+Only wavelengths until 600nm are considered for these metrics as in Section \ref{sec:methodevaluate}. An example spectrum with each of the forward models and modelled spectra using ground truth parameters are shown in Figure \ref{fig:FwDandInverse}a for a refractive index of 1.44. A regression line calculated between each forward model dataset and the MC simulated dataset for each refractive index and the correlation coefficient ($r$) can be seen in Table \ref{tb:NRMSEsingle}.
 
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{Figure_3b.pdf}
-%     \caption{An example of difference in quality of parameter recovery by fitting each inverse analytical model to Monte Carlo simulations in the wavelength range of 450-600nm: Yudovsky 2009 (\textcolor{MyGreen}{green $+$}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}), and their associated trend lines for a refractive index of 1.44 for $StO_2$.}
-%     \label{fig:egtrendsingle}
-% \end{figure}
-% 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_3a.pdf}
-        \caption{}
-        \label{fig:egspectrasingle}
-    \end{subfigure}
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_3b.pdf}
-        \caption{}
-        \label{fig:egtrendsingle}
-    \end{subfigure}
-    \caption{Figure depicting evaluation of forward models (\ref{fig:egspectrasingle}) and inverse problem solutions (\ref{fig:egtrendsingle}). 
-    Figure \ref{fig:egspectrasingle} depicts an example of the predicted spectra from each forward analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted by Monte Carlo (\textcolor{MyBlue}{blue solid}).
-    Figure \ref{fig:egtrendsingle} shows an example of difference in quality of parameter recovery by fitting each inverse analytical model to Monte Carlo simulations in the wavelength range of 450-600nm: Yudovsky 2009 (\textcolor{MyGreen}{green $+$}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}), and their associated trend lines for a refractive index of 1.44 for $StO_2$.}
+    \includegraphics[width=\textwidth]{Figure_3.pdf}
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_3a.pdf}
+    %     \caption{}
+    %     \label{fig:egspectrasingle}
+    % \end{subfigure}
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_3b.pdf}
+    %     \caption{}
+    %     \label{fig:egtrendsingle}
+    % \end{subfigure}
+    \caption{Figure depicting evaluation of forward models (a) and inverse problem solutions (b). 
+    Figure a depicts an example of the predicted spectra from each forward analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted by MC (\textcolor{MyBlue}{blue solid}).
+    Figure b shows an example of difference in quality of parameter recovery by fitting each inverse analytical model to MC simulations in the wavelength range of 450-600nm: Yudovsky 2009 (\textcolor{MyGreen}{green $+$}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}), and their associated trend lines for a refractive index of 1.44 for $StO_2$.}
     \label{fig:FwDandInverse}
 \end{figure}
 
@@ -508,57 +604,38 @@ Only wavelengths until 600nm are considered for these metrics as in Section \ref
     \label{tb:singleparamtrends}
 \end{table}
 
-Finally, the inverse problems with our fixed hyperparameters are fitted as in \ref{sec:methodevaluate} to this same Monte Carlo dataset to recover the $StO_2$, $f_{blood}$, $a$, and $b$ tissue parameters. A linear regression is fitted between these retrieved values and the ground truth counterparts. The Pearson $r$ values of this, and the median (inter-quartile range) absolute percentage errors between the fitted and ground truth tissue parameters are shown in Table \ref{tb:singleparamtrends} for a refractive index of 1.44 with further parameters and refractive indices shown in Appendix Table \ref{tb:singleparamtrendsfull}. An example of the fitted parameters compared to the ground truth parameters is shown for $StO_2$ at a refractive index of 1.44 in Figure \ref{fig:egtrendsingle}. 
+Finally, the inverse problems with our fixed hyperparameters are fitted as in \ref{sec:methodevaluate} to this same MC dataset to recover the $StO_2$, $f_{blood}$, $a$, and $b$ tissue parameters. A linear regression is fitted between these retrieved values and the ground truth counterparts. The Pearson $r$ values of this, and the median (inter-quartile range) absolute percentage errors between the fitted and ground truth tissue parameters are shown in Table \ref{tb:singleparamtrends} for a refractive index of 1.44 with further parameters and refractive indices shown in Appendix Table \ref{tb:singleparamtrendsfull}. An example of the fitted parameters compared to the ground truth parameters is shown for $StO_2$ at a refractive index of 1.44 in Figure \ref{fig:FwDandInverse}b. 
 
 
 
 % \begin{figure}
 %     \centering
 %     \includegraphics[width=0.7\textwidth]{StO2_1.44}
-%     \caption{Example of difference in quality of parameter recovery by fitting each inverse analytical model to Monte Carlo simulations: Yudovsky 2009 (green $+$), Jacques 1999 (red $\times$), and Modified Beer-Lambert (orange $*$), and their associated trendlines for a refractive index of 1.44 for $StO_2$.}
+%     \caption{Example of difference in quality of parameter recovery by fitting each inverse analytical model to MC simulations: Yudovsky 2009 (green $+$), Jacques 1999 (red $\times$), and Modified Beer-Lambert (orange $*$), and their associated trendlines for a refractive index of 1.44 for $StO_2$.}
 %  \label{fig:egtrendsingle}
 % \end{figure}
 
 %\FloatBarrier
-\subsection{IAD validation}\label{ap:IAD}
-To demonstrate that optical properties output by IAD are reproducible and accurate, the output properties from IAD analysis of measurements of the same BioPixS phantom on three days are shown in Figure~\ref{fig:BioPixSmua} and Figure~\ref{fig:BioPixSmusp}. Whilst there is some variability, the results show that the optical properties returned by this method accurately reflect the ground truth properties.
-\begin{figure}[ht!]
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_A5a.pdf}
-        \caption{}
-        \label{fig:BioPixSmua}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{Figure_A5b.pdf}
-        \caption{}
-        \label{fig:BioPixSmusp}
-    \end{subfigure}
-    \caption{Figure \ref{fig:BioPixSmua} shows the IAD outputted $\mu_a$ and Figure \ref{fig:BioPixSmusp} shows the IAD outputted $\mu_s'$ compared to the well-characterised ground truth values for a BioPixS optical phantom measured on three separate days.}
-\end{figure}
-
 \subsection{Gelatin-based tissue phantoms}\label{sec:resultsPhantoms}
-Each dye absorbance is measured in both an aqueous and gelatin based solution with effective extinction coefficients calculated in each case. Whilst the aqueous measurements closely match the expected $\epsilon_{eff}(\lambda)$ from literature \cite{PhotochemCAD}, the gelatin measurements show a shifting of peaks, as seen in Figure~\ref{fig:epseff}. This is likely due to interaction of the dyes with gelatin altering their interactions with solvent as has been noted with other dyes \cite{Cook2011}.
+Each dye absorbance is measured in both an aqueous and gelatin based solution with effective extinction coefficients calculated in each case. Whilst the aqueous measurements closely match the expected $\epsilon_{eff}(\lambda)$ from literature\cite{PhotochemCAD}, the gelatin measurements show a shifting of peaks, as seen in Figure~\ref{fig:Phantombackgrounds}a. This is likely due to interaction of the dyes with gelatin altering their interactions with solvent as has been noted with other dyes \cite{Cook2011}.
 Since these peak shifts are seen in all subsequent data, these gelatin-based $\epsilon_{eff}(\lambda)$ are used in the model analysis. A pure gelatin solution absorption is measured at the concentration used in each phantom. This is used as a background $\mu_a(\lambda)$, as seen in Figure~\ref{fig:muaback}, to account for any absorption not due to dyes.
 We further assume that intralipid is a purely scattering medium. This is considered a reasonable assumption since the IAD returned $\mu_a$ for the purely intralipid phantoms are similar to the pure gelatin background $\mu_a$ seen in Figure~\ref{fig:muaback}.
 
 \begin{figure}[htb!]
     \centering
-    \begin{subfigure}{0.8\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{Figure_A2.pdf}
-        \caption{}
-        \label{fig:muaback}
-    \end{subfigure}
-    \begin{subfigure}{0.8\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{Figure_A3.pdf}
-        \caption{}
-        \label{fig:atrend}
-    \end{subfigure}
-    \caption{Left: Background $\mu_a$ using absorption of pure gelatin solution compared to the IAD returned $\mu_a$ of the phantoms containing intralipid but no dyes. Right: Trend in $a$ with intralipid concentration alongside linear regression. The trend in $b$ with intralipid concentration is also plotted alongside the median $b$ value.}
- \label{fig:intralipidIAD}
+    \includegraphics[width=0.6\textwidth]{Figure_A2.pdf}
+    \caption{Background $\mu_a$ using absorption of pure gelatin solution compared to the IAD returned $\mu_a$ of the phantoms containing intralipid but no dyes.}
+ \label{fig:muaback}
 \end{figure}
-\FloatBarrier
+% \FloatBarrier
+
+% \section{}\label{ap:atrend}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figure_A3.pdf}
+    \caption{Trend in $a$ with intralipid concentration alongside linear regression. The trend in $b$ with intralipid concentration is also plotted alongside the median $b$ value.}
+ \label{fig:atrend}
+\end{figure}
 % \begin{figure}
 %     \centering
 %     \includegraphics[width=0.65\textwidth]{mean_effective_eps_vs_scaled_lit.pdf}
@@ -574,13 +651,6 @@ We further assume that intralipid is a purely scattering medium. This is conside
 
 IAD\cite{Prahl2017} is used to analyse phantoms of 5mm depth with or without dyes in all intralipid concentrations. The $a$ and $b$ Mie coefficients fitted to the scattering in these cases are plotted against intralipid concentration. It was found that $b$ had no significant trend with intralipid concentration and so a median value of 0.98 was used in this work.
 However, a clear trend was identified for $a$ as can be seen in Figure \ref{fig:atrend}. 
-
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{Figure_A3.pdf}
-%     \caption{Trend in $a$ with intralipid concentration alongside linear regression. The trend in $b$ with intralipid concentration is also plotted alongside the median $b$ value.}
-%  \label{fig:atrend}
-% \end{figure}
 This trend is described in Equation \eqref{eq:atrend}, where $I$ is the intralipid concentration and $I_0$ is the reference concentration of 1\%v/v: 
 \begin{equation}
     a = 6.66cm^{-1}\frac{I}{I_0} + 2.55cm^{-1}
@@ -594,8 +664,8 @@ A Pearson correlation coefficient ($r$) of 0.99 and p of 0.00 was observed, ther
 %  \label{fig:atrend}
 % \end{figure}
 
-The calculated $\mu_a(\lambda)$ using $\epsilon_{eff}(\lambda)$ displayed in Figure \ref{fig:epseff} is compared to the IAD outputs of phantoms including dyes with each intralipid concentration.
-An example of this is seen in Figure \ref{fig:IADmua}. This shows the overall spectrum is accurate, however the peak for CV (approx 600nm) appears shifted in wavelength, likely due to interactions with intralipid which cannot be captured in absorbance measurements. 
+The calculated $\mu_a(\lambda)$ using $\epsilon_{eff}(\lambda)$ displayed in Figure \ref{fig:Phantombackgrounds}a is compared to the IAD outputs of phantoms including dyes with each intralipid concentration.
+An example of this is seen in Figure \ref{fig:Phantombackgrounds}b. This shows the overall spectrum is accurate, however the peak for CV (approx 600nm) appears shifted in wavelength, likely due to interactions with intralipid which cannot be captured in absorbance measurements. 
 % \begin{figure}
 %     \centering
 %     \includegraphics[width=0.65\textwidth]{14.pdf}
@@ -603,122 +673,65 @@ An example of this is seen in Figure \ref{fig:IADmua}. This shows the overall sp
 %  \label{fig:IADmua}
 % \end{figure}
 
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{Figure_4a.pdf}
-%     \caption{Depiction of $\epsilon_{eff}(\lambda)$ calculated for each dye [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] measured in gelatin (dashed) or PBS (dotted) demonstrating the shift in peaks.}
-%     \label{fig:epseff}
-% \end{figure}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{Figure_4b.pdf}
-%     \caption{Depiction of a calculated (black solid) $\mu_a(\lambda)$ for one 3-dye configuration compared to the IAD output $\mu_a(\lambda)$ (coloured dashed) from measurements of phantoms in this configuration with a range of intralipid concentrations.}
-%     \label{fig:IADmua}
-% \end{figure}
-
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}{0.7\textwidth}
-        \includegraphics[width=\textwidth]{Figure_4a.pdf}
-        \caption{}
-        \label{fig:epseff}
-    \end{subfigure}
-    \begin{subfigure}{0.7\textwidth}
-        \includegraphics[width=\textwidth]{Figure_4b.pdf}
-        \caption{}
-        \label{fig:IADmua}
-    \end{subfigure}
-    \caption{Figure \ref{fig:epseff} shows $\epsilon_{eff}(\lambda)$ calculated for each dye [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] measured in gelatin (dashed) or PBS (dotted) demonstrating the shift in peaks. Figure \ref{fig:IADmua} shows a calculated (black solid) $\mu_a(\lambda)$ for one 3-dye configuration compared to the IAD output $\mu_a(\lambda)$ (coloured dashed) from measurements of phantoms in this configuration with a range of intralipid concentrations.}
+    \includegraphics[width=\textwidth]{Figure_4.pdf}
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_4a.pdf}
+    %     \caption{}
+    %     \label{fig:epseff}
+    % \end{subfigure}
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_4b.pdf}
+    %     \caption{}
+    %     \label{fig:IADmua}
+    % \end{subfigure}
+    \caption{Figure a shows $\epsilon_{eff}(\lambda)$ calculated for each dye [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] measured in gelatin (dashed) or PBS (dotted) demonstrating the shift in peaks. Figure b shows a calculated (black solid) $\mu_a(\lambda)$ for one 3-dye configuration compared to the IAD output $\mu_a(\lambda)$ (coloured dashed) from measurements of phantoms in this configuration with a range of intralipid concentrations.}
     \label{fig:Phantombackgrounds}
 \end{figure}
 
 Using a refractive index of 1.35\cite{Pogue2006} diffuse reflectance spectra are generated from each model using $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ from Equations~\eqref{eq:phantommua} and \eqref{eq:Mie} using the trend in Equation \eqref{eq:atrend} and the median $b$ value for each 2-dye configuration and intralipid concentration. The forward Yudovsky, Jacques, and Modified Beer-Lambert models in Section \ref{sec:resultsMC} are compared to diffuse reflectance measurements for each phantom.
-An example of this can be seen in Figure \ref{fig:phantomforwardsquant} for quantitative spectra or Figure \ref{fig:phantomforwardsnorm} for mean normalised relative data.
-The data is normalised using the mean of the wavelength range 450-575nm as beyond this region the models appear to fit poorly as seen in Figure \ref{fig:phantomresidual}. 
+An example of this can be seen in Figure \ref{fig:phantomforwards}a for quantitative spectra or Figure \ref{fig:phantomforwards}c for mean normalised relative data.
+The data is normalised using the mean of the wavelength range 450-575nm as beyond this region the models appear to fit poorly as seen in Figure \ref{fig:phantomforwards}b. 
 The mean $NRMSE$ ($\pm$ standard deviation) between each spectrum and the measured spectrum, in the region 450-575nm, for this dataset can be seen in Table \ref{tb:NRMSEphantom}. 
-The Pearson correlation coefficient $r$ between the forwards spectra compared to the measured spectra for each model is shown in Table \ref{tb:NRMSEphantom} and further parameters in Appendix Table \ref{tb:phantomparamsfull}. Whilst the overall magnitude of these is higher, the trend in quality of fit is similar as to the Monte Carlo simulations. 
+The Pearson correlation coefficient $r$ between the forwards spectra compared to the measured spectra for each model is shown in Table \ref{tb:NRMSEphantom} and further parameters in Appendix Table \ref{tb:phantomparamsfull}. Whilst the overall magnitude of these is higher, the trend in quality of fit is similar as to the MC simulations. 
 
-The inverse problems are solved by non-linear least squares  approaches using measured spectrum as reference observations. The recovered parameters are correlated to the ground truth parameters. The associated errors and correlation coefficients can be seen in Table \ref{tb:NRMSEphantom} (and further in Appendix Table \ref{tb:phantomparamsfull}) and an example of the fitted parameters compared to ground truth parameters is shown for $AR1$ in Figure~\ref{fig:phantomAR1quant} for fits to quantitative spectra or Figure~\ref{fig:phantomAR1norm} for fits to 
+The inverse problems are solved by non-linear least squares  approaches using measured spectrum as reference observations. The recovered parameters are correlated to the ground truth parameters. The associated errors and correlation coefficients can be seen in Table \ref{tb:NRMSEphantom} (and further in Appendix Table \ref{tb:phantomparamsfull}) and an example of the fitted parameters compared to ground truth parameters is shown for $AR1$ in Figure~\ref{fig:phantomforwards}d for fits to quantitative spectra or Figure~\ref{fig:phantomforwards}e for fits to 
 relative spectra.
 % ratio-based parameters.
+
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_5a.pdf}
-        \caption{}
-        \label{fig:phantomforwardsquant}
-    \end{subfigure}
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_5b.pdf}
-        \caption{}
-        \label{fig:phantomresidual}
-    \end{subfigure}
-    % \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Figure_5.pdf}
+    % \begin{subfigure}{0.33\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_5a.pdf}
+    %     \caption{}
+    %     \label{fig:phantomforwardsquant}
+    % \end{subfigure}
+    % \begin{subfigure}{0.33\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_5b.pdf}
+    %     \caption{}
+    %     \label{fig:phantomresidual}
+    % \end{subfigure}
+    % \begin{subfigure}{0.33\textwidth}
     %     \includegraphics[width=\textwidth]{Figure_5c.pdf}
     %     \caption{}
     %     \label{fig:phantomforwardsnorm}
     % \end{subfigure}
-    \caption{Example of measured (\textcolor{MyBlue}{blue}) spectrum for one 2-dye configuration at an intralipid concentration of 3.5\% compared to the respective spectra generated from the Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}) models using the ground truth parameters for quantitative spectra. 
-    %(\ref{fig:phantomforwardsquant}) or relative (\ref{fig:phantomforwardsnorm}) spectra (mean normalised in the range 450-575nm). 
-    The residuals between the modelled quantitative spectra and the measured spectra are shown in \ref{fig:phantomresidual}.}
-    \label{fig:singlegelatinforwardsrelative}
+    % \hfill
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_5d.pdf}
+    %     \caption{}
+    %     \label{fig:phantomAR1quant}
+    % \end{subfigure}
+    % \begin{subfigure}{0.49\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_5e.pdf}
+    %     \caption{}
+    %     \label{fig:phantomAR1norm}
+    % \end{subfigure}
+    \caption{Example of measured (\textcolor{MyBlue}{blue}) spectrum for one 2-dye configuration at an intralipid concentration of 3.5\% compared to the respective spectra generated from the Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}) models using the ground truth parameters for quantitative (a) or relative (c) spectra (mean normalised in the range 450-575nm). The residuals between the modelled quantitative spectra and the measured spectra are shown in b. Examples of the parameter recovery from the measured phantom spectra for the AR1 proportion by Yudovsky 2009 (\textcolor{MyGreen}{green +}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$)}, and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}) models compared with the ground truth parameters (\textcolor{MyBlue}{blue solid}) for fits to quantitative (d) or relative (e) spectra in the wavelength range 450-575nm.}
+ \label{fig:phantomforwards}
 \end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figure_5c.pdf}
-    \caption{Example of measured (\textcolor{MyBlue}{blue}) spectrum for one 2-dye configuration at an intralipid concentration of 3.5\% compared to the respective spectra generated from the Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}) models using the ground truth parameters for relative spectra (mean normalised in the range 450-575nm).}
-    \label{fig:phantomforwardsnorm}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_5d.pdf}
-        \caption{}
-        \label{fig:phantomAR1quant}
-    \end{subfigure}
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_5e.pdf}
-        \caption{}
-        \label{fig:phantomAR1norm}
-    \end{subfigure}
-    \caption{Examples of the parameter recovery from the measured phantom spectra for the AR1 proportion by Yudovsky 2009 (\textcolor{MyGreen}{green +}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$)}, and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}) models compared with the ground truth parameters (\textcolor{MyBlue}{blue solid}) for fits to quantitative (\ref{fig:phantomAR1quant}) or relative (\ref{fig:phantomAR1norm}) spectra in the wavelength range 450-575nm.}
-    \label{fig:singlegelatinforwards}
-\end{figure}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \begin{subfigure}{0.3\textwidth}
-%         \includegraphics[width=\textwidth]{Figure_5a.pdf}
-%         \caption{}
-%         \label{fig:phantomforwardsquant}
-%     \end{subfigure}
-%     \begin{subfigure}{0.3\textwidth}
-%         \includegraphics[width=\textwidth]{Figure_5b.pdf}
-%         \caption{}
-%         \label{fig:phantomresidual}
-%     \end{subfigure}
-%     \begin{subfigure}{0.3\textwidth}
-%         \includegraphics[width=\textwidth]{Figure_5c.pdf}
-%         \caption{}
-%         \label{fig:phantomforwardsnorm}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.49\textwidth}
-%         \includegraphics[width=\textwidth]{Figure_5d.pdf}
-%         \caption{}
-%         \label{fig:phantomAR1quant}
-%     \end{subfigure}
-%     \begin{subfigure}{0.49\textwidth}
-%         \includegraphics[width=\textwidth]{Figure_5e.pdf}
-%         \caption{}
-%         \label{fig:phantomAR1norm}
-%     \end{subfigure}
-%     \caption{Example of measured (\textcolor{MyBlue}{blue}) spectrum for one 2-dye configuration at an intralipid concentration of 3.5\% compared to the respective spectra generated from the Yudovsky 2009 (\textcolor{MyGreen}{green dotted}), Jacques 1999 (\textcolor{MyOrange}{orange dashed}), and Modified Beer-Lambert (\textcolor{MyPurple}{purple dot-dashed}) models using the ground truth parameters for quantitative (\ref{fig:phantomforwardsquant}) or relative (\ref{fig:phantomforwardsnorm}) spectra (mean normalised in the range 450-575nm). The residuals between the modelled quantitative spectra and the measured spectra are shown in \ref{fig:phantomresidual}. Examples of the parameter recovery from the measured phantom spectra for the AR1 proportion by Yudovsky 2009 (\textcolor{MyGreen}{green +}), Jacques 1999 (\textcolor{MyOrange}{orange $\times$)}, and Modified Beer-Lambert (\textcolor{MyPurple}{purple $*$}) models compared with the ground truth parameters (\textcolor{MyBlue}{blue solid}) for fits to quantitative (\ref{fig:phantomAR1quant}) or relative (\ref{fig:phantomAR1norm}) spectra in the wavelength range 450-575nm.}
-%  \label{fig:phantomforwards}
-% \end{figure}
 
 \begin{table}[htbp]
     \centering
@@ -814,25 +827,26 @@ relative spectra.
     \label{tb:phantomparams}
 \end{table}
 
-Finally, some 3-dye configurations are investigated with the addition of CV. Some examples of both quantitative and relative spectral reconstruction using the ground truth parameters in the forward Yudovsky model for a single 3-dye configuration at a range of intralipid concentrations can be seen in Figure \ref{fig:3phantomforwards}. 
+Finally, some 3-dye configurations are investigated with the addition of CV. Some examples of both quantitative and relative spectral reconstruction using the ground truth parameters in the forward Yudovsky model for a single 3-dye configuration at a range of intralipid concentrations can be seen in Figure \ref{ap:3phantomforwards}. 
 
 \begin{figure}[htb!]
     \centering
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_A4a.pdf}
-        \caption{}
-        \label{fig:3phantomforwardsquant}
-    \end{subfigure}
-    \begin{subfigure}{0.8\textwidth}
-        \includegraphics[width=\textwidth]{Figure_A4b.pdf}
-        \caption{}
-        \label{fig:3phantomforwardsnorm}
-    \end{subfigure}
-    \caption{Examples of Measured (blue) spectrum for one 3-dye configuration at a variety of intralipid concentrations compared to the respective spectra generated from the Yudovsky 2009 (green dotted) model using the ground truth parameters to generate quantitative (\ref{fig:3phantomforwardsquant}) or relative (\ref{fig:3phantomforwardsnorm}) spectra.}
- \label{fig:3phantomforwards}
+    \includegraphics[width=\textwidth]{Figure_A4.pdf}
+    % \begin{subfigure}{0.8\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_A4a.pdf}
+    %     \caption{}
+    %     \label{fig:3phantomforwardsquant}
+    % \end{subfigure}
+    % \begin{subfigure}{0.8\textwidth}
+    %     \includegraphics[width=\textwidth]{Figure_A4b.pdf}
+    %     \caption{}
+    %     \label{fig:3phantomforwardsnorm}
+    % \end{subfigure}
+    \caption{Examples of Measured (blue) spectrum for one 3-dye configuration at a variety of intralipid concentrations compared to the respective spectra generated from the Yudovsky 2009 (green dotted) model using the ground truth parameters to generate quantitative (a) or relative (b) spectra.}
+ \label{ap:3phantomforwards}
 \end{figure}
 
-Despite considering the shift in CV peak due to gelatin, there appears to be a further shift, likely due to interactions with intralipid. This can be seen as an offset between the measured and reconstructed spectra in Figure \ref{fig:3phantomforwards} and appears to change with intralipid concentration. Due to the limited ground truth parameter range for these 3-dye configurations, only median percentage errors are presented for the inverse problem solution performance in Table \ref{tb:3phantomparams} alongside their inter-quartile range. These show a dramatic loss in accuracy of $AR1$ and $AR14$ recovery, despite good $CV$ recovery, likely due to the imperfect $CV$ absorbance modelling distorting the spectrum. 
+Despite considering the shift in CV peak due to gelatin, there appears to be a further shift, likely due to interactions with intralipid. This can be seen as an offset between the measured and reconstructed spectra in Figure \ref{ap:3phantomforwards} and appears to change with intralipid concentration. Due to the limited ground truth parameter range for these 3-dye configurations, only median percentage errors are presented for the inverse problem solution performance in Table \ref{tb:3phantomparams} alongside their inter-quartile range. These show a dramatic loss in accuracy of $AR1$ and $AR14$ recovery, despite good $CV$ recovery, likely due to the imperfect $CV$ absorbance modelling distorting the spectrum. 
 
 \begin{table}[htb!]
     \centering
@@ -891,20 +905,31 @@ Despite considering the shift in CV peak due to gelatin, there appears to be a f
     \label{tb:3phantomparams}
 \end{table}
 
-%\FloatBarrier
+\FloatBarrier
 \section{Discussion and future work}\label{sec:discussion}
-When compared to Monte Carlo simulations, the semi-empirical Yudovsky model performs best in terms of fit and parameter extraction, followed closely by the Jacques model. The Modified Beer-Lambert model, however, performs much more poorly. It is also noted that the Jacques model fits Monte Carlo simulations significantly better after refitting the hyperparameters, however the Yudovsky model performs well using literature values provided that the simplified erratum model is used. 
+When compared to MC simulations, the semi-empirical Yudovsky model performs best in terms of fit and parameter extraction, followed closely by the Jacques model. The Modified Beer-Lambert model, however, performs much more poorly. It is also noted that the Jacques model fits MC simulations significantly better after refitting the hyperparameters, however the Yudovsky model performs well using literature values provided that the simplified erratum model is used. 
 
 When modelling tissue phantom spectra, it is important to have some prior knowledge of the phantoms. This allows accurate $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ calculation, for example utilising the shift in dye peaks from their literature data, background gelatin absorbance, and the trend in Mie scattering parameters with intralipid concentration. Some variation is seen in IAD which may be due to inaccuracies in sample depth measurement or variations in spectral measurements. This suggests that it gives an indication of the optical properties of a sample, however it may not be precise. 
 
 When modelling the measured tissue phantom diffuse reflectance spectra using the forward models, Yudovsky performs best followed closely by Jacques, with Modified Beer-Lambert performing significantly worse. The $NRMSE$ calculated for relative data is an improvement on those calculated for quantitative data, suggesting that these models are reproducing the shape of the spectra well even when relatively constant offsets are present. When introducing a third dye ($CV$) the absorbance peak of this dye is noticeably wavelength shifted in experimental measurements compared to the theoretical spectra which then appears distorted. This shift appears to change with varying concentrations of intralipid suggesting some interaction there. 
 
-When fitting the models to experimental data for parameter recovery, Yudovsky and Jacques produce excellent parameter recovery for $AR1$ and $AR14$ in both quantitative and relative regimes. For $c_{tot}$ and $I$ no models were able to recover the parameters well, whereas all parameters were recovered well by Yudovsky and Jacques when fitted to Monte Carlo data. This is suggestive of some overlap in the effects of $c_{tot}$ and $I$ on the spectra. In the three-dye configuration $CV$ is recovered reasonably, despite the peak being outside of the region considered for fitting. The shift in the $CV$ peak, however, distorts the rest of the spectrum leading to very poor recovery of all other parameters. This demonstrates the importance of prior understanding of the chromophores for any model to recover parameters accurately. 
+When fitting the models to experimental data for parameter recovery, Yudovsky and Jacques produce excellent parameter recovery for $AR1$ and $AR14$ in both quantitative and relative regimes. For $c_{tot}$ and $I$ no models were able to recover the parameters well, whereas all parameters were recovered well by Yudovsky and Jacques when fitted to MC data. This is suggestive of some overlap in the effects of $c_{tot}$ and $I$ on the spectra. In the three-dye configuration $CV$ is recovered reasonably, despite the peak being outside of the region considered for fitting. The shift in the $CV$ peak, however, distorts the rest of the spectrum leading to very poor recovery of all other parameters. This demonstrates the importance of prior understanding of the chromophores for any model to recover parameters accurately. 
 
 This work is associated with some limitations.
-Firstly, whilst every effort was made to synthesise optical phantoms resembling biological tissue, measurements of true biological tissue could not be used for this work due to a lack of reliable ground truth parameters in tissue.
+Firstly, whilst every effort was made to synthesise optical phantoms resembling biological tissue, measurements of true biological tissue could not be used for this work due to a lack of reliable ground truth parameters in tissue. %\revref{1}{6}
 %, alongside challenges in integration to the surgical work flow since the surgical procedure cannot continue during the in-vivo data capture process. 
-Similarly, haemoglobin chromophores could not be utilised in the phantoms due to their oxygen sensitivity which could not be controlled within the spectrophotometer measurement set-up. This led us to rely on stable synthetic dyes instead.
+Similarly, haemoglobin chromophores could not be utilised in the phantoms due to their oxygen sensitivity which could not be controlled within the spectrophotometer measurement set-up. This led us to rely on stable synthetic dyes instead
+%\revref{1}{1}\textcolor{red}{
+, which do not perfectly replicate the spectra of oxy and deoxyhaemoglobin. The major dye peaks maxima are approximately 45nm lower than the distinctive haemoglobin peaks which may contribute to different wavelength regions performing differently with these phantoms compared to biological samples
+%}
+. 
+%\revref{2}{1}\textcolor{red}{
+The factors chosen to allow approximately equal impact from each dye were chosen to ease synthesis and should be optimised. Since these factors are incorporated in both synthesis and analysis, it is believed that these do not impact the conclusions of this study.
+%}\revref{2}{5}\textcolor{red}{
+The difference in extinction coefficient found when measuring each dye in gelatin compared to aqueous solution is not fully understood and requires further study.
+%}\revref{1}{2}\textcolor{red}{
+These phantoms are also spatially uniform meaning that, whilst these could be used to determine the performance of these models spatially using hyperspectral imaging systems, other methods would be required to assess spatial resolution of these systems \cite{EdmundOptics2023, Torkildsen2018}.
+%}
 %
 Secondly, the shift in absorbance of the third chromophore made it difficult to model thereby limiting the investigation of the impact of additional chromophores.
 %
@@ -917,11 +942,18 @@ Finally, the precise measurement of extinction coefficients of haemoglobin in bi
 However, it is shown in our work that the medium chosen for the dye can have an impact on the extinction coefficients and therefore the quality of the models. For this reason, the optical properties of tissue must be well defined to mimic the quality of results in this work.
 
 Future work should include 
-%investigation of these models for use with hyperspectral imaging cameras which may not have as densely sampled spectra as these have been shown to be likely methods of obtaining these diffuse reflectance spectra intra-operatively. \cite{Clancy2020}. There could also be 
-greater investigation of including further chromophores whose absorbance behaviour is well modelled and optimisation of the fitting region. 
-%Finally, two-layer models should also be considered for tissue structures which exist in layered configurations, such as skin.  
+%investigation of these models for use with hyperspectral imaging cameras which may not have as densely sampled spectra as these have been shown to be likely methods of obtaining these diffuse reflectance spectra intra-operatively. \cite{Clancy2020}. 
+%\revref{2}{5}\textcolor{red}{
+%The impact of the medium on the dye extinction coefficients should be further investigated and understood.
+investigating and understanding the impact of the medium on the dye extinction coefficients.
+%}
+There could also be greater investigation of including further chromophores whose absorbance behaviour is well modelled and optimisation of the fitting region. 
+%Two-layer models should also be considered for tissue structures which exist in layered configurations, such as skin. 
+%\revref{2}{6}\textcolor{red}{
+Finally, similar analyses could be conducted in other wavelength ranges including the near infra-red range which can also be used for perfusion analysis with bespoke light sources \cite{Hummler2020}.
+%}
 
-In conclusion, the Yudovsky single layer model works well for modelling of tissue that can be approximated by a semi-infinite, homogeneous slab. Jacques is also able to well approximate this with a simpler model. All models require appropriate prior knowledge of the $mu_a$ and $mu_s'$ properties of the tissues to allow for a good quality of parameter recovery. 
+In conclusion, the Yudovsky single layer model works well for modelling of tissue that can be approximated by a semi-infinite, homogeneous slab. Jacques is also able to well approximate this with a simpler model. All models require appropriate prior knowledge of the $mu_a$ and $mu_s'$ properties of the tissues to allow for a good quality of parameter recovery.
 
 Since this investigation shows Yudovsky to be the most robust model, the layered model is similarly investigated in the following chapter. These models are also adapted for use with snapshot HSI data in Chapter \ref{chap:HSImodel}. 
 
@@ -938,8 +970,8 @@ Since this investigation shows Yudovsky to be the most robust model, the layered
 
 % For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
 
-% % \bibliography{Paper2}
+% \bibliography{Paper2}
 
-% % \include{Supplementary_material}
+% \include{Supplementary_material}
 
-% % \end{document}
+% \end{document}

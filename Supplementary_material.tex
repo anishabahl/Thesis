@@ -1,34 +1,34 @@
 % \appendix
 \appendix
 % \section{}\label{ap:MChyperparams}
-\begin{table}[htb!]
-    \centering
-    \caption{Table displaying single layer model hyperparameters fitted to Monte Carlo datasets of each refractive index (black) with available literature values (blue).}
-    \begin{tabular}{|cc|cc|c|cc|}
-        \hline
-        \multirow{2}{*}{Model} & \multirow{2}{*}{Parameter} & \multicolumn{5}{c|}{Refractive index} \\
-         & & \multicolumn{2}{c|}{1.33} & 1.35 & \multicolumn{2}{c|}{1.44} \\
-        \hline
-        \multirow{6}{*}{Yudovsky 2009} & $M_1$ & \multicolumn{2}{c|}{-0.0253} & -0.0257 & -0.0254 & \textcolor{blue}{-0.0247} \\
-        & $M_2$ & \multicolumn{2}{c|}{0.0166} & 0.0159 & 0.0135 & \textcolor{blue}{0.0137} \\
-        & $M_3$ & \multicolumn{2}{c|}{2.873} & 2.873 & 2.873 & \textcolor{blue}{2.873} \\
-        & $M_4$ & \multicolumn{2}{c|}{1.64} & 1.64 & 1.64 & \textcolor{blue}{1.64} \\
-        & $M_5$ & \multicolumn{2}{c|}{0.0123} & 0.0124 & 0.0120 & \textcolor{blue}{0.0116} \\
-        & $M_6$ & \multicolumn{2}{c|}{1.02} & 1.02 & 1.02 & \textcolor{blue}{1.02} \\
-        \hline 
-        \multirow{3}{*}{Jacques 1999} & $M_1$ & 7.0188 & \textcolor{blue}{6.3744} & 7.1185 & \multicolumn{2}{c|}{7.0438} \\
-        & $M_2$ & 0.2464 & \textcolor{blue}{0.35688} & 0.2750 & \multicolumn{2}{c|}{0.6902} \\
-        & $M_3$ & 4.2241 & \textcolor{blue}{3.4739} & 4.2571 & \multicolumn{2}{c|}{4.1449} \\
-        \hline
-        \multirow{3}{*}{Modified Beer-Lambert} & $M_1$ & \multicolumn{2}{c|}{0.283} & 0.308 & \multicolumn{2}{c|}{0.256} \\
-        & $M_2$ & \multicolumn{2}{c|}{0.009} & 0.008 & \multicolumn{2}{c|}{0.014} \\
-        & $M_3$ & \multicolumn{2}{c|}{0.203} & 0.311 & \multicolumn{2}{c|}{0.274} \\
-        \hline
-    \end{tabular}
-    \label{tb:fittedmodelparams}
-\end{table}
-\FloatBarrier
-
+% \begin{table}[htb!]
+%     \centering
+%     \caption{Table displaying single layer model hyperparameters fitted to Monte Carlo datasets of each refractive index (black) with available literature values (blue).}
+%     \begin{tabular}{|cc|cc|c|cc|}
+%         \hline
+%         \multirow{2}{*}{Model} & \multirow{2}{*}{Parameter} & \multicolumn{5}{c|}{Refractive index} \\
+%          & & \multicolumn{2}{c|}{1.33} & 1.35 & \multicolumn{2}{c|}{1.44} \\
+%         \hline
+%         \multirow{6}{*}{Yudovsky 2009} & $M_1$ & \multicolumn{2}{c|}{-0.0253} & -0.0257 & -0.0254 & \textcolor{blue}{-0.0247} \\
+%         & $M_2$ & \multicolumn{2}{c|}{0.0166} & 0.0159 & 0.0135 & \textcolor{blue}{0.0137} \\
+%         & $M_3$ & \multicolumn{2}{c|}{2.873} & 2.873 & 2.873 & \textcolor{blue}{2.873} \\
+%         & $M_4$ & \multicolumn{2}{c|}{1.64} & 1.64 & 1.64 & \textcolor{blue}{1.64} \\
+%         & $M_5$ & \multicolumn{2}{c|}{0.0123} & 0.0124 & 0.0120 & \textcolor{blue}{0.0116} \\
+%         & $M_6$ & \multicolumn{2}{c|}{1.02} & 1.02 & 1.02 & \textcolor{blue}{1.02} \\
+%         \hline 
+%         \multirow{3}{*}{Jacques 1999} & $M_1$ & 7.0188 & \textcolor{blue}{6.3744} & 7.1185 & \multicolumn{2}{c|}{7.0438} \\
+%         & $M_2$ & 0.2464 & \textcolor{blue}{0.35688} & 0.2750 & \multicolumn{2}{c|}{0.6902} \\
+%         & $M_3$ & 4.2241 & \textcolor{blue}{3.4739} & 4.2571 & \multicolumn{2}{c|}{4.1449} \\
+%         \hline
+%         \multirow{3}{*}{Modified Beer-Lambert} & $M_1$ & \multicolumn{2}{c|}{0.283} & 0.308 & \multicolumn{2}{c|}{0.256} \\
+%         & $M_2$ & \multicolumn{2}{c|}{0.009} & 0.008 & \multicolumn{2}{c|}{0.014} \\
+%         & $M_3$ & \multicolumn{2}{c|}{0.203} & 0.311 & \multicolumn{2}{c|}{0.274} \\
+%         \hline
+%     \end{tabular}
+%     \label{tb:fittedmodelparams}
+% \end{table}
+% \FloatBarrier
+% 
 % \section{}\label{ap:badYudovsky}
 \begin{figure}[htb!]
     \centering
@@ -461,4 +461,56 @@
     \includegraphics[width=\textwidth]{012-02_StO2_J.pdf}
     \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Bottom left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Jacques 1999 single-layer model and method 4 (from \ref{sec:NeuroHSIdata}). Bottom right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region.}
     \label{ap:HELICoiDpixelJ}
+\end{figure}
+
+\subsection{Fitting Neurosurgical HSI data with uniform weighting on wavelengths}\label{ap:Chapter5uniform}
+\begin{table}[h!]
+    \centering
+    \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients with uniform weighting of the wavelengths and $n=1.44$. All presented to 3s.f.}
+    \begin{tabular}{|ccc|cccc|}
+        \hline
+        \multirow{2}{*}{Tissue type} & \multirow{2}{*}{Model} & \multirow{2}{*}{Method} & $StO_2$ & $f_{blood}$ & $a$ & $b$ \\
+        & & & (\%) & (\%) & ($cm^{-1}$) & (a.u.) \\
+        \hline
+        \multirow{4}{*}{\shortstack{Hyper-\\vascularised}} & \multirow{2}{*}{Y} & L & 84.0 (20.3) & 2.39 (2.08) & 48.9 (28.9) & 1.72 (1.24) \\
+        & & S & 66.7 (27.5) & 3.67 (3.43) & 61.9 (14.8) & 1.50 (0.975) \\
+        \cline{2-7}
+        & \multirow{2}{*}{J} & L & 78.0 (20.8) & 6.64 (10.7) & 25.9 (27.2) & 1.76 (1.27) \\
+        & & S & 55.2 (23.3) & 3.59 (4.42) & 16.0 (21.1) & 1.61 (1.05) \\
+        \hline
+        \multirow{4}{*}{Normal} & \multirow{2}{*}{Y} & L & 81.9 (22.7) & 0.782 (0.428) & 8.33 (1.85) & 0.318 (0.799) \\
+        & & S & 78.0 (23.5) & 0.759 (0.388) & 8.32 (1.80) & 0.327 (0.800) \\
+        \cline{2-7}
+        & \multirow{2}{*}{J} & L & 84.0 (22.1) & 0.933 (0.701) & 8.46 (2.27) & 0.311 (0.798) \\
+        & & S & 80.5 (23.2) & 0.855 (0.553) & 8.52 (2.27) & 0.323 (0.800) \\
+        \hline
+        \multirow{4}{*}{Tumour} & \multirow{2}{*}{Y} & L & 74.6 (23.6) & 1.06 (0.870) & 13.6 (18.7) & 0.282 (0.377) \\
+        & & S & 78.0 (20.3) & 1.85 (2.01) & 26.3 (26.9) & 0.273 (0.324) \\
+        \cline{2-7}
+        & \multirow{2}{*}{J} & L & 73.9 (24.3) & 1.04 (0.655) & 8.00 (5.24$\times 10^{-15}$) & 0.205 (0.284) \\
+        & & S & 75.7 (19.8) & 0.973 (0.545) & 9.94 (4.85) & 0.395 (0.368) \\
+        \hline
+    \end{tabular}    
+    \label{tb:HELICoiDuniform}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{012-02Normal_spectra_Y_u.pdf}
+        \caption{}
+        \label{fig:backwardsHSIHeliYuniform}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{012-02Normal_spectra_J_u.pdf}
+        \caption{}
+        \label{fig:backwardsHSIHeliJuniform}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{boxplotsHeli_u.pdf}
+        \caption{}
+        \label{fig:boxplotsHeliuniform}
+    \end{subfigure}
+    \caption{An example of the visual fitting quality of the Yudovsky 2009 (\ref{fig:backwardsHSIHeliY}) and Jacques 1999 (\ref{fig:backwardsHSIHeliJ}) single layer models when fitting to the relative mean annotated spectrum ($\pm$1 standard deviation, \textcolor{blue}{blue solid}) of the normal tissue class of HELICoiD image 12-02 using literature (L) or shifted (S) extinction coefficients and a uniform wavelength weighting. The distribution of the fitted physiological parameters retrieved by fitting each model to each relative mean annotated spectrum of the tissue classes of each HELICoiD image is shown in \ref{fig:boxplotsHeli}.}
+    \label{fig:HELICoiDannuniform}
 \end{figure}
