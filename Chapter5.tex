@@ -5,7 +5,7 @@
 \textbf{Foreword\,}
 This chapter is as yet unpublished. 
 \newline
-AB has conducted all of the research presented in this chapter under the supervision of JS, MB, and TV. The gelatin-based phantom images were kindly annotated by OM with the NHSI datasets being obtained via a collaborative study between KCL and HVS. 
+AB has conducted all of the research presented in this chapter under the supervision of JS, MB, and TV. The gelatin-based phantom images were annotated by OM. 
 \end{minipage}
 \end{center}
 
@@ -543,7 +543,7 @@ Further to this point, these models should be tested on neurosurgical data taken
 
 Finally, only single-layer models are used to analyse these neurosurgical datasets, however it is clear that Arachnoid or Pia Mater tissues may be present in a layered manner here. Arachnoid is known to show some absorbance, whereas Pia Mater is known to contain significant collagen which would indicate a likely scattering effect\cite{Ghannam2023}. Whilst these layers usually have low thickness\cite{Ghannam2023}, these effects may impact the diffuse reflectance spectrum measured and so two-layer modelling may be necessary to fully capture this. 
 
-\subsection{Conclusion and Future Work}
+\subsection{Conclusion and future work}
 In conclusion, this chapter shows that these models are able to obtain good quality results from quantitative snapshot hyperspectral data using well-defined optical properties, despite some oversimplification in the camera simulation. Relative data, however should be used with more caution demonstating a much larger impact of this camera simulation. When applied to neurosurgical hyperspectral linescan data, quantitative evaluation is more challenging due to the lack of known ground truth values. From visual inspection of this data, it appears that further work must be done to validate the modelling of the optical properties of these tissues. There is, however, promise that with an increased prior knowledge, these models may be able to provide valuable clinical parameters. 
 
 Future work should include improving the computation time to allow for faster processing. This could be done by parallelising the computation of pixels using GPU processing, or by training a deep-learning network using the forwards models to generate training data. The bands chosen for the snapshot mosaic camera should be optimised to be most informative on the optical properties and to minimise cross-talk. This should be informed by well-characterised optical properties of these tissues which should be investigated further. The algorithm established in Chapter \ref{chap:SWB} should be used in it's extensive version to obtain intra-operative, quantitative, snapshot data. This should be combined with denoising techniques and used to determine if good quality parameter extraction can be obtained. Finally, the two-layer model should be explored for improvement in quality and this should be used to account for the meninges of the brain when analysing neurosurgical data. 

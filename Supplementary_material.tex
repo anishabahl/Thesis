@@ -1,5 +1,7 @@
 % \appendix
 \appendix
+\chapter{Appendices}\label{chap:Appendices}
+\renewcommand{\thesection}{\Alph{section}}
 % \section{}\label{ap:MChyperparams}
 % \begin{table}[htb!]
 %     \centering
@@ -30,6 +32,7 @@
 % \FloatBarrier
 % 
 % \section{}\label{ap:badYudovsky}
+\section{Investigating single-layer models}
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.65\textwidth]{Figure_A1}
@@ -50,11 +53,11 @@
 % \section{}\label{ap:MCfullinverseparams}
 \begin{table}[htb!]
     \centering
-    \caption{The gradient $m$, offset $c$, Pearson $r$, and $p$ values of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to the Monte-Carlo dataset. All presented to 3s.f.}
+    \caption{The gradient $m$, offset $c$, Pearson $r$, and $p$ values of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors $APE$. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to the Monte-Carlo dataset. All presented to 3s.f.}
     \begin{tabular}{|ccc|ccccc|}
         \hline
-        parameter & model & refractive & $m$ & $c$ & $r$ & $p$ & median (inter-quartile range) \\
-        & & index & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & absolute percentage error (\%)\\
+        Parameter & Model & Refractive & $m$ & $c$ & $r$ & $p$ & $APE$ \\
+        & & index & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & (\%)\\
         \hline
         % \multicolumn{3}{|c|}{Ideal} & 1 & 0 & 1 & 0 & dependent on variable \\
         % \hline
@@ -133,11 +136,11 @@
 
 \begin{table}[htb!]
     \centering
-    \caption{The regression gradient $m$, offset $c$, Pearson $r$, and $p$ values, and the median (inter-quartile range) absolute percentage errors for each variable when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to measured tissue phantom spectra for both quantitative and relative data. All presented to 3s.f.}
+    \caption{The regression gradient $m$, offset $c$, Pearson $r$, and $p$ values, and the median (inter-quartile range) absolute percentage errors $APE$ for each variable when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to measured tissue phantom spectra for both quantitative and relative data. All presented to 3s.f.}
     \begin{tabular}{|ccc|ccccc|}
         \hline
-        parameter & model & Quantitative (Q) & $m$ & $c$ & $r$ & $p$ & median (inter-quartile range) \\
-        & & or Relative (R) & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & absolute percentage error (\%)\\
+        Parameter & Model & Quantitative (Q) & $m$ & $c$ & $r$ & $p$ & $APE$ \\
+        & & or Relative (R) & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & (\%)\\
         \hline
         \multirow{6}{*}{$AR1$} & \multirow{2}{*}{Y} & Q & 1.00 & 0.0132 & 0.997 & 5.75$\times 10^{-38}$ & 1.59 (11.0) \\
         & & R & 1.01 & -0.0166 & 0.998 & 6.72$\times 10^{-40}$ & 4.42 (8.31) \\
@@ -274,14 +277,133 @@
 %     \end{tabular}
 %     \label{tb:singleparamtrends}
 % \end{table}
+\section{Investigating two layer model using uniform wavelength weighting}\label{ap:2layeruniform}
+This section presents a similar inverse problem fitting analysis to the results presented in Chapter \ref{chap:2layer}, however the wavelength weighting used here is uniform. There are limited changes to the conclusions so further discussion is not provided, however it should be noted that the visual fitting of the 525-585nm of the NIST spectra is worsened using this configuration.
 
+\subsection{Simulated data}
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{StO2_twolayer_MC_uniform.pdf}
+        \caption{Quantitative}
+        \label{fig:egparamsStO2MCu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{StO2_twolayer_MC_norm_uniform.pdf}
+        \caption{Relative}
+        \label{fig:egparamsStO2MCnormu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{2layer_parameter_exploration_uniform.pdf}
+        \caption{Quantitative}
+        \label{fig:egparamsfailureMCu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        % \includegraphics[width=\textwidth]{2layer_parameter_exploration_norm_uniform.pdf}
+        \caption{Relative}
+        \label{fig:egparamsfailureMCnormu}
+    \end{subfigure}
+    \caption{Top: Example $StO_2$ recovery from fitting Yudovsky 2009 two layer model to Monte Carlo simulated diffuse reflectance and the associated linear regression line between the extracted and ground truth parameters for quantitative (left) or relative (right) data. Bottom: a depiction of the impact of 3 key physiological parameters on success of $StO_2$ extraction by visualising the Pearson $r$ correlation coefficient for the extracted $StO_2$ compared to the ground-truth for simulations with this range of parameters extracted using Yudovsky 2009 two-layer model for quantitative (left) or relative (right) data.}
+    \label{fig:MC2layeruniform}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \caption{The regression gradient $m$, offset $c$, Pearson $r$ (bold if $p<0.05$), and the mean ($\pm$ standard deviation) absolute percentage errors for each variable when extracted by fitting Yudovsky 2009 two layer model to the quantitative or relative Monte-Carlo diffuse reflectance dataset with uniform weighting of wavelengths. All presented to 3s.f.}
+    \begin{tabular}{|c|c|cccc|}
+        \hline
+        parameter & Quantitative & $m$ & $c$ & $r$ & mean ($\pm$ standard deviation) \\
+        & or Relative & (ideal =1) & (ideal = 0) & (ideal = 1) & absolute percentage error (\%)\\
+        \hline
+        \multirow{2}{*}{$StO_2$} & Quantitative & 0.866 & 8.81 & \textbf{0.821} & 14.2($\pm$ 23.1) \\
+        & Relative & 0.893 & 6.18 & \textbf{0.842} & 13.0($\pm$ 22.2) \\
+        \hline
+        \multirow{2}{*}{$f_{blood}$} & Quantitative & 0.956 & 0.160 & \textbf{0.856} & 25.1($\pm$ 25.3) \\
+        & Relative & 0.839 & 3.35$\times 10^{-2}$ & \textbf{0.706} & 30.9($\pm$ 25.9) \\
+        \hline
+        \multirow{2}{*}{$f_{mel}$} & Quantitative & 0.838 & 1.17 & \textbf{0.875} & 23.9($\pm$ 18.6) \\
+        & Relative & 0.497 & 5.45 & \textbf{0.531} & 35.4($\pm$ 25.0) \\
+        \hline
+        \multirow{2}{*}{$L_1$} & Quantitative & 0.840 & 31.3 & \textbf{0.824} & 37.1($\pm$ 39.1) \\
+         & Relative & 0.827 & 34.9 & \textbf{0.805} & 39.0($\pm$ 36.6) \\
+        \hline
+        \multirow{2}{*}{$a$} & Quantitative & 0.682 & 13.3 & \textbf{0.586} & 19.4($\pm$ 14.6) \\
+        & Relative & 0.515 & 20.5 & \textbf{0.389} & 26.1($\pm$ 22.3) \\
+        \hline
+        \multirow{2}{*}{$b$} & Quantitative & 0.804 & 0.338 & \textbf{0.781} & 14.2($\pm$ 16.4) \\
+        & Relative & 0.729 & 0.521 & \textbf{0.586} & 25.1($\pm$ 26.7) \\
+        \hline
+    \end{tabular}
+    \label{tb:doubleparamtrendsuniform}
+\end{table}
+\FloatBarrier
+
+\subsection{NIST}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{NIST_Eg_uniform.pdf}
+        \caption{Quantitative}
+        \label{fig:egspectraNISTu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{NIST_Eg_norm_uniform.pdf}
+        \caption{Relative}
+        \label{fig:egspectraNISTnormu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{StO2_boxplot_uniform.pdf}
+        \caption{Quantitative}
+        \label{fig:egparamStO2NISTu}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{StO2_boxplot_norm_uniform.pdf}
+        \caption{Relative}
+        \label{fig:egparamStO2NISTnormu}
+    \end{subfigure}
+    \caption{Top: Examples of the Yudovsky 2009 two layer model fitted to NIST skin total reflectance spectra (\figref{fig:egspectraNIST}) for quantitative (left) or relative (right) data. Bottom: Box and violin plots displaying the retrieved $StO_2$ parameters from fitting the Yudovsky 2009 two layer model to the mean NIST skin spectra, where the triangle shows the mean of the fitted $StO_2$ and the circle shows a literature healthy dermis $StO_2$ value \cite{VanManen2021} for quantitative (left) or relative (right) data.}
+    \label{fig:NISTuniform}
+\end{figure}
+\begin{table}[h]
+    \centering
+    \caption{The mean and standard deviation for each variable when extracted by fitting Yudovsky 2009 two layer model to the quantitative or relative NIST skin reflectance dataset, compared to literature parameters for healthy individuals. All presented to 3s.f.}
+    \begin{tabular}{|c|ccc|ccc|}
+        \hline
+        \multirow{2}{*}{Parameter} & \multicolumn{3}{c}{Extracted from NIST dataset} & \multicolumn{3}{|c|}{Literature} \\
+        \cline{2-7}
+         & Quantitative & \multirow{2}{*}{Mean} & Standard & \multirow{2}{*}{Mean} & Standard & \multirow{2}{*}{Source} \\
+         & or Relative &  & deviation &  & deviation &  \\
+        \hline
+        \multirow{2}{*}{$StO_2$ (\%)} & Quantitative & 62.1 & 14.5 & \multirow{2}{*}{78.3, 71} & \multirow{2}{*}{12.9, 16} & \multirow{2}{*}{\cite{VanManen2021}, \cite{Nishidate2011}} \\ %van manen http://dx.doi.org/10.21037/qims-21-46
+        & Relative & 41.7 & 11.0 & & & \\ %Noninvasive imaging of human skin hemodynamicsusing a digital red-green-blue camera
+        \hline
+        $f_{blood}$ (\%) & Quantitative & 0.875 & 0.443 & \multirow{2}{*}{1.1} & \multirow{2}{*}{0.4} & \multirow{2}{*}{\cite{Nishidate2011}} \\ %Noninvasive imaging of human skin hemodynamicsusing a digital red-green-blue camera
+        & Relative & 1.66 & 0.996 & & & \\
+        \hline
+        $f_{mel}$ (\%) & Quantitative & 2.57 & 3.95 & \multirow{2}{*}{4.3} & \multirow{2}{*}{1.2} & \multirow{2}{*}{\cite{Nishidate2011}} \\ %Noninvasive imaging of human skin hemodynamicsusing a digital red-green-blue camera
+        & Relative & 3.03 & 2.18 & & &  \\
+        \hline
+        $L_1$ ($\mu$m) & Quantitative & 66.2 & 20.5 & \multirow{2}{*}{75.5} & \multirow{2}{*}{N/A} & \multirow{2}{*}{\cite{Lintzeri2022}} \\ %https://www.webofscience.com/wos/woscc/full-record/WOS:000782026000001
+        & Relative & 147 & 8.74 & & &  \\
+        \hline
+        $a$ (\textrm{$cm^{-1}$}) & Quantitative & 70.0 & 2.29$\times 10^{-8}$ & \multirow{2}{*}{46.0} & \multirow{2}{*}{13.7} & \multirow{2}{*}{\cite{Jacques2013}} \\ %Jacques review
+        & Relative & 45.7 & 11.4 & & &  \\
+        \hline
+        $b$ (a.u.) & Quantitative & 1.01 & 0.382 & \multirow{2}{*}{1.421} & \multirow{2}{*}{0.517} & \multirow{2}{*}{\cite{Jacques2013}} \\ %Jacques review
+        & Relative & 2.46 & 0.221 & & &  \\
+        \hline
+    \end{tabular}
+    \label{tb:NISTparamsuniform}
+\end{table}
+
+\section{Investigating simulated HSI camera data}
 \begin{table}[bhp]
     \centering
-    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for each refractive index dataset for quantitative data at a variety of noise levels (0, 0.01, 0.03). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for each refractive index dataset for quantitative data at a variety of noise levels (0, 1\%, 3\%). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|cc|c|ccc|ccc|}
         \hline
         Model & Layers & Refractive & \multicolumn{3}{|c}{$NRMSE$} & \multicolumn{3}{|c|}{$r$} \\
-         & & index & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+         & & index & 0 & 1\% & 3\% & 0 & 1\% & 3\% \\
         \hline
         \multirow{3}{*}{\shortstack{Yudovsky\\ 2009}} & \multirow{3}{*}{1} & 1.33 & \shortstack{0.012 \\($\pm$ 0.006)} & \shortstack{0.077 \\($\pm$ 0.054)} & \shortstack{0.204 \\($\pm$ 0.128)} & \textbf{1.000} & \textbf{0.996} & \textbf{0.959} \\
         & & 1.35 & \shortstack{0.011 \\($\pm$ 0.005)} & \shortstack{0.088 \\($\pm$ 0.063)} & \shortstack{0.241 \\($\pm$ 0.150)} & \textbf{1.000} & \textbf{0.993} & \textbf{0.944} \\
@@ -300,11 +422,11 @@
 
 \begin{table}[bhp]
     \centering
-    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for each refractive index dataset for relative data at a variety of noise levels (0, 0.01, 0.03). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \caption{Mean ($\pm$ standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for each refractive index dataset for relative data at a variety of noise levels (0, 1\%, 3\%). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|cc|c|ccc|ccc|}
         \hline
         Model & Layers & Refractive & \multicolumn{3}{|c}{$NRMSE$} & \multicolumn{3}{|c|}{$r$} \\
-         & & index & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+         & & index & 0 & 1\% & 3\% & 0 & 1\% & 3\% \\
         \hline
         \multirow{3}{*}{\shortstack{Yudovsky\\ 2009}} & \multirow{3}{*}{1} & 1.33 & \shortstack{0.004 \\($\pm$ 0.003)} & \shortstack{0.071 \\($\pm$ 0.057)} & \shortstack{0.203 \\($\pm$ 0.142)} & \textbf{1.000} & \textbf{0.908} & \textbf{0.559} \\
         & & 1.35 & \shortstack{0.003 \\($\pm$ 0.003)} & \shortstack{0.085 \\($\pm$ 0.063)} & \shortstack{0.237 \\($\pm$ 0.150)} & \textbf{1.000} & \textbf{0.886} & \textbf{0.530} \\
@@ -323,12 +445,12 @@
 
 \begin{table}[htb!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative Monte-Carlo datasets at each noise level (0, 0.01, 0.03). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative Monte-Carlo datasets at each noise level (0, 1\%, 3\%). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         Parameter & Model & Refractive & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median (inter-quartile range)} \\
         & & index & \multicolumn{3}{c}{} & \multicolumn{3}{|c|}{absolute percentage error (\%)} \\
-        & & & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+        & & & 0 & 1\% & 3\% & 0 & 1\% & 3\% \\
         \hline
         \multirow{7}{*}{$StO_2$} & \multirow{3}{*}{Y1} & 1.33 & \textbf{0.999} & \textbf{0.794} & \textbf{0.403} & 2.25 (5.70) & 40.2 (74.5) & 79.5 (75.6) \\
         & & 1.35 & \textbf{0.999} & \textbf{0.668} & \textbf{0.628} & 1.41 (3.91) & 29.4 (27.4) & 54.4 (79.3) \\
@@ -380,12 +502,12 @@
 
 \begin{table}[htb!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the relative Monte-Carlo datasets at each noise level (0, 0.01, 0.03). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the relative Monte-Carlo datasets at each noise level (0, 1\%, 3\%). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         Parameter & Model & Refractive & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median (inter-quartile range)} \\
         & & index & \multicolumn{3}{c}{} & \multicolumn{3}{|c|}{absolute percentage error (\%)} \\
-        & & & 0 & 0.01 & 0.03 & 0 & 0.01 & 0.03 \\
+        & & & 0 & 1\% & 3\% & 0 & 1\% & 3\% \\
         \hline
         \multirow{7}{*}{$StO_2$} & \multirow{3}{*}{Y1} & 1.33 & \textbf{0.999} & \textbf{0.799} & \textbf{0.420} & 2.32 (5.27) & 28.3 (74.8) & 65.1 (70.9) \\
         & & 1.35 & \textbf{0.998} & \textbf{0.741} & \textbf{0.550} & 1.92 (2.93) & 40.6 (46.1) & 45.0 (77.2) \\
@@ -434,6 +556,8 @@
     \end{tabular}    
     \label{ap:backwardsHSIMCr}
 \end{table}
+\FloatBarrier
+\section{Analysing HSI data examples}
 
 \begin{figure}[h!]
     \centering 
@@ -462,8 +586,9 @@
     \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Bottom left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Jacques 1999 single-layer model and method 4 (from \ref{sec:NeuroHSIdata}). Bottom right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region.}
     \label{ap:HELICoiDpixelJ}
 \end{figure}
+\FloatBarrier
 
-\subsection{Fitting Neurosurgical HSI data with uniform weighting on wavelengths}\label{ap:Chapter5uniform}
+\section{Fitting Neurosurgical HSI data with uniform weighting on wavelengths}\label{ap:Chapter5uniform}
 \begin{table}[h!]
     \centering
     \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients with uniform weighting of the wavelengths and $n=1.44$. All presented to 3s.f.}
