@@ -18,7 +18,7 @@
 % \usepackage{natbib}
 % \usepackage{har2nat}
 \def\newblock{\ }
-% \bibliographystyle{unsrt}
+% \bibliographystyle{these}
 
 \usepackage{graphicx} %package to manage images
 \usepackage{xcolor} %package to use colours
@@ -29,7 +29,9 @@
 \usepackage{comment}
 \usepackage[left]{lineno}
 % \usepackage{biblatex}
+\usepackage{natbib}
 \usepackage{bibentry}
+\usepackage{appendix}
 \nobibliography*
 % \linenumbers
 
@@ -128,7 +130,9 @@
 
 \backmatter
 
-\bibliography{JNFull,PhD-Thesis}
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{PhD-Thesis}
 
 \include{Supplementary_material} 
 

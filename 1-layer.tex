@@ -54,7 +54,7 @@
 \begin{minipage}[b]{0.9\linewidth}
 \small
 \textbf{Foreword\,}
-This chapter is an \emph{in extenso} reproduction of~\cite{Bahl2023a} and has been submitted to Journal of Biophotonics for publication. 
+This chapter is an \emph{in extenso} reproduction of~\citenum{Bahl2023a} which is under review for publication in Journal of Biophotonics. 
 \newline
 AB collaborated with TV to identify the analytical tissue models for comparison. AB 
 %identified the three major analytical tissue models for comparison, 
@@ -104,7 +104,7 @@ The visible light wavelength range also penetrates less deeply into tissue~\cite
 %}
 Tissue models tend to either be based on modifications of the Beer-Lambert model, or on the diffusion approximation particularly using the Kulbelka-Munk approximation method~\cite{MacKenzie2018}. Three models that can be applied to homogeneous semi-infinite tissue in the visible wavelength range (450-650nm) include 1) a modified Beer-Lambert model~\cite{Clancy2015}; 2) a more elaborate Beer-Lambert-based model proposed by Jacques~\cite{Jacques1999}; and 3) a semi-empirical model based on the Kulbelka-Munk theory as described by Yudovsky~\cite{Yudovsky2009}.
 Alternatively, Monte Carlo (MC) methods may be used to model tissues for a range of wavelengths. Whilst MC is an established approach for modelling light-tissue interaction, it is computationally challenging to apply in an inverse problem setting making the estimation of optical properties from tissue spectra non trivial on the basis of MC simulations alone.
-To address the need for improved inverse modelling utilising MC, Inverse Adding Doubling (IAD)~\cite{Prahl2017} has been proposed, however this is also slow iterative process and therefore not as efficient as approaches based on analytical models.
+To address the need for improved inverse modelling utilising MC, Inverse Adding Doubling (IAD)~\cite{Prahl2017, Milanic2024} has been proposed, however this is also slow iterative process and therefore not as efficient as approaches based on analytical models.
 A limitation of IAD is that, although a single reflectance measurement can be used to analyse semi-infinite samples with IAD, its primary focus is the extraction of optical properties from slabs of tissue with known thickness using both transmission and reflection measurements.
 In this chapter, IAD is used to provide information on optical properties from tissue phantom slabs but is not assessed in the same capacity as the other 
 %other purely
@@ -212,7 +212,7 @@ All analytical models considered use hyperparameters to account for the media's 
 In this work, we aim to compare the three models discussed in Section \ref{sec:methodtissuemodels} against datasets with known ground truth. These datasets of diffuse reflectance spectra are generated either by simulation using MC (Section \ref{sec:methodsMC}) or measurement of controlled, gelatin-based, tissue phantoms (Section \ref{sec:methodsphantoms}).
 
 \subsubsection{Monte Carlo simulations}\label{sec:methodsMC}
-The models take $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ as inputs. These are given for bulk tissue in Equations \eqref{eq:mua} and \eqref{eq:Mie} and used to generate MC simulated reference spectra. MC takes $\mu_s(\lambda)$ as input, not $\mu_s'(\lambda)$, so a random value of anisotropy ($g$) is chosen per spectrum between 0.7-0.9~\cite{Yudovsky2009} and used in Equation \eqref{eq:reducedscattering} for conversion to $\mu_s(\lambda)$. The variable parameters are $a$, $b$, $StO_2$, and $f_{blood}$ which are bounded to 8-70cm\textrm{$^{-1}$}, 0.1-3.3, 0-100\%, 0.2-7\% respectively to mimic biological tissue~\cite{Yudovsky2009, Jacques2013}; a value of each of these variables is randomly selected within these bounds to generate each of the 100 simulated spectra, meaning 100 values of each parameter are sampled. When fitting the inverse models to these spectra for parameter extraction (as described in Section \ref{sec:methodevaluate}), the same bounds are imposed on the fitting routine. These simulated spectra are generated using CUDAMCML~\cite{Alerstam2008}, which is a GPU accelerated adaptation of the well-established MCML programme~\cite{Wang1995}. It has been shown that the semi-infinite approximation is valid for thicknesses of above 1cm~\cite{Zhang2014} so 100 spectra were simulated for each refractive index of 1.33, 1.35, and 1.44, by propagating 100,000 photons through the semi-infinite slabs approximated by a thickness of 3cm. The refractive indices were chosen to represent the common phantom and tissue use-cases of these models: 1.33 for use with water-based phantoms, 1.35 for use with gelatin-based phantoms (as in this work), and 1.44 for use with biological tissue.
+The models take $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ as inputs. These are given for bulk tissue in Equations \eqref{eq:mua} and \eqref{eq:Mie} and used to generate MC simulated reference spectra. MC takes $\mu_s(\lambda)$ as input, not $\mu_s'(\lambda)$, so a random value of anisotropy ($g$) is chosen per spectrum between 0.7-0.9~\cite{Yudovsky2009} and used in Equation \eqref{eq:reducedscattering} for conversion to $\mu_s(\lambda)$. The variable parameters are $a$, $b$, $StO_2$, and $f_{blood}$ which are bounded to 8-70cm\textrm{$^{-1}$}, 0.1-3.3, 0-100\%, 0.2-7\% respectively to mimic biological tissue~\cite{Yudovsky2009, Jacques2013}; a value of each of these variables is randomly selected within these bounds to generate each of the 100 simulated spectra, meaning 100 values of each parameter are sampled. When fitting the inverse models to these spectra for parameter extraction (as described in Section \ref{sec:methodevaluate}), the same bounds are imposed on the fitting routine. These simulated spectra are generated using CUDAMCML~\cite{Alerstam2008}, which is a GPU accelerated adaptation of the well-established MCML programme for MC simulations of layered media with semi-infinite widths~\cite{Wang1995, Prahl1989}. It has been shown that the semi-infinite approximation is valid for thicknesses of above 1cm~\cite{Zhang2014} so 100 spectra were simulated for each refractive index of 1.33, 1.35, and 1.44, by propagating 100,000 photons through the semi-infinite slabs approximated by a thickness of 3cm. The refractive indices were chosen to represent the common phantom and tissue use-cases of these models: 1.33 for use with water-based phantoms, 1.35 for use with gelatin-based phantoms (as in this work), and 1.44 for use with biological tissue.
 
 \subsubsection{Controlled gelatin-based tissue phantoms}\label{sec:methodsphantoms}
 Here we construct controlled, optical tissue phantoms with well-characterised components. By measuring these phantoms we constructed a dataset of measured spectra with well-defined ground truth which can be modelled using the analytical models.
@@ -978,3 +978,123 @@ Since this investigation shows Yudovsky to be the most robust model, the layered
 % \include{Supplementary_material}
 
 % \end{document}
+
+\begin{subappendices}
+    \section{Appendices investigating single layer models}
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Figure_A1}
+    \caption{Example of difference in forwards model similarity to Monte Carlo simulation (blue solid) between the literature extensive Yudovsky 2009 (red dashed) and simplified Yudovsky 2009 (green dotted) models using ground truth variables for a refractive index of 1.44.}
+ \label{fig:badYudovsky}
+\end{figure}
+
+\begin{table}[htb!]
+    \centering
+    \caption{The gradient $m$, offset $c$, Pearson $r$, and $p$ values of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors $APE$. This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to the Monte-Carlo dataset. All presented to 3s.f.}
+    \begin{tabular}{|ccc|ccccc|}
+        \hline
+        Parameter & Model & Refractive & $m$ & $c$ & $r$ & $p$ & $APE$ \\
+        & & index & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & (\%)\\
+        \hline
+        % \multicolumn{3}{|c|}{Ideal} & 1 & 0 & 1 & 0 & dependent on variable \\
+        % \hline
+        \multirow{9}{*}{$StO_2$} & \multirow{3}{*}{Y} & 1.33 & 1.00 & -0.373 & 1.00 & 2.39$\times 10^{-150}$ & 1.23 (3.01) \\
+        & & 1.35 & 0.999 & 0.0672 & 1.00 & 4.93$\times 10^{-149}$ & 0.815 (2.10) \\
+        & & 1.44 & 0.999 & -0.074 & 1.00 & 4.87$\times 10^{-153}$ & 0.913 (1.92) \\
+        \cline{2-8}
+        & \multirow{3}{*}{J} & 1.33 & 1.00 & 1.733 & 0.979 & 1.44$\times 10^{-69}$ & 3.40 (9.43) \\
+        & & 1.35 & 1.03 & 1.03 & 0.980 & 2.18$\times 10^{-70}$ & 3.97 (12.9) \\
+        & & 1.44 &  1.04 & 0.207 & 0.986 & 1.64$\times 10^{-77}$ & 2.21 (4.97) \\
+        \cline{2-8}
+        & \multirow{3}{*}{BL} & 1.33 & 0.712 & 1.56 & 0.855 & 1.17$\times 10^{-29}$ & 39.4 (38.5) \\
+        & & 1.35 & 0.679 & 3.92 & 0.838 & 3.87$\times 10^{-30}$ & 33.3 (31.4) \\
+        & & 1.44 & 0.766 & -2.73 & 0.838 & 1.70$\times 10^{-27}$ & 43.0 (49.8) \\
+        \hline
+        \multirow{9}{*}{$f_{blood}$} & \multirow{3}{*}{Y} & 1.33 & 0.976 & -0.0206 & 0.980 & 2.76$\times 10^{-70}$ & 5.74 (6.19) \\
+        & & 1.35 & 0.962 & 0.0365 & 0.975 & 8.29$\times 10^{-66}$ & 4.58 (6.98) \\
+        & & 1.44 & 0.927 & 0.152 & 0.982 & 3.60$\times 10^{-73}$ & 5.68 (6.08) \\
+        \cline{2-8}
+        & \multirow{3}{*}{J} & 1.33 & 1.17 & 0.187 & 0.915 & 2.21$\times 10^{-40}$ & 9.51 (28.7) \\
+        & & 1.35 & 1.16 & 0.167 & 0.912 & 9.18$\times 10^{-40}$ & 11.0 (20.1) \\
+        & & 1.44 & 1.15 & 0.141 & 0.928 & 1.10$\times 10^{-43}$ & 7.26 (16.2) \\
+        \cline{2-8}
+        & \multirow{3}{*}{BL} & 1.33 & 0.487 & 0.431 & 0.641 & 7.16$\times 10^{-13}$ & 46.4 (28.2) \\
+        & & 1.35 & 0.461 & 0.478 & 0.575 & 3.99$\times 10^{-10}$ & 45.8 (41.8) \\
+        & & 1.44 & 0.339 & 0.652 & 0.582 & 2.05$\times 10^{-10}$ & 49.6 (32.2) \\
+        \hline
+        \multirow{9}{*}{$a$} & \multirow{3}{*}{Y} & 1.33 & 0.948 & 0.145 & 0.993 & 2.58$\times 10^{-93}$ & 5.06 (5.92) \\
+        & & 1.35 & 0.968 & -0.192 & 0.995 & 4.71$\times 10^{-102}$ & 4.05 (5.57) \\
+        & & 1.44 & 1.05 & -2.59 & 0.992 & 1.67$\times 10^{-89}$ & 3.90 (4.73) \\
+        \cline{2-8}
+        & \multirow{3}{*}{J} & 1.33 & 0.909 & 7.23 & 0.952 & 4.13$\times 10^{-52}$ & 7.09 (22.0) \\
+        & & 1.35 & 0.929 & 5.72 & 0.966 & 3.04$\times 10^{-59}$ & 9.16 (16.2) \\
+        & & 1.44 & 0.934 & 5.88 & 0.959 & 1.05$\times 10^{-55}$ & 4.54 (15.3) \\
+        \cline{2-8}
+        & \multirow{3}{*}{BL} & 1.33 & -0.197 & 74.7 & -0.554 & 2.23$\times 10^{-9}$ & 63.8 (133) \\
+        & & 1.35 & -0.142 & 73.1 & -0.448 & 2.89$\times 10^{-6}$ & 103 (206) \\
+        & & 1.44 & -0.488 & 78.1 & -0.706 & 2.28$\times 10^{-16}$ & 40.0 (114) \\
+        \hline
+        \multirow{9}{*}{$b$} & \multirow{3}{*}{Y} & 1.33 & 0.978 & 0.0663 & 0.998 & 3.53$\times 10^{-121}$ & 1.38 (2.47) \\
+        & & 1.35 & 0.989 & 0.0314 & 0.998 & 5.55$\times 10^{-125}$ & 1.82 (2.85) \\
+        & & 1.44 & 0.991 & 0.0185 & 0.999 & 1.33$\times 10^{-140}$ & 1.50 (2.92) \\
+        \cline{2-8}
+        & \multirow{3}{*}{J} & 1.33 & 0.977 & 0.216 & 0.910 & 3.76$\times 10^{-39}$ & 3.45 (16.0) \\
+        & & 1.35 & 1.01 & 0.212 & 0.906 & 2.35$\times 10^{-38}$ & 5.29 (25.2) \\
+        & & 1.44 & 1.01 & 0.120 & 0.963 & 1.15$\times 10^{-57}$ & 2.86 (9.11) \\
+        \cline{2-8}
+        & \multirow{3}{*}{BL} & 1.33 & -0.104 & 0.360 & -0.413 & 1.92$\times 10^{-5}$ & 95.2 (4.85) \\
+        & & 1.35 & -0.0888 & 0.303 & -0.394 & 5.02$\times 10^{-5}$ & 94.1 (5.60) \\
+        & & 1.44 & -0.0859 & 0.327 & -0.446 & 3.38$\times 10^{-6}$ & 95.4 (5.68) \\
+        \hline
+    \end{tabular}    \label{tb:singleparamtrendsfull}
+\end{table}
+
+\begin{table}[htb!]
+    \centering
+    \caption{The regression gradient $m$, offset $c$, Pearson $r$, and $p$ values, and the median (inter-quartile range) absolute percentage errors $APE$ for each variable when extracted by fitting Yudovsky 2009 (Y), Jacques 1999 (J), or Modified Beer-Lambert (BL) to measured tissue phantom spectra for both quantitative and relative data. All presented to 3s.f.}
+    \begin{tabular}{|ccc|ccccc|}
+        \hline
+        Parameter & Model & Quantitative (Q) & $m$ & $c$ & $r$ & $p$ & $APE$ \\
+        & & or Relative (R) & (ideal =1) & (ideal = 0) & (ideal = 1) & (ideal = 0) & (\%)\\
+        \hline
+        \multirow{6}{*}{$AR1$} & \multirow{2}{*}{Y} & Q & 1.00 & 0.0132 & 0.997 & 5.75$\times 10^{-38}$ & 1.59 (11.0) \\
+        & & R & 1.01 & -0.0166 & 0.998 & 6.72$\times 10^{-40}$ & 4.42 (8.31) \\
+        \cline{2-8}
+        & \multirow{2}{*}{J} & Q & 0.976 & 0.0481 & 0.989 & 6.16$\times 10^{-29}$ & 7.02 (20.2) \\
+        & & R & 0.905 & 0.0442 & 0.934 & 2.67$\times 10^{-16}$ & 10.4 (23.7) \\
+        \cline{2-8}
+        & \multirow{2}{*}{BL} & Q & 0.850 & -0.148 & 0.756 & 1.50$\times 10^{-7}$ & 83.5 (57.0) \\
+        & & R & 0.730 & -0.107 & 0.939 & 7.84$\times 10^{-17}$ & 50.0 (31.4)\\
+        \hline
+        \multirow{6}{*}{$AR14$} & \multirow{2}{*}{Y} & Q & 1.00 & -0.0140 & 0.997 & 5.75$\times 10^{-38}$ & 1.36 (8.69) \\
+        & & R & 1.01 & 0.00675 & 0.998 & 6.72$\times 10^{-40}$ & 2.48 (5.76) \\
+        \cline{2-8}
+        & \multirow{2}{*}{J} & Q & 0.976 & -0.0244 & 0.989 & 6.16$\times 10^{-29}$ & 7.02 (16.3) \\
+        & & R & 0.905 & 0.0508 & 0.934 & 2.67$\times 10^{-16}$ & 6.34 (10.0) \\
+        \cline{2-8}
+        & \multirow{2}{*}{BL} & Q & 0.850 & 0.297 & 0.756 & 1.50$\times 10^{-7}$ & 80.4 (72.1) \\
+        & & R & 0.730 & 0.377 & 0.939 & 7.84$\times 10^{-17}$ & 37.5 (66.7) \\
+        \hline
+        \multirow{6}{*}{$I$} & \multirow{2}{*}{Y} & Q & 2.41 & 1.09 & 0.648 & 2.61$\times 10^{-5}$ & 125 (276) \\
+        & & R & 0.998 & 1.37 & 0.310 & 6.96$\times 10^{-2}$ & 93.9 (30.0) \\
+        \cline{2-8}
+        & \multirow{2}{*}{J} & Q & 1.62 & 3.73 & 0.540 & 8.11$\times 10^{-4}$ & 122 (288) \\
+        & & R & -0.767 & 4.76 & -0.451 & 6.61$\times 10^{-3}$ & 100 (55.7) \\
+        \cline{2-8}
+        & \multirow{2}{*}{BL} & Q & -1.75 & 11.8 & -0.705 & 2.29$\times 10^{-6}$ & 100 (172) \\
+        & & R & -0.484 & 3.94 & -0.157 & 3.66$\times 10^{-1}$ & 100 (0.00) \\
+        \hline
+        \multirow{6}{*}{$c_{tot}$} & \multirow{2}{*}{Y} & Q & 1.46 & 9.25 & 0.500 & 2.23$\times 10^{-3}$ & 102 (226) \\
+        & & R & 0.917 & 4.85 & 0.303 & 7.72$\times 10^{-2}$ & 66.1 (46.8) \\
+        \cline{2-8}
+        & \multirow{2}{*}{J} & Q & 2.00 & 6.76 & 0.684 & 5.95$\times 10^{-6}$ & 100 (260) \\
+        & & R & -0.265 & 27.8 & -0.0959 & 5.84$\times 10^{-1}$ & 89.7 (267) \\
+        \cline{2-8}
+        & \multirow{2}{*}{BL} & Q & 0.356 & 3.02 & 0.721 & 1.01$\times 10^{-6}$ & 35.2 (21.6) \\
+        & & R & 0.309 & 3.23 & 0.689 & 4.63$\times 10^{-6}$ & 44.6 (23.6) \\
+        \hline
+    \end{tabular}
+    \label{tb:phantomparamsfull}
+\end{table}
+\FloatBarrier
+\end{subappendices}
