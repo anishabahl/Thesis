@@ -6,7 +6,7 @@
 \begin{minipage}[b]{0.9\linewidth}
 \small
 \textbf{Foreword\,}
-This chapter is an \emph{in extenso} reproduction of \citenum{Bahl2023} and has formed the basis of patent application 2309106.9. 
+This chapter is an \emph{in extenso} reproduction of \citet{Bahl2023} and has formed the basis of patent application 2309106.9. 
 \newline
 AB identified the separable spatial and spectral model, utilised this to create a synthetic white balancing algorithm, collected the testing dataset of the coloured checkerboard target, and evaluated the algorithm in this contexts under the supervision of TV, MB, and JS. JS identified the sterile ruler as a potential imaging target. AB and OM collected the cadaveric hyperspectral data which was analysed utilising the algorithm by AB. CH developed the sRGB reconstruction algorithms and some of the software toolkit used for data processing. MJ aided AB in the conception of the utilisation of the temporal hypercube in the algorithm, this was then developed by AB. PN developed the core of the software used to capture hyperspectral data. This was combined by AB with the software developed by MH for maneuvering the seven degree of freedom robot. The cadaveric procedure was facilitated by NC and PF as part of the FAROS project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 101016985. The light source spectra were measured by JQ and the spectrometer set-up used for this was developed by YX. 
 \end{minipage}
@@ -92,17 +92,17 @@ AB identified the separable spatial and spectral model, utilised this to create 
 
 \section{Introduction}
 \label{intro}
-As discussed in Chapter \ref{chap:intro}, Hyperspectral imaging (HSI) has shown potential in pre-clinical and clinical studies to non-invasively provide information for disease diagnosis and surgical guidance~\cite{Lu2014,Giannoni2018,Calin2014,Shapey2019}. 
+As discussed in Chapter \ref{chap:intro}, Hyperspectral imaging (HSI) has shown potential in pre-clinical and clinical studies to non-invasively provide information for disease diagnosis and surgical guidance~\citep{Lu2014,Giannoni2018,Calin2014,Shapey2019}. 
 % HSI provides multi-channel spectral imaging data
 % across a wide field of view, where each channel represents a narrow spectral measurement centred around a given wavelength. This technique can also be referred to as multispectral imaging when there is a low number of bands, however for simplicity we will refer to this as HSI in all cases.
-% The diffusely reflected light is measured across a range of wavelengths for each pixel of an image. The diffuse reflection is determined by the scattering properties and absorbing or emitting species in the tissues being examined~\cite{Jacques2013}. This provides the opportunity for non-invasive, quantitative analysis of these tissues to investigate physiologically relevant parameters, such as tissue oxygen saturation \cite{Clancy2020}.
+% The diffusely reflected light is measured across a range of wavelengths for each pixel of an image. The diffuse reflection is determined by the scattering properties and absorbing or emitting species in the tissues being examined~\citep{Jacques2013}. This provides the opportunity for non-invasive, quantitative analysis of these tissues to investigate physiologically relevant parameters, such as tissue oxygen saturation \citep{Clancy2020}.
 
-% There are three broad categories of HSI cameras: spatial scanning, spectral scanning, and snapshot acquisition. Spatial scanning is typically implemented with a linescan camera which acquires data across all wavelengths simultaneously but scans through each line of pixels sequentially. In contrast, spectral scanning cameras collect all pixels at a given single wavelength band simultaneously using a band pass filter but scan through each wavelength bands sequentially. These methods both measure a complete hypercube directly. This highly resolved spectral data has been used for the majority of medical applications published to date \cite{Kulcke2018,Giannoni2021,Shapey2019,Yoon2021}.
+% There are three broad categories of HSI cameras: spatial scanning, spectral scanning, and snapshot acquisition. Spatial scanning is typically implemented with a linescan camera which acquires data across all wavelengths simultaneously but scans through each line of pixels sequentially. In contrast, spectral scanning cameras collect all pixels at a given single wavelength band simultaneously using a band pass filter but scan through each wavelength bands sequentially. These methods both measure a complete hypercube directly. This highly resolved spectral data has been used for the majority of medical applications published to date \citep{Kulcke2018,Giannoni2021,Shapey2019,Yoon2021}.
 %not sure how to choose which studies to reference so included review as well 
-Chapter \ref{chap:intro} also discusses that not all HSI approaches are able to provide real-time data as their respective scanning mechanisms result in long acquisition times, which can also be prone to motion artefacts. In contrast, snapshot mosaic cameras utilize sensors where each pixel has a dedicated band pass filter. This provides information on one band per pixel but captures all pixels in a single shot~\cite{Geelen2014}. This allows highly time resolved data to be obtained, at the cost of lower spatial and spectral resolution. To obtain a full hypercube from a snapshot mosaic camera, the data must be demosaiced with the remaining information inferred using classical or learning-based interpolation~\cite{Li2021}, followed by spectral cross-talk correction due to the parasitic neighboring bands effects~\cite{Pichette2017}, as discussed in chapter \ref{chap:intro}. The increased temporal resolution given by effective snapshot mosaic image demosaicing provides the opportunity to aid surgical guidance~\cite{Ayala2021, Ebner2021}.
+Chapter \ref{chap:intro} also discusses that not all HSI approaches are able to provide real-time data as their respective scanning mechanisms result in long acquisition times, which can also be prone to motion artefacts. In contrast, snapshot mosaic cameras utilize sensors where each pixel has a dedicated band pass filter. This provides information on one band per pixel but captures all pixels in a single shot~\citep{Geelen2014}. This allows highly time resolved data to be obtained, at the cost of lower spatial and spectral resolution. To obtain a full hypercube from a snapshot mosaic camera, the data must be demosaiced with the remaining information inferred using classical or learning-based interpolation~\citep{Li2021}, followed by spectral cross-talk correction due to the parasitic neighboring bands effects~\citep{Pichette2017}, as discussed in chapter \ref{chap:intro}. The increased temporal resolution given by effective snapshot mosaic image demosaicing provides the opportunity to aid surgical guidance~\citep{Ayala2021, Ebner2021}.
 
 To enable physiological parameter extraction from any of these imaging methods, accurate spectra must be extracted from hyperspectral images. This requires white balancing as an initial step. White balancing uses a white and dark reference to account for lighting conditions, vignetting, and optical transmission through the set-up.
-The white reference image is typically taken using a well characterized, uniform, highly reflective, Lambertian surface~\cite{Lu2014}.
+The white reference image is typically taken using a well characterized, uniform, highly reflective, Lambertian surface~\citep{Lu2014}.
 However existing established references, such as 95\% reflective Spectralon tiles, cannot be sterilized and are very sensitive, making them challenging to integrate in a surgical environment.
 This necessitates that the white reference is acquired outside 
 %
@@ -110,19 +110,19 @@ of the surgical field, resulting in different imaging conditions relative to the
 Ideally, a new white reference should be acquired whenever the imaging conditions are altered which, at best, disrupts the clinical workflow and, at worst, is impossible. This forces the settings to be kept constant throughout the procedure, thereby limiting the setup's use, or risks losing the ability to acquire quantitative spectral data. 
 
 %
-To alleviate this issue, \citenum{Khan2017} proposed adaptations of several white balancing models initially developed for standard color photography to determine the light source spectrum from a hyperspectral image.
+To alleviate this issue, \citet{Khan2017} proposed adaptations of several white balancing models initially developed for standard color photography to determine the light source spectrum from a hyperspectral image.
 These models assume a range of colors within the spectral scene to ensure that at least one pixel per band will display the maximum value, or a variation of the grey-world algorithm which assumes the mean of the image will be grey.
 These assumptions do not hold well for surgical scenes which often have largely homogenous color schemes.
 
-Spectral and spatial vignetting corrections can also be performed independently. \citenum{Ayala2020} proposed to use
+Spectral and spatial vignetting corrections can also be performed independently. \citet{Ayala2020} proposed to use
 specular highlight analysis for spectral correction.
 This requires additional low exposure images to be obtained to prevent saturation in the specular reflection regions.
 This allows illuminant spectra to be determined intraoperatively without the need for a reference, however it is unable to directly account for vignetting and can only be used to provide relative data as specular reflections cannot quantitatively be related by Lambertian reflections.
 %
-These relative data can be used to extract ratiometric clinical parameters such as oxygen saturation~\cite{Giannoni2018,MacKenzie2018}.
-However, this may not allow quantitative measurement of all parameters such as chromophore concentrations, including haemoglobin which is therefore often provided on a relative scale~\cite{Kulcke2018}.
+These relative data can be used to extract ratiometric clinical parameters such as oxygen saturation~\citep{Giannoni2018,MacKenzie2018}.
+However, this may not allow quantitative measurement of all parameters such as chromophore concentrations, including haemoglobin which is therefore often provided on a relative scale~\citep{Kulcke2018}.
 
-Vignetting correction can be performed following spectral correction. For hyperspectral images, this assumes a constant optical configuration and requires significant characterisation before use~\cite{Jiang2019}. In surgical settings, there are often adjustable focal lengths changing the optical configuration meaning this is challenging to apply. Single image vignetting correction models are available for RGB imaging~\cite{Cho2014}, however these also assume natural images with a variety of colors which is not an appropriate assumption for surgical imaging.
+Vignetting correction can be performed following spectral correction. For hyperspectral images, this assumes a constant optical configuration and requires significant characterisation before use~\citep{Jiang2019}. In surgical settings, there are often adjustable focal lengths changing the optical configuration meaning this is challenging to apply. Single image vignetting correction models are available for RGB imaging~\citep{Cho2014}, however these also assume natural images with a variety of colors which is not an appropriate assumption for surgical imaging.
 
 Addressing the need for an intraoperative model to account for vignetting and illuminant spectrum whilst allowing quantitative spectral extraction is the focus of this chapter, as a theatre-ready solution to this problem has yet to be adopted. 
 
@@ -143,7 +143,7 @@ This chapter aims to use snapshot HSI to reproduce known spectra quantitatively 
 A snapshot hyperspectral imaging camera with a 4x4 mosaic pattern across the sensor is used in this work.
 %
 More specificially, we utilize a
-4x4 16 band visible range snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) alongside an f=35mm coupler (Karl Storz, NDTec, VCam HD-F-35 - Camera Lens Adapter, Germany) and a $90^\circ$ exoscope (Karl Storz Endoscopy, VITOM Telescope 0° w Integ. Illuminator, UK), as detailed in \citenum{Ebner2021}. An exoscope is chosen to create a standalone imaging system and ease translation to first-in-patient clinical use by minimising disruption to the primary patient care workflow. A disposable sterile ruler commonly found in operating theatres is used as the reference for constructing synthetic references shown in \figref{fig:setup}c.
+4x4 16 band visible range snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) alongside an f=35mm coupler (Karl Storz, NDTec, VCam HD-F-35 - Camera Lens Adapter, Germany) and a $90^\circ$ exoscope (Karl Storz Endoscopy, VITOM Telescope 0° w Integ. Illuminator, UK), as detailed in \citet{Ebner2021}. An exoscope is chosen to create a standalone imaging system and ease translation to first-in-patient clinical use by minimising disruption to the primary patient care workflow. A disposable sterile ruler commonly found in operating theatres is used as the reference for constructing synthetic references shown in \figref{fig:setup}c.
 
 To capture data in a controlled laboratory environment, allowing quantitative investigation of white referencing significance, we augment our surgical imaging set-up with a robotic mount. The exoscope rotation is fixed and either a Xenon light source (Karl Storz Endoscopy, Cold Light Fountain D light C, UK) or an LED light source (Karl Storz Endoscopy, Power LED 300, UK) is used, whose area normalized emission spectra can be seen in \figref{fig:setup}d. The system is mounted to a seven degree of freedom robot (LBR, KUKA med7 R800, Germany) to enable multiple images to be taken with a constant reproducible camera position relative to the subject.
 This is shown in \figref{fig:setup}a. A colored checkerboard target (datacolor, Spyder Checkr, UK), where each tile has a well characterized measured spectrum, is imaged at each distance and shown in \figref{fig:setup}b. 
@@ -190,12 +190,12 @@ For seamless integration to the intraoperative environment, the camera is used i
 \subsection{Estimating reflectance from hyperspectral data}
 \label{methodnecessity}
 %
-As detailed by \citenum{Pichette2017}, estimating reflectance from hyperspectral mosaic data necessitates a computational pipeline encompassing white balancing, demosaicing and spectral cross-talk correction.
+As detailed by \citet{Pichette2017}, estimating reflectance from hyperspectral mosaic data necessitates a computational pipeline encompassing white balancing, demosaicing and spectral cross-talk correction.
 %
 %
 Our white balancing approach is detailed in the subsequent sections.
-For demosaicing purposes, in this work, we rely on bilinear interpolation to maintain the spatial resolution of the raw mosaic image but more advanced approaches such as the learning-based one of \citenum{Li2021} could also be employed with the work presented here.
-The demosaiced hypercube is then corrected pixel by pixel to account for parasitic spectral cross-talk effects and secondary peaks in the band responses within the sensor to return the final hypercube~\cite{Pichette2017}.
+For demosaicing purposes, in this work, we rely on bilinear interpolation to maintain the spatial resolution of the raw mosaic image but more advanced approaches such as the learning-based one of \citet{Li2021} could also be employed with the work presented here.
+The demosaiced hypercube is then corrected pixel by pixel to account for parasitic spectral cross-talk effects and secondary peaks in the band responses within the sensor to return the final hypercube~\citep{Pichette2017}.
 
 %\FloatBarrier
 \subsubsection{White balancing}
@@ -231,7 +231,7 @@ In \eqref{eq:WB}, spectral bands are implicitly indexed by the spatial coordinat
 
 In the remainder of this section, we focus on the denominator in \eqref{eq:WBfull} or \eqref{eq:WB}.
 For brevity, empirically obtained images or videos will be assumed to be exposure corrected and dark corrected before use, whereas reflectivity correction will be discussed in detail in \secref{algorithmreflectivity}.
-We also assume that demosaicing and spectral crosstalk correction as per \citenum{Pichette2017} is applied throughout.
+We also assume that demosaicing and spectral crosstalk correction as per \citet{Pichette2017} is applied throughout.
 
 %\FloatBarrier
 %
@@ -270,7 +270,7 @@ Additionally, each tile image is converted to sRGB and the centre of each compos
 %
 To measure the perceptual discrepancy in tristimulus color reconstruction, a $\Delta E$ calculation
 %
-is used as is defined in \citenum{Sharma2005}
+is used as is defined in \citet{Sharma2005}
 (using pyciede v0.0.21 \newline \href{https://pypi.org/project/pyciede2000/}{ \texttt{pyciede2000.ciede2000}} function.) A $\Delta E$ value of less than 1 indicates an imperceptible difference in color, while values of up to 6 are considered acceptable for commercial reproduction using printing presses. 
 % 
 % 
@@ -280,7 +280,7 @@ is used as is defined in \citenum{Sharma2005}
 % 
 % 
 
-To compute the RGB and CIELAB images, the spectra are first converted to CIEXYZ~\cite{Smith1931} using a camera-specific $3 \times N$ matrix.
+To compute the RGB and CIELAB images, the spectra are first converted to CIEXYZ~\citep{Smith1931} using a camera-specific $3 \times N$ matrix.
 %
 %
 %
@@ -290,7 +290,7 @@ To compute the RGB and CIELAB images, the spectra are first converted to CIEXYZ~
 %
 The CIEXYZ values can be converted to linear sRGB using a literature matrix corresponding to a standard D65 light source
 %
-followed by conversion to sRGB using gamma correction to account for standard monitors~\cite{Magnusson2020,Reinhard}
+followed by conversion to sRGB using gamma correction to account for standard monitors~\citep{Magnusson2020,Reinhard}
 % 
 % 
 % 
@@ -342,7 +342,7 @@ Additionally, noise $N(i,j,n)$ should be accounted for in both the spatial and s
 \end{equation}
 \end{linenomath*}
 
-The assumption of separability is intuitive from the discussion of vignetting and color constancy being addressed separately in literature~\cite{Cho2014,Ayala2020,Jiang2019,Yu2004,Foster2011}.
+The assumption of separability is intuitive from the discussion of vignetting and color constancy being addressed separately in literature~\citep{Cho2014,Ayala2020,Jiang2019,Yu2004,Foster2011}.
 %
 %
 %
@@ -419,12 +419,12 @@ To segment these temporal regions,
 %
 %
 %
-we first pre-process the per pixel temporal intensity profile to suppress the impact of background values to a large extent by setting to 0 all the values whose intensity lie below a threshold computed with a classical parameter-free Otsu's method~\cite{Otsu1979} (using skimage v0.19.2 \href{https://scikit-image.org/docs/stable/api/skimage.filters.html\#skimage.filters.threshold_otsu}{\texttt{skimage.filters.threshold\_otsu}} function.)
+we first pre-process the per pixel temporal intensity profile to suppress the impact of background values to a large extent by setting to 0 all the values whose intensity lie below a threshold computed with a classical parameter-free Otsu's method~\citep{Otsu1979} (using skimage v0.19.2 \href{https://scikit-image.org/docs/stable/api/skimage.filters.html\#skimage.filters.threshold_otsu}{\texttt{skimage.filters.threshold\_otsu}} function.)
 We further clamp high intensities close to saturation with a fixed threshold in order to remove the impact of specular reflections.
 %
 These pre-processed temporal profiles are then smoothed using a Savitsky-Golay filter, with window size 15 and order 2
 %
-~\cite{Savitzky1964a}
+~\citep{Savitzky1964a}
 (using SciPy v1.8.1 \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html}{\texttt{scipy.signal.savgol\_filter}} function),
 %
 to limit the impact of noise.
@@ -555,10 +555,10 @@ As will be apparent from our experiments, this third method provides advantageou
 %
 
 \paragraph{Masking content area}
-Finally, as detailed in \citenum{Munzer2013,Huber2022}, imaging through a scope leads to a circular content area which needs to be taken in to account in our computational pipeline.
+Finally, as detailed in \citet{Munzer2013,Huber2022}, imaging through a scope leads to a circular content area which needs to be taken in to account in our computational pipeline.
 In this work, the content area disk
 %
-is detected from a frame of a video using a pre-trained neural network~\cite{Huber2022} (using the implementation at \url{https://github.com/RViMLab/endoscopy}.)
+is detected from a frame of a video using a pre-trained neural network~\citep{Huber2022} (using the implementation at \url{https://github.com/RViMLab/endoscopy}.)
 The radius is reduced to 90\% of its original size to discount edge effects. This circle is then used to mask the content area as the final step to generate the synthetic white reference.
 
 % 

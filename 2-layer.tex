@@ -102,20 +102,20 @@ AB has conducted all of the research presented in this chapter under the supervi
 % {\noindent \footnotesize\textbf{*}Anisha Bahl,  \linkable{anisha.bahl@kcl.ac.uk} }
 
 \section{Introduction}\label{sec:intro2}
-The brain has many layered structures, for example the meninges (dura, pia mater, arachnoid) are all thin layer structures which overlay the cortex. As these are often of the scale that can be penetrated by visible light, this structure should be accounted for in an optical model used to analyse visible spectrum HSI data. Since Yudovsky 2009 was shown to be the best performing single layer model in Chapter \ref{chap:1layer}, the double layer model of the same publication~\cite{Yudovsky2009} (developed primarily to model skin) is investigated. 
+The brain has many layered structures, for example the meninges (dura, pia mater, arachnoid) are all thin layer structures which overlay the cortex. As these are often of the scale that can be penetrated by visible light, this structure should be accounted for in an optical model used to analyse visible spectrum HSI data. Since Yudovsky 2009 was shown to be the best performing single layer model in Chapter \ref{chap:1layer}, the double layer model of the same publication~\citep{Yudovsky2009} (developed primarily to model skin) is investigated. 
 
-Skin is a layered biological tissue structure which is considered a better defined use case with which to evaluate this layered model. Skin reflectance data obtained using a well-characterised spectroscopic set-up is widely available~\cite{Cooksey2017} and is used for this work. 
+Skin is a layered biological tissue structure which is considered a better defined use case with which to evaluate this layered model. Skin reflectance data obtained using a well-characterised spectroscopic set-up is widely available~\citep{Cooksey2017} and is used for this work. 
 
-% Skin tissue oxygenation ($StO_2$) has been suggested to be a useful metric in the diagnosis and management of pressure ulcers \cite{Wong2003, Mishu2014} and radiative dermatitis \cite{Bashkatov2005}, as well as assisting phlebotomy \cite{FouadAref2021}. For these reasons, efforts have been made to non-invasively quantify $StO_2$ using diffuse reflectance spectroscopy. 
+% Skin tissue oxygenation ($StO_2$) has been suggested to be a useful metric in the diagnosis and management of pressure ulcers \citep{Wong2003, Mishu2014} and radiative dermatitis \citep{Bashkatov2005}, as well as assisting phlebotomy \citep{FouadAref2021}. For these reasons, efforts have been made to non-invasively quantify $StO_2$ using diffuse reflectance spectroscopy. 
 
 % The diffuse reflectance spectrum of biological tissue is influenced by its absorbance and scattering properties.
 % %of the tissue.
-% Scattering  of tissue is largely dominated by collagen \cite{Anderson1981}. Absorbance of tissue is governed by the chromophores present and is typically dominated by haemoglobin which can exist in both oxygenated and deoxygenated states\cite{Prahlc}.
-% These two forms of haemoglobin have differences in absorption which influence the diffuse reflectance spectrum and may allow recovery of the tissue $StO_2$ \cite{Clancy2020}. 
+% Scattering  of tissue is largely dominated by collagen \citep{Anderson1981}. Absorbance of tissue is governed by the chromophores present and is typically dominated by haemoglobin which can exist in both oxygenated and deoxygenated states\citep{Prahlc}.
+% These two forms of haemoglobin have differences in absorption which influence the diffuse reflectance spectrum and may allow recovery of the tissue $StO_2$ \citep{Clancy2020}. 
 
-% Many methods have been used to quantify $StO_2$ in vivo \cite{Nitzan2020} with pulse oximetry being the most widely utilised non-invasive method, however these devices have been reported to have different performance quality with respect to different ethnicities \cite{Bangash2022}. More advanced, multi-layered, optical models of tissues have been proposed \cite{Maeda2010}. In this work we focus our analysis in the visible spectrum (450-650nm) as this allows for non-contact imaging using standard cold surgical light sources \cite{Clancy2011}. We investigate one multi-layered, analytical model proposed by Yudovsky et al. \cite{Yudovsky2009} which utilises a single layer model which we have previously shown demonstrates excellent results \cite{Bahl2023a}. The authors show the model to perform poorly above 600nm \cite{Yudovsky2011a} and so we restrict our evaluation range accordingly. 
-% % from diffuse reflectance spectroscopy, however few model the spectrum per wavelength, and fewer still provide this modelled spectrum for skin which is characterised by a layered structure. A notable example of this is the Yudovsky 2009 \cite{Yudovsky2009} based on the Kubelka-Munk theory. 
-% Whilst this model has been demonstrated with a variety of experimental data \cite{Yudovsky2011a, Yudovsky2011b},
+% Many methods have been used to quantify $StO_2$ in vivo \citep{Nitzan2020} with pulse oximetry being the most widely utilised non-invasive method, however these devices have been reported to have different performance quality with respect to different ethnicities \citep{Bangash2022}. More advanced, multi-layered, optical models of tissues have been proposed \citep{Maeda2010}. In this work we focus our analysis in the visible spectrum (450-650nm) as this allows for non-contact imaging using standard cold surgical light sources \citep{Clancy2011}. We investigate one multi-layered, analytical model proposed by Yudovsky et al. \citep{Yudovsky2009} which utilises a single layer model which we have previously shown demonstrates excellent results \citep{Bahl2023a}. The authors show the model to perform poorly above 600nm \citep{Yudovsky2011a} and so we restrict our evaluation range accordingly. 
+% % from diffuse reflectance spectroscopy, however few model the spectrum per wavelength, and fewer still provide this modelled spectrum for skin which is characterised by a layered structure. A notable example of this is the Yudovsky 2009 \citep{Yudovsky2009} based on the Kubelka-Munk theory. 
+% Whilst this model has been demonstrated with a variety of experimental data \citep{Yudovsky2011a, Yudovsky2011b},
 % %there has not been a clear evaluation of its performance. 
 % a systematic and reproducible evaluation of its performance is still lacking. 
 
@@ -123,26 +123,26 @@ Skin is a layered biological tissue structure which is considered a better defin
 % % In this work, we evaluate the two-layer model against the one-layer version
 % % %we have also evaluated alongside
 % % and also consider
-% % two other prominent single-layer tissue models (a modified Beer-Lambert model \cite{Clancy2015}, and a more elaborate Beer-Lambert-based model proposed by Jacques \cite{Jacques1999}).
-% % %\cite{Bahl2023a}.
+% % two other prominent single-layer tissue models (a modified Beer-Lambert model \citep{Clancy2015}, and a more elaborate Beer-Lambert-based model proposed by Jacques \citep{Jacques1999}).
+% % %\citep{Bahl2023a}.
 % % These one-layer models are conceptually better suited to open surgical cases where the tissue seen can be approximated as a single homogeneous layer
-% % and we refer the reader to our previous work for a head-to-head comparison in the single layer scenario \cite{Bahl2023a}.
+% % and we refer the reader to our previous work for a head-to-head comparison in the single layer scenario \citep{Bahl2023a}.
 
 Monte Carlo simulations may be used to model
 the interaction of light with
 both homogeneous and layered tissues
 % interactions with light of
 over a range of optical wavelengths.
-These simulations can be used to predict the diffuse reflectance spectrum of a tissue given known constituents. Whilst Monte Carlo is a well-established simulation approach, it is highly computationally challenging to use this to solve for the corresponding inverse problem. This inverse problem, however, is key to clinical translation where in vivo diffuse reflectance measurements of tissue can be obtained non-invasively, for example using hyperspectral imaging~\cite{Clancy2020}. Solving the inverse problem could allow for these measurements to be used to identify the constituent make-up of the sample being imaged. 
+These simulations can be used to predict the diffuse reflectance spectrum of a tissue given known constituents. Whilst Monte Carlo is a well-established simulation approach, it is highly computationally challenging to use this to solve for the corresponding inverse problem. This inverse problem, however, is key to clinical translation where in vivo diffuse reflectance measurements of tissue can be obtained non-invasively, for example using hyperspectral imaging~\citep{Clancy2020}. Solving the inverse problem could allow for these measurements to be used to identify the constituent make-up of the sample being imaged. 
 
 In this chapter, we aim to quantify the performance of the two-layer Yudovsky model by evaluating both the forwards model and inverse problem performance against a Monte Carlo dataset with known ground-truth parameters. The quality of the forwards model is quantified by evaluating the similarity of the predicted diffuse reflectance spectra to Monte Carlo simulated spectra using the same ground truth parameters. The fidelity of the parameter extraction is quantified by comparing the parameters generated by fitting to the Monte Carlo simulated spectra to the ground truth parameters used to generate the simulations.
 
-We also fit the two-layer model to experimental data made available by NIST~\cite{Cooksey2017}, and compare the extracted parameters to literature values. This allows us to evaluate the use of this model to solve the inverse problem.
+We also fit the two-layer model to experimental data made available by NIST~\citep{Cooksey2017}, and compare the extracted parameters to literature values. This allows us to evaluate the use of this model to solve the inverse problem.
 This leads to a thorough evaluation of the Yudovsky two-layer model and enables informed application to clinical settings. 
 
 \section{Methods}\label{sec:methods2}
 % \subsection{Single-layer models}\label{sec:methodtissuemodelsingle}
-% Three analytical models are compared in this work: modified Beer-Lambert \cite{Clancy2015}, Jacques 1999 \cite{Jacques1999}, and Yudovsky 2009 \cite{Yudovsky2009}. Each of these provide analytical models aiming to investigate single-layer, homogeneous, semi-infinite tissue to enable analysis of tissue during surgery. All three models contain hyperparameters to account for the impact of changes in refractive index which are fitted Monte Carlo simulations, where a single set of values is fitted to a dataset of 100 spectra using the ground truth tissue parameter values. \textcolor{red}{CITE 1LAYER PAPER}
+% Three analytical models are compared in this work: modified Beer-Lambert \citep{Clancy2015}, Jacques 1999 \citep{Jacques1999}, and Yudovsky 2009 \citep{Yudovsky2009}. Each of these provide analytical models aiming to investigate single-layer, homogeneous, semi-infinite tissue to enable analysis of tissue during surgery. All three models contain hyperparameters to account for the impact of changes in refractive index which are fitted Monte Carlo simulations, where a single set of values is fitted to a dataset of 100 spectra using the ground truth tissue parameter values. \textcolor{red}{CITE 1LAYER PAPER}
 
 % \subsubsection{Common absorption and scattering model}\label{sec:opticproperties}
 % All three forward models utilise the wavelength dependent absorption and reduced scattering coefficients ($\mu_a(\lambda)$ and $\mu_s'(\lambda)$) to compute a
@@ -152,13 +152,13 @@ This leads to a thorough evaluation of the Yudovsky two-layer model and enables 
 %     \mu_s'(\lambda) = \mu_s(\lambda) \times (1-g)
 %     \label{eq:reducedscattering}
 % \end{equation}
-% For biological tissue, the reduced scattering coefficient can be well approximated using Mie theory \cite{Jacques2013}: 
+% For biological tissue, the reduced scattering coefficient can be well approximated using Mie theory \citep{Jacques2013}: 
 % \begin{equation}
 %     \mu_s'(\lambda) = a(\frac{\lambda}{500})^{-b}
 %     \label{eq:Mie}
 % \end{equation}
-% where $a$ and $b$ are Mie scattering coefficients that range between 8\textrm{$cm^{-1}$} and 70\textrm{$cm^{-1}$}, and 0.1 and 3.3 respectively depending on the tissue microstructure \cite{Jacques2013}. 
-% The absorption coefficient of most internal, homogeneous, tissues, including dermis, is dominated by haemoglobin in the visible region (450-650 nm)\cite{JacquesAbs} and can be modelled using the following equation \cite{Yudovsky2009}: 
+% where $a$ and $b$ are Mie scattering coefficients that range between 8\textrm{$cm^{-1}$} and 70\textrm{$cm^{-1}$}, and 0.1 and 3.3 respectively depending on the tissue microstructure \citep{Jacques2013}. 
+% The absorption coefficient of most internal, homogeneous, tissues, including dermis, is dominated by haemoglobin in the visible region (450-650 nm)\citep{JacquesAbs} and can be modelled using the following equation \citep{Yudovsky2009}: 
 % \begin{equation}
 % \begin{aligned}
 %     & \mu_a(\lambda) = f_{blood}\mu_{a, blood}(\lambda) + (1 - f_{blood})\mu_{a, back}(\lambda) \\
@@ -169,8 +169,8 @@ This leads to a thorough evaluation of the Yudovsky two-layer model and enables 
 % \end{aligned}
 % \label{eq:mua}
 % \end{equation}
-% Here $StO_2$ refers to oxygen saturation, $c_{HbT}$ refers to the total concentration of haemoglobin in whole blood commonly taken as 150\textrm{$gL^{-1}$}\cite{Prahlb}, with $StO_2$ denoting the fraction of haemoglobin that is oxygenated ($HbO_2$) and the remainder is deoxygenated ($Hb$), and ranges between 0-100\%\cite{Yudovsky2009}. $f_{blood}$ is the volume fraction of tissue occupied by blood which has absorption coefficient $\mu_{a, blood}(\lambda)$ and typically ranges between 0.2-12\%\cite{Yudovsky2009}, with the remainder of tissue having background absorption $\mu_{a, back}(\lambda)$\cite{Yudovsky2009}.
-% Finally, $\epsilon_{HbO_2}(\lambda)$ and $\epsilon_{Hb}(\lambda)$ denotes the wavelength-dependent extinction coefficients of the chromophores $HbO_2$ and $Hb$ which are found in the literature\cite{Prahlb}. 
+% Here $StO_2$ refers to oxygen saturation, $c_{HbT}$ refers to the total concentration of haemoglobin in whole blood commonly taken as 150\textrm{$gL^{-1}$}\citep{Prahlb}, with $StO_2$ denoting the fraction of haemoglobin that is oxygenated ($HbO_2$) and the remainder is deoxygenated ($Hb$), and ranges between 0-100\%\citep{Yudovsky2009}. $f_{blood}$ is the volume fraction of tissue occupied by blood which has absorption coefficient $\mu_{a, blood}(\lambda)$ and typically ranges between 0.2-12\%\citep{Yudovsky2009}, with the remainder of tissue having background absorption $\mu_{a, back}(\lambda)$\citep{Yudovsky2009}.
+% Finally, $\epsilon_{HbO_2}(\lambda)$ and $\epsilon_{Hb}(\lambda)$ denotes the wavelength-dependent extinction coefficients of the chromophores $HbO_2$ and $Hb$ which are found in the literature\citep{Prahlb}. 
 
 % \subsubsection{Modified Beer-Lambert}
 % The modified Beer-Lambert models absorption ($A(\lambda)$) and diffuse reflectance ($R(\lambda)$) as follows: 
@@ -181,7 +181,7 @@ This leads to a thorough evaluation of the Yudovsky two-layer model and enables 
 % \end{aligned}
 % \label{eq:modBL1}
 % \end{equation}
-% A factor of 100 is included to convert $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ from the conventional units of cm\textrm{$^{-1}$} to mm\textrm{$^{-1}$}. $L$ describes a differential path length to account for the variety of photon path lengths through scattering media. To simplify this model, $L$ is often approximated to 1 \cite{Clancy2015} and $\mu_s'(\lambda)$ is often modelled as a wavelength-independent constant\cite{Clancy2015, Ma2016}. 
+% A factor of 100 is included to convert $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ from the conventional units of cm\textrm{$^{-1}$} to mm\textrm{$^{-1}$}. $L$ describes a differential path length to account for the variety of photon path lengths through scattering media. To simplify this model, $L$ is often approximated to 1 \citep{Clancy2015} and $\mu_s'(\lambda)$ is often modelled as a wavelength-independent constant\citep{Clancy2015, Ma2016}. 
 % To allow for improved flexibility in this model,
 % we introduce linear scaling hyperparameters ($M_{1-3}$), as shown in Equation \eqref{eq:modBL2}, that are fitted to Monte Carlo simulations at the refractive index of interest. 
 % \begin{equation}
@@ -193,7 +193,7 @@ This leads to a thorough evaluation of the Yudovsky two-layer model and enables 
 % \end{equation}
 
 % \subsubsection{Jacques 1999}
-% The Jacques model is also based on the Beer-Lambert model using the assumption that a wavlength-dependent path length $L(\lambda)$ can approximate the ensemble of path lengths experienced by photons in a tissue by $L(\lambda) = A(\lambda)\delta(\lambda)$ where $A(\lambda)$ and $\delta(\lambda)$ are defined in Equation \eqref{eq:Jacques}. This results in the following model with the hyperparameters ($M_{1-3}$) which the authors fit to Adding Doubling simulations \cite{Jacques1999}. In our work, we refit these to Monte Carlo simulations since these are considered the gold standard optical simulation method and improve the model fitting results. 
+% The Jacques model is also based on the Beer-Lambert model using the assumption that a wavlength-dependent path length $L(\lambda)$ can approximate the ensemble of path lengths experienced by photons in a tissue by $L(\lambda) = A(\lambda)\delta(\lambda)$ where $A(\lambda)$ and $\delta(\lambda)$ are defined in Equation \eqref{eq:Jacques}. This results in the following model with the hyperparameters ($M_{1-3}$) which the authors fit to Adding Doubling simulations \citep{Jacques1999}. In our work, we refit these to Monte Carlo simulations since these are considered the gold standard optical simulation method and improve the model fitting results. 
 % \begin{equation}
 % \begin{aligned}
 %     & N'(\lambda) = \frac{\mu_s'(\lambda)}{\mu_a(\lambda)} \\
@@ -207,7 +207,7 @@ This leads to a thorough evaluation of the Yudovsky two-layer model and enables 
 % \subsubsection{Yudovsky 2009}\label{sec:Yudovskysingle}
 % \subsection{Double-layer model}\label{sec:methodtissuemodeldouble}
 \subsection{Modelling diffuse reflectance of biological tissues}\label{sec:methodtissuemodeldouble}
-Throughout this work we will adopt the convention where the epidermal layer is numbered 1, with deeper layers labelled sequentially. This replicates the naming conventions of Yudovsky et al. in their original publication of this model~\cite{Yudovsky2009}. Here this corresponds to the epidermal layer being denoted 1 and the dermal layer 2. 
+Throughout this work we will adopt the convention where the epidermal layer is numbered 1, with deeper layers labelled sequentially. This replicates the naming conventions of Yudovsky et al. in their original publication of this model~\citep{Yudovsky2009}. Here this corresponds to the epidermal layer being denoted 1 and the dermal layer 2. 
 %
 \subsubsection{Common absorption and scattering model}\label{sec:opticproperties2}
 % The Yudovsky 2009 model utilises a wavelength dependent absorption and reduced scattering coefficient for each tissue layer, $\mu_a(\lambda)$ and $\mu_s'(\lambda)$ respectively, to compute a diffuse reflectance spectrum. 
@@ -217,15 +217,15 @@ As described in Chapter \ref{chap:1layer}, the forwards model for each layer uti
 %     \mu_s'(\lambda) = \mu_s(\lambda) \times (1-g)
 %     \label{eq:reducedscattering}
 % \end{equation}
-% For biological tissue, the reduced scattering coefficient can be well approximated using Mie theory \cite{Jacques2013}: 
+% For biological tissue, the reduced scattering coefficient can be well approximated using Mie theory \citep{Jacques2013}: 
 % \begin{equation}
 %     \mu_s'(\lambda) = a(\frac{\lambda}{500})^{-b}
 %     \label{eq:Mie}
 % \end{equation}
-% where $a$ and $b$ are Mie scattering coefficients that range between 8 cm$^{-1}$ and 70 cm$^{-1}$, and 0.1 and 3.3 respectively depending on the tissue microstructure \cite{Jacques2013}. 
+% where $a$ and $b$ are Mie scattering coefficients that range between 8 cm$^{-1}$ and 70 cm$^{-1}$, and 0.1 and 3.3 respectively depending on the tissue microstructure \citep{Jacques2013}. 
 Yudovsky et al. specify a single $\mu_s'(\lambda)$ to describe the scattering of both epidermis and dermis. 
 
-The absorption coefficient of most homogeneous tissues can be modelled by the sum of the wavelength-dependent absorption coefficients of each major component multiplied by their volume fractions~\cite{Jacques2013}. 
+The absorption coefficient of most homogeneous tissues can be modelled by the sum of the wavelength-dependent absorption coefficients of each major component multiplied by their volume fractions~\citep{Jacques2013}. 
 This can be seen in Equation \eqref{eq:generalmuaJacques} where $f$ is the volume fraction of each component $i$ with corresponding absorption coefficient $\mu_a(\lambda)$ at each wavelength $\lambda$. 
 \begin{equation}
     \mu_a = \sum_i{f_i\mu_{a, i}(\lambda)}
@@ -236,7 +236,7 @@ In this work we specify the major components to be blood, melanin, and a backgro
     \mu_a = f_{blood}\mu_{a, blood}(\lambda) + f_{mel}\mu_{a, mel}(\lambda) + (1 - f_{blood} - f_{mel})\mu_{a, back}(\lambda)
     \label{eq:generalmua}
 \end{equation}
-When modelling skin, it is necessary to use more than one layer due to the stark differences in optical and anatomical properties between the layers of skin~\cite{Mignon2018}. The epidermal layer absorption is dominated by the chromophore melanin and is largely devascularised so Equation \eqref{eq:generalmua} can be simplified to a two-component system as shown in Equation \eqref{eq:muaepi}~\cite{Yudovsky2009}.
+When modelling skin, it is necessary to use more than one layer due to the stark differences in optical and anatomical properties between the layers of skin~\citep{Mignon2018}. The epidermal layer absorption is dominated by the chromophore melanin and is largely devascularised so Equation \eqref{eq:generalmua} can be simplified to a two-component system as shown in Equation \eqref{eq:muaepi}~\citep{Yudovsky2009}.
 \begin{equation}
 \begin{aligned}
     & \mu_{a, 1}(\lambda) = f_{mel}\mu_{a, mel}(\lambda) + (1-f_{mel})\mu_{a, back}(\lambda) \\
@@ -247,7 +247,7 @@ When modelling skin, it is necessary to use more than one layer due to the stark
 \end{aligned}
 \label{eq:muaepi}
 \end{equation}
-The absorption coefficient of most internal, homogeneous, tissues, including dermis as in the Yudovsky 2009 formulation, is dominated by haemoglobin in the visible region, 450-650 nm~\cite{JacquesAbs} and has no contribution from melanin. This allows Equation \eqref{eq:generalmua} to be simplified to another two-component system as shown in Equation \eqref{eq:mua2}~\cite{Yudovsky2009} which is identical to that seen in Chapter \ref{chap:1layer}: 
+The absorption coefficient of most internal, homogeneous, tissues, including dermis as in the Yudovsky 2009 formulation, is dominated by haemoglobin in the visible region, 450-650 nm~\citep{JacquesAbs} and has no contribution from melanin. This allows Equation \eqref{eq:generalmua} to be simplified to another two-component system as shown in Equation \eqref{eq:mua2}~\citep{Yudovsky2009} which is identical to that seen in Chapter \ref{chap:1layer}: 
 \begin{equation}
 \begin{aligned}
     & \mu_{a, 2}(\lambda) = f_{blood} \mu_{a, blood}(\lambda) + (1 - f_{blood})\mu_{a, back}(\lambda) \\
@@ -260,24 +260,24 @@ The absorption coefficient of most internal, homogeneous, tissues, including der
 \end{equation}
 Here $StO_2$ refers to oxygen saturation
 and ranges between 0-100\%.
-$c_{HbT}$ refers to the total concentration of haemoglobin in whole blood commonly taken as 150 gL$^{-1}$~\cite{Prahl1999}.
+$c_{HbT}$ refers to the total concentration of haemoglobin in whole blood commonly taken as 150 gL$^{-1}$~\citep{Prahl1999}.
 % %With $StO_2$ denoting the fraction of haemoglobin that is oxygenated, $HbO_2$, and the remainder being deoxygenated, $Hb$,
-% %$StO_2$ ranges between 0-100\%\cite{Yudovsky2009}.
-% $f_{blood}$ is the volume fraction of tissue occupied by blood which has absorption coefficient $\mu_{a, blood}(\lambda)$ and typically ranges between 0.2-12\%\cite{Yudovsky2009}.
-% The remainder of tissue is modelled using a background absorption term $\mu_{a, back}(\lambda)$ which takes account of the impact of other chromophores in bulk tissue \cite{Yudovsky2009}.
-Finally, $\epsilon_{HbO_2}(\lambda)$ and $\epsilon_{Hb}(\lambda)$ denotes the wavelength-dependent extinction coefficients of the oxygenated and de-oxygenated haemoglobin chromophores $HbO_2$ and $Hb$ which are found in the literature~\cite{Prahl1999}. 
+% %$StO_2$ ranges between 0-100\%\citep{Yudovsky2009}.
+% $f_{blood}$ is the volume fraction of tissue occupied by blood which has absorption coefficient $\mu_{a, blood}(\lambda)$ and typically ranges between 0.2-12\%\citep{Yudovsky2009}.
+% The remainder of tissue is modelled using a background absorption term $\mu_{a, back}(\lambda)$ which takes account of the impact of other chromophores in bulk tissue \citep{Yudovsky2009}.
+Finally, $\epsilon_{HbO_2}(\lambda)$ and $\epsilon_{Hb}(\lambda)$ denotes the wavelength-dependent extinction coefficients of the oxygenated and de-oxygenated haemoglobin chromophores $HbO_2$ and $Hb$ which are found in the literature~\citep{Prahl1999}. 
 % Each of these layers has a distinct absorption coefficient $\mu_a(\lambda)$ and identical reduced scattering coefficient $\mu_s'(\lambda)$.
 % The epidermal 
 % %$\mu_a(\lambda)$ (
-% absorption coefficient $\mu_{a, 1}(\lambda)$ is modelled with the major chromophore melanin, characterised by its volume fraction $f_{mel}$ (ranging between 1-43\% \cite{Yudovsky2009}) and no blood, as described
+% absorption coefficient $\mu_{a, 1}(\lambda)$ is modelled with the major chromophore melanin, characterised by its volume fraction $f_{mel}$ (ranging between 1-43\% \citep{Yudovsky2009}) and no blood, as described
 % below:
 %in Equation~\eqref{eq:muaepi}. 
 
-The tissue parameters are restricted by Yudovsky to 20-100\% for $StO_2$, 0.2-7\% for $f_{blood}$~\cite{Yudovsky2011a} and we limit the scattering tissue parameters to 30-70cm$^{-1}$ and 0.7-2.5 for $a$ and $b$ respectively to reflect those of skin~\cite{Jacques2013}. 
+The tissue parameters are restricted by Yudovsky to 20-100\% for $StO_2$, 0.2-7\% for $f_{blood}$~\citep{Yudovsky2011a} and we limit the scattering tissue parameters to 30-70cm$^{-1}$ and 0.7-2.5 for $a$ and $b$ respectively to reflect those of skin~\citep{Jacques2013}. 
 
 \subsubsection{Layered model formulation for diffuse reflectance}\label{sec:Yudovsky2009}
-% The original Yudovsky model presents a complex analytical derivation \cite{Yudovsky2009} of a single-layer reflectance equation for each tissue layer with a simplified formulation subsequently presented in their Erratum \cite{Yudovsky2015}. The model takes the reduced albedo $w'(\lambda)$, calculated from $\mu_a$ and $\mu_s'$, as input and returns the diffuse reflectance spectra $R(\lambda)$.
-% This provides an easily applicable model with hyperparameters $M_{1-6}$ which are quoted for a refractive index $n$ of 1.44. We found that hyperparameters $M_{1-6}$ can be fitted to Monte Carlo spectra to allow for use with other refractive indices \cite{Bahl2023a}. The hyperparameters found by fitting to a Monte Carlo dataset with a refractive index of 1.44 are used throughout this work \cite{Bahl2023a}. This simplified formulation is used within this work:
+% The original Yudovsky model presents a complex analytical derivation \citep{Yudovsky2009} of a single-layer reflectance equation for each tissue layer with a simplified formulation subsequently presented in their Erratum \citep{Yudovsky2015}. The model takes the reduced albedo $w'(\lambda)$, calculated from $\mu_a$ and $\mu_s'$, as input and returns the diffuse reflectance spectra $R(\lambda)$.
+% This provides an easily applicable model with hyperparameters $M_{1-6}$ which are quoted for a refractive index $n$ of 1.44. We found that hyperparameters $M_{1-6}$ can be fitted to Monte Carlo spectra to allow for use with other refractive indices \citep{Bahl2023a}. The hyperparameters found by fitting to a Monte Carlo dataset with a refractive index of 1.44 are used throughout this work \citep{Bahl2023a}. This simplified formulation is used within this work:
 % \begin{equation}
 % \begin{aligned}
 %     & w'(\lambda) = \frac{\mu_s'(\lambda)}{\mu_a(\lambda) + \mu_s'(\lambda)} \\
@@ -286,7 +286,7 @@ The tissue parameters are restricted by Yudovsky to 20-100\% for $StO_2$, 0.2-7\
 % \label{eq:Yudovskysingle}
 % \end{equation} 
 % 
-The Yudovsky two-layer model is a complex interaction between two instances of the Yudovsky single-layer model~\cite{Yudovsky2009}, detailed in Section \ref{sec:Yudovskysingle}, applied to two layers~\cite{Yudovsky2009}. 
+The Yudovsky two-layer model is a complex interaction between two instances of the Yudovsky single-layer model~\citep{Yudovsky2009}, detailed in Section \ref{sec:Yudovskysingle}, applied to two layers~\citep{Yudovsky2009}. 
 These two layers represent the epidermis ($1$) and dermis ($2$), where the former has thickness $L_1$ and the latter is semi-infinite. $L_1$ is input to the model in units of cm, however it is discussed throughout in \textmu m for ease of interpretation.
 These single layer reflectances are then combined as in Equation \eqref{eq:Pilondouble} using a reduced reflectance ($R^*$) which is calculated using $L_1$, $w_{tr, 1}$, and $w_{tr,2}$ as 
 %in Equation \eqref{eq:reducedR}. 
@@ -300,12 +300,12 @@ shown below:
 \end{aligned}
 \label{eq:reducedR}
 \end{equation} 
-%Equation \eqref{eq:Pilondouble} returns the diffuse reflectance spectrum, however this can be converted to total reflectance by addition of a constant offset of 0.0325 for a refractive index of 1.44 (for tissues)\cite{Yudovsky2011a}.
+%Equation \eqref{eq:Pilondouble} returns the diffuse reflectance spectrum, however this can be converted to total reflectance by addition of a constant offset of 0.0325 for a refractive index of 1.44 (for tissues)\citep{Yudovsky2011a}.
 \begin{equation}
     R = R^*(R_{s1} - R_{s2}) + R_{s2}
 \label{eq:Pilondouble}
 \end{equation}
-Whilst Equation \eqref{eq:Pilondouble} returns diffuse reflectance values, Yudovsky et al. present a conversion to total reflectance ($R_{tot}$) values by addition of a wavelength independent specular reflectance ($R_{sp}$) term equalling 0.0325 for a refractive index of 1.44 as seen in Equation \eqref{eq:Pilontotal}~\cite{Yudovsky2011a}.
+Whilst Equation \eqref{eq:Pilondouble} returns diffuse reflectance values, Yudovsky et al. present a conversion to total reflectance ($R_{tot}$) values by addition of a wavelength independent specular reflectance ($R_{sp}$) term equalling 0.0325 for a refractive index of 1.44 as seen in Equation \eqref{eq:Pilontotal}~\citep{Yudovsky2011a}.
 \begin{equation}
     R_{tot} = R^*(R_{s1} - R_{s2}) + R_{s2} +R_{sp}
 \label{eq:Pilontotal}
@@ -318,14 +318,14 @@ This formulation for reflectance presented in Section \ref{sec:Yudovsky2009} ($R
     \label{eq:inverseproblem}
 \end{equation}
 This is fitted using a least squares fitting approach (using SciPy v1.10.0  \newline \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html}{\texttt{scipy.optimize.least\_squares}} function) which allows extraction of physiological parameters. 
-Yudovsky et al. note that this model is not suitable for wavelengths above 600 nm~\cite{Yudovsky2011a} and therefore only wavelengths below 600nm are considered for this analysis. Similarly, Yudovsky et al. present results using wavelengths above 450 nm so we utilise the same wavelength range. We have found that increasing the weighting in the region 525-585nm, ie. the region corresponding to the major haemoglobin peaks, improves the fit of this model in this region. The weighting function used can be seen in \figref{fig:weighting} and is used throughout this work, however we provide similar analyses of the data with a uniform wavelength weighting in the Appendices Section \ref{ap:2layeruniform}. 
+Yudovsky et al. note that this model is not suitable for wavelengths above 600 nm~\citep{Yudovsky2011a} and therefore only wavelengths below 600nm are considered for this analysis. Similarly, Yudovsky et al. present results using wavelengths above 450 nm so we utilise the same wavelength range. We have found that increasing the weighting in the region 525-585nm, ie. the region corresponding to the major haemoglobin peaks, improves the fit of this model in this region. The weighting function used can be seen in \figref{fig:weighting} and is used throughout this work, however we provide similar analyses of the data with a uniform wavelength weighting in the Appendices Section \ref{ap:2layeruniform}. 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{fitting_region}
     \caption{Relative weighting of wavelengths used for least squares fitting of the two-layer Yudovsky model. The wavelengths considered are limited to 450-600nm to replicate those recommended by Yudovsky et al. An increased weighting is placed on the wavelength range 525-585nm to improve the visual fitting of this region which contains the major haemoglobin peaks.}
     \label{fig:weighting}
 \end{figure}
-Bounds are also imposed on the least squares fitting routine to ensure the fitted parameters are feasible and within a biologically relevant range for skin~\cite{Yudovsky2009, Jacques2013} such that:
+Bounds are also imposed on the least squares fitting routine to ensure the fitted parameters are feasible and within a biologically relevant range for skin~\citep{Yudovsky2009, Jacques2013} such that:
 \begin{itemize}
     \item 30cm$^{-1}$ $<=$ $a$ $<=$ 70cm$^{-1}$
     \item 0.7 $<= b <=$ 2.5
@@ -334,28 +334,28 @@ Bounds are also imposed on the least squares fitting routine to ensure the fitte
     \item 1\% $<= f_{mel} <=$ 43\% 
     \item 20{\textmu}m $<= L_1 <=$ 150{\textmu}m
 \end{itemize}
-Often in clinical settings it is difficult to obtain precise quantitative data and so relative data is used instead~\cite{Bahl2023}. For the
+Often in clinical settings it is difficult to obtain precise quantitative data and so relative data is used instead~\citep{Bahl2023}. For the
 purposes of this work, we define relative data to be mean normalised spectra using the mean of all wavelengths in the range 450-600nm which can be applied to both $R$ and the simulated or measured data. 
 %
-%Often in clinical settings it is difficult to obtain precise quantitative data and so relative data is used instead\cite{Bahl2023}. For the purposes of this work, we define relative data to be mean normalised spectra using the mean of all wavelengths below 600nm. 
+%Often in clinical settings it is difficult to obtain precise quantitative data and so relative data is used instead\citep{Bahl2023}. For the purposes of this work, we define relative data to be mean normalised spectra using the mean of all wavelengths below 600nm. 
 
 \subsection{Reference spectra}\label{sec:methodreference2}
 %100
 \subsubsection{Simulated dataset}
 Similarly to Section \ref{sec:methodreference}, one hundred
 Monte Carlo simulations are generated by selecting random values for the variables $a$, $b$, $StO_2$, $f_{blood}$, $f_{mel}$, and $L_1$ within the bounds detailed in Section \ref{sec:methodinverse}.
-%which are bounded to 30-70 cm$^{-1}$, 0.7-2.5, 20-100\%, 0.2-7\%, 1-43\%, and 20-150 {\textmu}m respectively to represent the range seen in skin \cite{Jacques2013, Yudovsky2009}.
-These are converted to $\mu_a$ and $\mu_s'$ values as in \secref{sec:opticproperties2}. Monte Carlo takes $\mu_a$ and $\mu_s$ as inputs for each layer so a random value of $g$ is chosen per spectrum between 0.7-0.9 to convert $\mu_s'$ to $\mu_s$ using Equation \eqref{eq:reducedscattering}. The diffuse reflectance spectra are then generated using CUDAMCML~\cite{Alerstam2008}, a GPU accelerated adaptation of the MCML programme for MC simulations of layered media with semi-infinite widths~\cite{Wang1995, Prahl1989}, to propagate 10000 photons through a geometry of a slab of thickness $L_1$ of epidermis with optical properties $\mu_{a,1}$ and $\mu_s'$ and a 3cm slab of dermis with optical properties $\mu_{a, 2}$ and $\mu_s'$. This depth is chosen to approximate a semi-infinite depth; for many tissues, the impact of increasing the depth of tissue is negligible beyond depths of 1 cm~\cite{Zhang2014}. When fitting models to these spectra for parameter extraction, the same bounds are imposed on the fitting routine. 
+%which are bounded to 30-70 cm$^{-1}$, 0.7-2.5, 20-100\%, 0.2-7\%, 1-43\%, and 20-150 {\textmu}m respectively to represent the range seen in skin \citep{Jacques2013, Yudovsky2009}.
+These are converted to $\mu_a$ and $\mu_s'$ values as in \secref{sec:opticproperties2}. Monte Carlo takes $\mu_a$ and $\mu_s$ as inputs for each layer so a random value of $g$ is chosen per spectrum between 0.7-0.9 to convert $\mu_s'$ to $\mu_s$ using Equation \eqref{eq:reducedscattering}. The diffuse reflectance spectra are then generated using CUDAMCML~\citep{Alerstam2008}, a GPU accelerated adaptation of the MCML programme for MC simulations of layered media with semi-infinite widths~\citep{Wang1995, Prahl1989}, to propagate 10000 photons through a geometry of a slab of thickness $L_1$ of epidermis with optical properties $\mu_{a,1}$ and $\mu_s'$ and a 3cm slab of dermis with optical properties $\mu_{a, 2}$ and $\mu_s'$. This depth is chosen to approximate a semi-infinite depth; for many tissues, the impact of increasing the depth of tissue is negligible beyond depths of 1 cm~\citep{Zhang2014}. When fitting models to these spectra for parameter extraction, the same bounds are imposed on the fitting routine. 
 
 \subsubsection{Measured dataset}
-An existing NIST reflectance dataset made available by Cooksey et al.~\cite{Cooksey2017} is chosen to evaluate the model's performance on in vivo skin measurements. This dataset measured total reflectance from the forearms of 100 healthy volunteers using an integrating sphere spectrophotometer~\cite{Cooksey2017}. Three replicates were measured of which we utilise the mean for each volunteer to create the reference set of 100 spectra used for this work. This dataset is one of the few, or only, open access skin reflectance datasets and is chosen due to the high quality spectral measurement using a controlled integrating sphere measurement protocol. There are, however, no associated ground truth composition parameters for the subjects measured in this study. We also normalise this data by the mean of the wavelengths in the region 450-600nm to construct relative measured data for investigation. 
+An existing NIST reflectance dataset made available by Cooksey et al.~\citep{Cooksey2017} is chosen to evaluate the model's performance on in vivo skin measurements. This dataset measured total reflectance from the forearms of 100 healthy volunteers using an integrating sphere spectrophotometer~\citep{Cooksey2017}. Three replicates were measured of which we utilise the mean for each volunteer to create the reference set of 100 spectra used for this work. This dataset is one of the few, or only, open access skin reflectance datasets and is chosen due to the high quality spectral measurement using a controlled integrating sphere measurement protocol. There are, however, no associated ground truth composition parameters for the subjects measured in this study. We also normalise this data by the mean of the wavelengths in the region 450-600nm to construct relative measured data for investigation. 
 \FloatBarrier
 
 \subsection{Evaluation of model performance}\label{sec:methodevaluate2}
 Throughout this chapter the evaluation methods are performed on both quantitative and relative spectra, where the relative spectra are generated by normalisation using the mean taken from the range 450-600nm.
 \subsubsection{Simulated dataset}
 The forwards model and inverse problem is evaluated against diffuse reflectance spectra generated using Monte Carlo simulations detailed in \secref{sec:methodreference2} in a similar manner to those in Section \ref{sec:methodevaluate}. 
-%%This model is evaluated against reference spectra with known ground truth parameters generated using Monte Carlo as detailed in \secref{sec:methodreference}, and experimental data as provided by a NIST skin dataset\cite{Cooksey2017}, which does not have known ground truth parameters. 
+%%This model is evaluated against reference spectra with known ground truth parameters generated using Monte Carlo as detailed in \secref{sec:methodreference}, and experimental data as provided by a NIST skin dataset\citep{Cooksey2017}, which does not have known ground truth parameters. 
 %
 % The similarity of each diffuse reflectance spectrum predicted using the forward Yudovsky 2009 model ($s$) and the corresponding spectrum generated using Monte Carlo simulation ($r$) using the same ground truth physiological parameters at all wavelengths ($\lambda$) are quantified using the Normalised Root Mean Squared Error ($NRMSE$):
 % %, defined in Equation \eqref{eq:NRMSE}.
@@ -372,7 +372,7 @@ The forwards model and inverse problem is evaluated against diffuse reflectance 
 To demonstrate the regions of parameter space where the Yudovsky two-layer model varies in performance quality, for each combination of absorbance parameters (and one set of scattering parameters) 10 Monte Carlo diffuse reflectance spectra are simulated where the $StO_2$ is varied between 0 and 100\% and scattering parameters are fixed. The Yudovsky two-layer model is fitted to each of these Monte Carlo spectra and a linear regression is fitted between the extracted and input $StO_2$. The $r$ value is then plotted in the remaining 3D parameter space ($f_{blood}$, $f_{mel}$, $L_1$) and coloured by value.
 
 \subsubsection{Measured dataset}
-The inverse problem can also be applied to the NIST skin dataset~\cite{Cooksey2017}. The model is fit to the total reflectance spectra in the NIST skin dataset. As there are no ground truth parameters available for this dataset, the recovered parameters from these 100 spectra are simply visualised as box and violin plots to compare to literature values for healthy individuals~\cite{Jacques2013, VanManen2021, Nishidate2011, Lintzeri2022}. \citenum{VanManen2021} uses a modified Beer-Lambert-based model to analyse HSI images of skin using spatial regularisation, whereas \citenum{Nishidate2011} uses a deep learning model trained using 3-layer Monte Carlo skin difuse reflectance simulations to analyse RGB images of skin. 
+The inverse problem can also be applied to the NIST skin dataset~\citep{Cooksey2017}. The model is fit to the total reflectance spectra in the NIST skin dataset. As there are no ground truth parameters available for this dataset, the recovered parameters from these 100 spectra are simply visualised as box and violin plots to compare to literature values for healthy individuals~\citep{Jacques2013, VanManen2021, Nishidate2011, Lintzeri2022}. \citet{VanManen2021} uses a modified Beer-Lambert-based model to analyse HSI images of skin using spatial regularisation, whereas \citet{Nishidate2011} uses a deep learning model trained using 3-layer Monte Carlo skin difuse reflectance simulations to analyse RGB images of skin. 
 %\FloatBarrier
 
 \section{Results}\label{sec:results2}
@@ -450,8 +450,8 @@ Graphs shown in \figref{fig:egparamsfailureMC} (quantitative) and \figref{fig:eg
 \FloatBarrier
 
 \subsection{NIST}\label{sec:resultsNIST}
-The Yudovsky two-layer model is fitted to a NIST skin total reflectance dataset. %The weighting function in \figref{fig:weighting} is used to ensure good fitting and a refractive index of 1.44 is assumed for tissue in the visible range \cite{Yudovsky2009}. 
-There are no ground truth parameters for these measured spectra, however the $a$, $b$, $StO_2$, $f_{blood}$, $f_{mel}$, and $L_1$ parameters are extracted and the mean ($\pm$ standard deviation) is compared to expected values for healthy individuals~\cite{Jacques2013, VanManen2021, Nishidate2011, Lintzeri2022} in \tabref{tb:NISTparams} for quantitative (Q) and relative (R) data. This demonstrates that overall fitting to relative data performs better than quantitative data, however neither is able to recover $StO_2$ well. 
+The Yudovsky two-layer model is fitted to a NIST skin total reflectance dataset. %The weighting function in \figref{fig:weighting} is used to ensure good fitting and a refractive index of 1.44 is assumed for tissue in the visible range \citep{Yudovsky2009}. 
+There are no ground truth parameters for these measured spectra, however the $a$, $b$, $StO_2$, $f_{blood}$, $f_{mel}$, and $L_1$ parameters are extracted and the mean ($\pm$ standard deviation) is compared to expected values for healthy individuals~\citep{Jacques2013, VanManen2021, Nishidate2011, Lintzeri2022} in \tabref{tb:NISTparams} for quantitative (Q) and relative (R) data. This demonstrates that overall fitting to relative data performs better than quantitative data, however neither is able to recover $StO_2$ well. 
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
@@ -474,7 +474,7 @@ There are no ground truth parameters for these measured spectra, however the $a$
         \caption{Relative}
         \label{fig:egparamStO2NISTnorm}
     \end{subfigure}
-    \caption{Top: Examples of the Yudovsky 2009 two-layer model fitted to NIST skin total reflectance spectra (\figref{fig:egspectraNIST}) for quantitative (left) or relative (right) data. Bottom: Box and violin plots displaying the retrieved $StO_2$ parameters from fitting the Yudovsky 2009 two-layer model to the mean NIST skin spectra, where the triangle shows the mean of the fitted $StO_2$ and the circle shows a literature healthy dermis $StO_2$ value~\cite{VanManen2021} for quantitative (left) or relative (right) data.}
+    \caption{Top: Examples of the Yudovsky 2009 two-layer model fitted to NIST skin total reflectance spectra (\figref{fig:egspectraNIST}) for quantitative (left) or relative (right) data. Bottom: Box and violin plots displaying the retrieved $StO_2$ parameters from fitting the Yudovsky 2009 two-layer model to the mean NIST skin spectra, where the triangle shows the mean of the fitted $StO_2$ and the circle shows a literature healthy dermis $StO_2$ value~\citep{VanManen2021} for quantitative (left) or relative (right) data.}
     \label{fig:NIST}
 \end{figure}
 \begin{table}[h]
@@ -512,16 +512,16 @@ Examples of the fitted model to some NIST spectra and box plots overlaid with a 
 \FloatBarrier
 
 \section{Discussion and Future Work}\label{sec:discussion2}
-Whilst the Yudovsky single-layer model has shown excellent spectral prediction in our previous work~\cite{Bahl2023a}, this quality cannot be replicated by the Yudovsky two-layer model when compared with two-layer Monte Carlo simulations. It is clear that there is significant variability in the performance of the two-layer Yudovsky model. This is noted both in the variability of fits to the Monte Carlo spectra and quality of the parameter extraction. The Yudovskly two-layer model spectral prediction is vastly improved when modelling relative data compared to quantitative data as shown by the reduction in $NRMSE$ and the visual fits, however this improvement is not clearly seen in parameter extraction from the Monte Carlo data. The most robust parameter extraction from this model is for $StO_2$. Leveraging this, the weaknesses of this model can be shown to be in regions of high $L_1$, high $f_{mel}$, and low $f_{blood}$. This follows intuition that in regions where the melanin impact in the epidermis is significant, it "masks" a low haemoglobin impact from the dermis. For this reason, this model should be used with caution as it has limited use in the region of failure identified.
+Whilst the Yudovsky single-layer model has shown excellent spectral prediction in our previous work~\citep{Bahl2023a}, this quality cannot be replicated by the Yudovsky two-layer model when compared with two-layer Monte Carlo simulations. It is clear that there is significant variability in the performance of the two-layer Yudovsky model. This is noted both in the variability of fits to the Monte Carlo spectra and quality of the parameter extraction. The Yudovskly two-layer model spectral prediction is vastly improved when modelling relative data compared to quantitative data as shown by the reduction in $NRMSE$ and the visual fits, however this improvement is not clearly seen in parameter extraction from the Monte Carlo data. The most robust parameter extraction from this model is for $StO_2$. Leveraging this, the weaknesses of this model can be shown to be in regions of high $L_1$, high $f_{mel}$, and low $f_{blood}$. This follows intuition that in regions where the melanin impact in the epidermis is significant, it "masks" a low haemoglobin impact from the dermis. For this reason, this model should be used with caution as it has limited use in the region of failure identified.
 
-Whilst this model appears to fit well to NIST skin experimental data when using a least-squares fitting routine, the parameters it returns are largely different to previous literature values for healthy individuals. The dermal layer is modelled identically to the single layer model which has been shown to perform well with well-characterised experimental data~\cite{Bahl2023a}, suggesting that there are interactions between layers, biological components that are not appropriately accounted for, or that the optical properties of these tissue types are not well characterised.  
+Whilst this model appears to fit well to NIST skin experimental data when using a least-squares fitting routine, the parameters it returns are largely different to previous literature values for healthy individuals. The dermal layer is modelled identically to the single layer model which has been shown to perform well with well-characterised experimental data~\citep{Bahl2023a}, suggesting that there are interactions between layers, biological components that are not appropriately accounted for, or that the optical properties of these tissue types are not well characterised.  
 
-This work should be viewed in light of it's limitations which include the lack of ground-truth parameters for the NIST skin dataset. It is challenging to obtain reliable ground-truth values for any in-vivo skin measurements so the results from this model's parameter extraction cannot be quantitatively evaluated easily. The $StO_2$ extraction methodologies used to obtain the quoted literature values are also associated with some limitations. \citenum{Nishidate2011} trained a deep learning model using Monte Carlo simulations, however these simulations use a fixed layer thickness for epidermis and dermis and a single wavelength-dependent reduced scattering coefficient which may cause inaccuracies in the recovered physiological parameters from the in vivo data since these values are not fixed in biological samples. This deep learning model is also trained on noiseless simulations and, whilst the in vivo data was processed to reduce noise, some may remain. \citenum{VanManen2021}, however, uses a modified Beer-Lambert-based model which simplifies the modelling of the anatomically layered structure of skin to a single layer. In both cases, these methods have not been validated with phantoms with known ground-truth so the precision and accuracy of the extracted parameters are unknown. For this reason, these comparisons may be flawed and further research using phantoms with known ground-truth values should be conducted.
+This work should be viewed in light of it's limitations which include the lack of ground-truth parameters for the NIST skin dataset. It is challenging to obtain reliable ground-truth values for any in-vivo skin measurements so the results from this model's parameter extraction cannot be quantitatively evaluated easily. The $StO_2$ extraction methodologies used to obtain the quoted literature values are also associated with some limitations. \citet{Nishidate2011} trained a deep learning model using Monte Carlo simulations, however these simulations use a fixed layer thickness for epidermis and dermis and a single wavelength-dependent reduced scattering coefficient which may cause inaccuracies in the recovered physiological parameters from the in vivo data since these values are not fixed in biological samples. This deep learning model is also trained on noiseless simulations and, whilst the in vivo data was processed to reduce noise, some may remain. \citet{VanManen2021}, however, uses a modified Beer-Lambert-based model which simplifies the modelling of the anatomically layered structure of skin to a single layer. In both cases, these methods have not been validated with phantoms with known ground-truth so the precision and accuracy of the extracted parameters are unknown. For this reason, these comparisons may be flawed and further research using phantoms with known ground-truth values should be conducted.
 
 In conclusion, this work demonstrates that the two-layer Yudovsky model does not perform with the same quality as the single-layer model. Combining this with the parameters extracted from the NIST dataset which do not correspond to other literature values and the failure regions depicted, demonstrates that this model should be used with caution. 
 
 Future work should include investigation of the epidermis, similarly to investigation of the single-layer models with the dermis, and interaction between the layers to improve this model. This model could also be tested with layered tissue-mimicking optical phantoms with known ground truth parameters to allow full quantitative evaluation of the model performance with experimental data. 
-%After improvement of the performance with experimental data, this model could be adapted for use with hyperspectral imaging cameras which may not have as densely sampled spectra, as these have been shown to be likely methods of obtaining these diffuse reflectance spectra intra-operatively \cite{Clancy2020}. 
+%After improvement of the performance with experimental data, this model could be adapted for use with hyperspectral imaging cameras which may not have as densely sampled spectra, as these have been shown to be likely methods of obtaining these diffuse reflectance spectra intra-operatively \citep{Clancy2020}. 
 
 In the context of this thesis, this model would be relevant for use within the brain. Here some of the layered structures may not have absorbing chromophores as powerful as melanin, e.g. Pia Mater, so it is more likely the parameters of these tissues will lie within the successful region of parameter space where both layers can be characterised well. For this reason this model is investigated further in Chapter \ref{chap:HSImodel}, however future work should include the exclusion of highly absorbing upper layers for this work. 
 
@@ -616,7 +616,7 @@ This section presents a similar inverse problem fitting analysis to the results 
         \caption{Relative}
         \label{fig:egparamStO2NISTnormu}
     \end{subfigure}
-    \caption{Top: Examples of the Yudovsky 2009 two layer model fitted to NIST skin total reflectance spectra (\figref{fig:egspectraNIST}) for quantitative (left) or relative (right) data. Bottom: Box and violin plots displaying the retrieved $StO_2$ parameters from fitting the Yudovsky 2009 two layer model to the mean NIST skin spectra, where the triangle shows the mean of the fitted $StO_2$ and the circle shows a literature healthy dermis $StO_2$ value \cite{VanManen2021} for quantitative (left) or relative (right) data.}
+    \caption{Top: Examples of the Yudovsky 2009 two layer model fitted to NIST skin total reflectance spectra (\figref{fig:egspectraNIST}) for quantitative (left) or relative (right) data. Bottom: Box and violin plots displaying the retrieved $StO_2$ parameters from fitting the Yudovsky 2009 two layer model to the mean NIST skin spectra, where the triangle shows the mean of the fitted $StO_2$ and the circle shows a literature healthy dermis $StO_2$ value \citep{VanManen2021} for quantitative (left) or relative (right) data.}
     \label{fig:NISTuniform}
 \end{figure}
 \begin{table}[h]
