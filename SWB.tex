@@ -6,9 +6,9 @@
 \begin{minipage}[b]{0.9\linewidth}
 \small
 \textbf{Foreword\,}
-This chapter is an \emph{in extenso} reproduction of \citet{Bahl2023} and has formed the basis of patent application 2309106.9. 
+This chapter is an \emph{in extenso} reproduction of \citet{Bahl2023} and has formed the basis of the patent application 2309106.9. 
 \newline
-AB identified the separable spatial and spectral model, utilised this to create a synthetic white balancing algorithm, collected the testing dataset of the coloured checkerboard target, and evaluated the algorithm in this contexts under the supervision of TV, MB, and JS. JS identified the sterile ruler as a potential imaging target. AB and OM collected the cadaveric hyperspectral data which was analysed utilising the algorithm by AB. CH developed the sRGB reconstruction algorithms and some of the software toolkit used for data processing. MJ aided AB in the conception of the utilisation of the temporal hypercube in the algorithm, this was then developed by AB. PN developed the core of the software used to capture hyperspectral data. This was combined by AB with the software developed by MH for maneuvering the seven degree of freedom robot. The cadaveric procedure was facilitated by NC and PF as part of the FAROS project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 101016985. The light source spectra were measured by JQ and the spectrometer set-up used for this was developed by YX. 
+AB identified the separable spatial and spectral model, utilised this to create a synthetic white balancing algorithm, collected the testing dataset of the coloured checkerboard target, and evaluated the algorithm in this context under the supervision of TV, MB, and JS. JS identified the sterile ruler as a potential imaging target. AB and OM collected the cadaveric hyperspectral data which was analysed utilising the algorithm by AB. CH developed the sRGB reconstruction algorithms and some of the software toolkit used for data processing. MJ aided AB in the conception of the utilisation of the temporal hypercube in the algorithm, this was then developed by AB. PN developed the core of the software used to capture hyperspectral data. This was combined by AB with the software developed by MH for maneuvering the seven degree of freedom robot. The cadaveric procedure was facilitated by NC and PF as part of the FAROS project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 101016985. The light source spectra were measured by JQ and the spectrometer set-up used for this was developed by YX. 
 \end{minipage}
 \end{center}
 
@@ -103,7 +103,7 @@ Chapter \ref{chap:intro} also discusses that not all HSI approaches are able to 
 
 To enable physiological parameter extraction from any of these imaging methods, accurate spectra must be extracted from hyperspectral images. This requires white balancing as an initial step. White balancing uses a white and dark reference to account for lighting conditions, vignetting, and optical transmission through the set-up.
 The white reference image is typically taken using a well characterized, uniform, highly reflective, Lambertian surface~\citep{Lu2014}.
-However existing established references, such as 95\% reflective Spectralon tiles, cannot be sterilized and are very sensitive, making them challenging to integrate in a surgical environment.
+However existing established references, such as 95\% reflective Spectralon tiles, cannot be sterilized and are very sensitive, making them challenging to integrate into a surgical environment.
 This necessitates that the white reference is acquired outside 
 %
 of the surgical field, resulting in different imaging conditions relative to the subject.
@@ -149,7 +149,7 @@ To capture data in a controlled laboratory environment, allowing quantitative in
 This is shown in \figref{fig:setup}a. A colored checkerboard target (datacolor, Spyder Checkr, UK), where each tile has a well characterized measured spectrum, is imaged at each distance and shown in \figref{fig:setup}b. 
 
 For seamless integration to the intraoperative environment, the camera is used in a handheld configuration with a Xenon light source (Karl Storz Endoscopy, Xenon Nova 300, UK) whose area normalized emission spectrum can also be seen in \figref{fig:setup}d. A standard Red, Green, Blue (sRGB) reconstruction of an image of a snipped section of this ruler on tissue using this handheld system is shown in \figref{fig:setup}e.
-\begin{figure}[htb]
+\begin{figure}[h!]
         \centering
         \includegraphics[width=0.99\textwidth]{Figure1}
         \hspace{2mm}
@@ -184,7 +184,7 @@ For seamless integration to the intraoperative environment, the camera is used i
 	\caption{(a) Hyperspectral imaging setup mounted to Kuka robot, (b) the colored checkerboard used to provide a variety of well characterized spectra, (c) the sterile ruler used to construct synthetic references, (d) the spectra of the Karl Storz D light C, Karl Storz power LED 300, and Karl Storz Xenon Nova 300 light sources, alongside (e) an sRGB reconstruction of an image of a snipped section of a ruler against tissue taken with the handheld hyperspectral imaging setup whose field of view is cropped due to the scope.}
 	\label{fig:setup}
 \end{figure}
-
+% \FloatBarrier
 
 %
 \subsection{Estimating reflectance from hyperspectral data}
@@ -218,7 +218,7 @@ Given the demosaiced data, this is combined to form a full white balancing step:
 where $i$ and $j$ are the spatial co-ordinates and $n$ is the spectral co-ordinate in the uncorrected image $I$, white reference $W$, dark reference $D$, and white-balanced reflectance estimate $R$ hypercubes respectively.
 $\tau_I$, $\tau_W$, and $\tau_D$ describe the exposure time used for acquisition of each of the above, and $\rho_n$ is the bandwise reflectivity of the white reference.
 
-To optimize computational performance, white balancing can be performed on the raw mosaic images before demosaicing. When using established white reference materials, the reflectivity $\rho_n$ of each band can be assumed to be a constant $\rho$. These conditions simplify \eqref{eq:WBfull} to:
+To optimize computational performance, white balancing can be performed on the raw mosaic images before demosaicing. When using established white reference materials, the reflectivity $\rho_n$ of each band can be assumed to be a constant $\rho$. These conditions simplify Equation~\eqref{eq:WBfull} to:
 %
 \begin{linenomath*}
 \begin{equation}
@@ -227,9 +227,9 @@ To optimize computational performance, white balancing can be performed on the r
 \end{equation}
 \end{linenomath*}
 where the superscript $m$ denotes mosaic images with the spatio-spectral coordinates $x$ and $y$.
-In \eqref{eq:WB}, spectral bands are implicitly indexed by the spatial coordinates $i$ and $j$ as each pixel in a snapshot mosaic sensor only captures a single spectral band.
+In Equation~\eqref{eq:WB}, spectral bands are implicitly indexed by the spatial coordinates $i$ and $j$ as each pixel in a snapshot mosaic sensor only captures a single spectral band.
 
-In the remainder of this section, we focus on the denominator in \eqref{eq:WBfull} or \eqref{eq:WB}.
+In the remainder of this section, we focus on the denominator in Equations~\eqref{eq:WBfull} or \eqref{eq:WB}.
 For brevity, empirically obtained images or videos will be assumed to be exposure corrected and dark corrected before use, whereas reflectivity correction will be discussed in detail in \secref{algorithmreflectivity}.
 We also assume that demosaicing and spectral crosstalk correction as per \citet{Pichette2017} is applied throughout.
 
@@ -385,7 +385,7 @@ An overview of the resulting computational pipeline to convert a short video of 
 %     
 %    
 % 
-\begin{figure}[htb]
+\begin{figure}[h!]
 	\centering
 	% \begin{subfigure}[htb]{\textwidth}
 	%     \includegraphics[width=\textwidth]{Figure2a}
@@ -483,11 +483,11 @@ In the generation of synthetic references, this correction is performed on a com
 %\FloatBarrier
 \subsubsection{Separable model parameter fitting}
 \label{algorithmparameters}
-A variety of methods can be used to calculate the factors in \eqref{eq:modelling white references}. We present three options which vary in their modelling of the vignetting, and whether the spectral sensitivities and scalar factor are fitted jointly or sequentially. For simplicity, we present the methods given a measured white reference $W(i,j,n)$ as input although they can also be applied to a composite white reference $W^{\textrm{c}}(i,j,n)$.
+A variety of methods can be used to calculate the factors in Equation~\eqref{eq:modelling white references}. We present three options which vary in their modelling of the vignetting, and whether the spectral sensitivities and scalar factor are fitted jointly or sequentially. For simplicity, we present the methods given a measured white reference $W(i,j,n)$ as input although they can also be applied to a composite white reference $W^{\textrm{c}}(i,j,n)$.
 
 \paragraph{Vignetting modelled non-parametrically}
 The first method only makes use of the separability assumption, models the vignetting as a non-parametric function, and calculates the spectral sensitivities and scalar factor. Since vignetting is modelled as independent of wavelength, it should be identical for all bands.
-Making use of our convention that $\frac{1}{N} \sum_{n}S(n) = 1$, and assuming a zero mean noise pattern $N(i,j,n)$, we find that, up to residual noise, \eqref{eq:modelling white references} leads to:
+Making use of our convention that $\frac{1}{N} \sum_{n}S(n) = 1$, and assuming a zero mean noise pattern $N(i,j,n)$, we find that, up to residual noise, Equation~\eqref{eq:modelling white references} leads to:
 %
 %
 \begin{linenomath*}
@@ -516,7 +516,7 @@ Finally, spectral sensitivities can be estimated by:
 \end{equation}
 \end{linenomath*}
 %
-This method accounts for imperfections in the system such as dust on lenses more appropriately, however it is also more likely to retain imperfections from the input reference, for example artefacts in the compositing process. It is this \eqref{eq:nonpara2} that is used to calculate the spectral sensitivities for balancing of relative data as in \figref{fig:algorithm}b.
+This method accounts for imperfections in the system such as dust on lenses more appropriately, however it is also more likely to retain imperfections from the input reference, for example artefacts in the compositing process. It is this Equation~\eqref{eq:nonpara2} that is used to calculate the spectral sensitivities for balancing of relative data as in \figref{fig:algorithm}b.
 
 \paragraph{Vignetting modelled with a Gaussian function}
 Alternatively, a parametric model can be used to capture the vignetting.
@@ -600,7 +600,7 @@ The radius is reduced to 90\% of its original size to discount edge effects. Thi
 \subsubsection{Balancing using only spectral sensitivity for relative data}
 \label{algorithmrelative}
 For some use cases, absolute reflectance information $R(i,j,n)$ is not required so relative data is sufficient as described in \secref{intro}.
-When normalising the spectral data at each pixel after \eqref{eq:WBfull} using \newline $R^{\textrm{norm}}(i,j,n) = R(i,j,n) / \frac{1}{N}\sum_{n'}|R(i,j,n')|$, the spatial effects of the vignetting $V(i,j)$ and absolute intensity information arising from $M$ is lost.
+When normalising the spectral data at each pixel after Equation~\eqref{eq:WBfull} using \newline $R^{\textrm{norm}}(i,j,n) = R(i,j,n) / \frac{1}{N}\sum_{n'}|R(i,j,n')|$, the spatial effects of the vignetting $V(i,j)$ and absolute intensity information arising from $M$ is lost.
 In this context, only spectral sensitivities are required for white balancing.
 Dismissing the effect of dark images for simplicity, this is performed as follows:
 \begin{linenomath*}

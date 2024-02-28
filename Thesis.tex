@@ -32,6 +32,7 @@
 \usepackage{natbib}
 \usepackage{bibentry}
 \usepackage{appendix}
+% \usepackage{minitoc}
 \nobibliography*
 % \linenumbers
 \bibliographystyle{apalike}
@@ -85,7 +86,7 @@
 \include{TitlePageKCL}
 %\include{TitlePageUCL}
 
-\dominitoc
+% \dominitoc
 
 \copyrightpage{\the\year}{\theauthor}
 \declarationpage{\theauthor}
@@ -103,6 +104,7 @@
 \input{Acknowledgments}
 
 \cleardoublepage
+\addcontentsline{toc}{chapter}{List of publications}
 \chapter*{List of publications}
 \input{List_of_Publications}
 
@@ -112,13 +114,15 @@
 % KCL and UCL want a list of tables and figures
 \clearpage
 \addcontentsline{toc}{chapter}{List of Tables}
+\adjustmtc
 \listoftables
 \clearpage
 \addcontentsline{toc}{chapter}{List of Figures}
+\adjustmtc
 \listoffigures
 
 \mainmatter
-
+\adjustmtc
 \include{Introduction}
 
 \include{SWB}
