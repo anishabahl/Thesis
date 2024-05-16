@@ -5,27 +5,28 @@
 \textbf{Foreword\,}
 This chapter is as yet unpublished. 
 \newline
-AB has conducted all of the research presented in this chapter under the supervision of JS, MB, and TV. The gelatin-based phantom images were annotated by OM. 
+AB has conducted all of the research presented in this chapter under the supervision of JS, MB, and TV. The gelatin-based phantom images were annotated by OM. \footnote{\annref{18}\textcolor{red}{AB:~Anisha Bahl, JS:~Jonathan Shapey, MB:~Mads Bergholt, TV:~Tom Vercauteren, OM:~Oscar MacCormac}}
 \end{minipage}
 \end{center}
 
 \minitoc
 
 \section{Introduction}
-As described in Chapter~\ref{chap:intro}, hyperspectral imaging (HSI) is able to capture spatially resolved, diffuse reflectance spectra via non-contact imaging~\citep{Lu2014,Giannoni2018,Calin2014,Shapey2019}, which could enable quantitative, spatially-resolved, tissue oxygenation ($StO_2$) extraction. Many methods have been considered for this ranging from two or three wavelength approaches~\citep{MacKenzie2018} to wavelength-dependent analytical models including those investigated in Chapters~\ref{chap:1layer} and \ref{chap:2layer} as these have been some of the prominent methods of doing so~\citep{Yudovsky2009, Jacques1999, Clancy2015, Clancy2020}. Other methods include deep-learning based approaches, however these rely on models or simulation to generate their training data~\citep{Wirkert2016}, or models based on the derivatives of the spectra, however these rely on extensive calibration and assume that the scattering contribution is wavelength-independent which may not be true for all tissues~\citep{Holmer2018}.
+As described in Chapter~\ref{chap:intro}, hyperspectral imaging (HSI) is able to capture spatially resolved, diffuse reflectance spectra via non-contact imaging~\citep{Lu2014,Giannoni2018,Calin2014,Shapey2019}, which could enable quantitative, spatially-resolved, tissue oxygenation ($StO_2$) extraction. Many methods have been considered for this ranging from two or three wavelength approaches~\citep{MacKenzie2018} to wavelength-dependent analytical models including those investigated in Chapters~\ref{chap:1layer} and \ref{chap:2layer} as these have been some of the prominent methods of doing so~\citep{Yudovsky2009, Jacques1999, Clancy2015, Clancy2020}. Other methods include deep-learning based approaches, however these rely on models or simulation to generate their training data~\citep{Wirkert2016}, or models based on the derivatives of the spectra, however these rely on extensive calibration and assume that the scattering contribution is wavelength-independent which may not be true for all tissues~\citep{Holmer2018, Jacques2013}.
 
 HSI data is often of lower spectral resolution than the spectrophotometer data tested in the previous chapters, particularly that of snapshot HSI data which compromises spectral resolution in favour of shorter aquisition times~\citep{Geelen2014}. Additionally, hyperspectral imaging is known to suffer from spectral noise which may be reduced significantly by spatial averaging~\citep{Zhang2020}.
 
-In this chapter, we quantify the impact of reducing the spectral resolution and introduction of noise on the performance of the analytical models investigated in Chapters~\ref{chap:1layer} and \ref{chap:2layer} by simulating a snapshot camera response from the Monte Carlo datasets used in these previous chapters. These impacts are then evaluated with experimental HSI data of the phantoms detailed in Chapter~\ref{chap:1layer}. Finally, the models are applied to neurosurgical HSI data obtained intra-operatively as part of the HELICoiD dataset~\cite{Fabelo2019}. % and NHSI datasets. 
+In this chapter, we quantify the impact of reducing the spectral resolution and introduction of noise on the performance of the analytical models investigated in Chapters~\ref{chap:1layer} and \ref{chap:2layer} by simulating a snapshot camera response from the Monte Carlo datasets used in these previous chapters. These impacts are then evaluated with experimental HSI data of the phantoms detailed in Chapter~\ref{chap:1layer}. Finally, the models are applied to neurosurgical HSI data obtained intra-operatively as part of the HELICoiD dataset~\citep{Fabelo2019}. % and NHSI datasets. 
 
 \section{Methods}
 \subsection{Camera response simulation}\label{sec:MCcameras}
-To obtain datasets of simulated data with known ground truth parameters, the datasets described in Sections~\ref{sec:methodsMC} and \ref{sec:methodreference2} of internal and skin tissues are used. For each spectrum in the dataset, the camera response is simulated by convolving the band responses of the snapshot HSI camera (depicted in Figures~\ref{fig:rulerspectrum} and \ref{fig:simulatingcam}) and the integral of this is divided by the band response integral to account for differing band quantum efficiencies as defined in Equation~\eqref{eq:simulatingcam}. 
+To obtain datasets of simulated data with known ground truth parameters, the datasets described in Sections~\ref{sec:methodsMC} and \ref{sec:methodreference2} of internal and skin tissues are used. For each spectrum in the dataset, the camera response is simulated by convolving the band responses of the snapshot HSI camera (depicted in Figures~\ref{fig:rulerspectrum} and \ref{fig:simulatingcam}) and the integral of this is divided by the band response integral to account for differing band quantum efficiencies as defined in Equation~\eqref{eq:simulatingcam}. \annref{55}\textcolor{red}{By doing this, some key system parameters are introduced to adapt the datasets for snapshot HSI simulation.}
 \begin{equation}
 	c_{n} = \frac{\int r(\lambda)b_n(\lambda) d\lambda}{\int b_n(\lambda) d\lambda}
 \label{eq:simulatingcam}
 \end{equation}
-Here $c_n$ is the measured value from band $n$ by the camera when the true spectrum is $r(\lambda)$ and the band response for this band is $b_n(\lambda)$. Each band response has a major peak around a central wavelength which is the wavelength associated with that band in the simulated spectrum. This is similar to the approach taken in Chapter~\ref{chap:SWB} for the ruler reflectivity correction as it takes into account both the true diffuse reflectance spectrum of the sample and the band responses of the camera used to capture it which do not perfectly sample single wavelengths. Random Gaussian noise can also be added at this stage where the mean is taken to be 0 and varying standard deviations ($\sigma$) are added. $c_n$ is then corrected using an correction matrix to account for the parasitic cross-talk effects as in~\ref{methodnecessity}~\citep{Pichette2017}. Whilst the illuminant spectrum will impact the measured spectrum, we employ appropriate white balancing as described in Chapter~\ref{chap:SWB} which should take account of this as well as the reflectivity of the white reference so the illuminant spectrum is not included in this simulation. An example of the stages of this process can be seen in Figure~\ref{fig:simulatingcam}. This allows a variety of datasets to be simulated with the same set of ground truth parameters for both quantitative and mean-normalised relative data. Two noise levels are investigated alongside noiseless simulations. The maximum noise level chosen ($\sigma = 3pp$ before mean normalisation) is similar to the standard deviation size seen in the highly controlled dataset investigated in Chapter~\ref{chap:SWB} in units of percentage point (pp).  
+Here $c_n$ is the measured value from band $n$ by the camera when the true spectrum is $r(\lambda)$ and the band response for this band is $b_n(\lambda)$. Each band response has a major peak around a central wavelength which is the wavelength associated with that band in the simulated spectrum. This is similar to the approach taken in Chapter~\ref{chap:SWB} for the ruler reflectivity correction as it takes into account both the true diffuse reflectance spectrum of the sample and the band responses of the camera used to capture it which do not perfectly sample single wavelengths. Random Gaussian noise can also be added at this stage where the mean is taken to be 0 and varying standard deviations ($\sigma$) are added. $c_n$ is then corrected using a correction matrix to account for the parasitic cross-talk effects as in Section~\ref{methodnecessity}~\citep{Pichette2017}. Whilst the illuminant spectrum will impact the measured spectrum, we employ appropriate white balancing as described in Chapter~\ref{chap:SWB} which should limit the impact of this as well as compensate for the reflectivity of the white reference so the illuminant spectrum is not included in this simulation. \selfref{11}\textcolor{red}{Additionally, the optical transmission of other optical components, such as the coupler or exoscope, in the system should be accounted for which are assumed to be perfectly transparent to all wavelengths in this simulation.} An example of the stages of this process can be seen in Figure~\ref{fig:simulatingcam}. %This allows a variety of datasets to be simulated with the same set of ground truth parameters for both quantitative and mean normalised relative data. 
+Two noise levels are investigated alongside noiseless simulations. The maximum noise level chosen ($\sigma = 3pp$ before mean normalisation) is similar to the standard deviation size seen in the highly controlled dataset investigated in Chapter~\ref{chap:SWB} in units of percentage point (pp).  
 \begin{figure}[h!]
     \centering 
     \begin{subfigure}{0.7\textwidth}
@@ -68,7 +69,7 @@ To obtain a measured hyperspectral dataset with known ground truth, short static
 The configurations imaged are detailed in Table~\ref{tb:imagedphantoms} and cover the majority of the 2-dye configuration dataset that remained viable after two weeks of refrigeration. 
 \begin{table}[ht!]
     \centering
-    \caption{Table displaying the percentages of dyes [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] a used for each dye configuration alongside the total dye scaled concentration in arbitrary units. The intralipid (v/v \%) imaged for each configuration are also indicated.}
+    \caption{Table displaying the percentages of dyes [acid red 1 (AR1), acid red 14 (AR14), crystal violet (CV)] used for each dye configuration alongside the total dye scaled concentration in arbitrary units. The intralipid (v/v \%) imaged for each configuration are also indicated.}
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
         \hline
         Total dye scaled & \multicolumn{2}{|c|}{Dye } & \multicolumn{5}{c|}{Intralipid } \\
@@ -86,16 +87,16 @@ The configurations imaged are detailed in Table~\ref{tb:imagedphantoms} and cove
     \end{tabular}
     \label{tb:imagedphantoms}
 \end{table}
-A white reference of a Spectralon tile of 95\% is taken under the same lighting conditions and imaging plane as the phantoms. This white reference is either used directly for white balancing a frame of the hyperspectral video to produce quantitative data or to generate spectral sensitivities used to construct mean normalised relative data as in Chapter~\ref{chap:SWB}. This demonstrates both the highest fidelity and more realistic data processing pathways. Following this, bilinear demosaicing is used and cross-talk correction is applied per pixel of the frame also detailed in Chapter~\ref{chap:SWB}. At this stage, it is possible to temporally average frames to improve the signal to noise ratio of the resulting hypercube. Finally, any pixel spectra containing values above 99.5\% or below 0.5\% are discarded to reduce the impact of specular reflections and to ensure the data is within the dynamic range of the sensor. 
+A white reference of a Spectralon tile with 95\% reflectivity is taken under the same lighting conditions and imaging plane as the phantoms. This white reference is either used directly for white balancing a frame of the hyperspectral video to produce quantitative data or to generate spectral sensitivities used to construct mean normalised relative data as in Chapter~\ref{chap:SWB}. This demonstrates both the highest fidelity and more realistic data processing pathways. Following this, bilinear demosaicing is used and cross-talk correction is applied per pixel of the frame also detailed in Chapter~\ref{chap:SWB}. At this stage, it is possible to temporally average frames to improve the signal to noise ratio of the resulting hypercube. Finally, any pixel spectra containing values above 99.5\% or below 0.5\% are discarded to reduce the impact of specular reflections and to ensure the data is within the dynamic range of the sensor. 
 Each image is manually annotated using ImFusion Labels software to capture pixels corresponding to phantoms while avoiding regions with high specular reflection. This allows a mean spectrum of the phantom to be generated and compared per pixel processing of the annotated region. When using this data only wavelengths in the region 450-575nm are considered (i.e. 13 of the 16 bands of the camera), since Chapter~\ref{chap:1layer} demonstrated this to be the optimum fitting region for these phantoms. 
 
 \subsection{Neurosurgical HSI dataset}\label{sec:NeuroHSIdata}
-The HELICoiD dataset is leveraged in this work which captures data in the wavelength range 400-1000nm using a pushbroom spatial scanning HSI camera~\citep{Fabelo2019}. This data is obtained as part of a collaboration between four universities, three industrial partners, and two hospitals in the European Union~\citep{Fabelo2019}. This provides 36 high spectral resolution images of 22 patients which are annotated with use of spectral angle mapper to identify four key classes: normal tissue, tumour tissue, blood vessel, and background elements". This data is white balanced using associated flatfield white references included in the dataset. The resulting spectra are then normalised to reduce the impact of any differences in relative position of the camera to the data and white reference as discussed in Chapter~\ref{chap:SWB}. For this work we consider only the spectral range of 450-600nm as this is the range of use for the analytical models considered. 
+The HELICoiD dataset is leveraged in this work which captures data in the wavelength range 400-1000nm using a pushbroom spatial scanning HSI camera~\citep{Fabelo2019}. This data is obtained as part of a collaboration between four universities, three industrial partners, and two hospitals in the European Union~\citep{Fabelo2019}. This provides 36 high spectral resolution images of 22 patients which are annotated with use of spectral angle mapper to identify four key classes: normal tissue, tumour tissue, hypervascularised tissue, and background elements. This data is white balanced using associated flatfield white references included in the dataset. The resulting spectra are then normalised to reduce the impact of any differences in relative position of the camera to the data and white reference as discussed in Chapter~\ref{chap:SWB}. For this work we consider only the spectral range of 450-600nm as this is the range of use for the analytical models considered. 
 %Secondly, a NeuroHSI dataset is considered which is obtained using the same snapshot mosaic camera (Ximea utilising the IMEC CMV2K-SSM4X4-VIS sensor, Germany) as in Section~\ref{sec:imagingphantoms} whose bands are within the 450-600nm wavelength range. In contrast to Section~\ref{sec:imagingphantoms}, this is mounted to a neurosurgical microscope (Zeiss Kinevo 900, Germany) whose integrated light source and lenses are used for simpler integration into the neurosurgical workflow, allowing for use in a wide variety of neurosurgical cases. 
 %%This light source and optical system was not fully characterised and therefore the vignetting profile cannot be assumed to follow the trends seen in Chapter~\ref{chap:SWB} and so the full white balancing algorithm using the sterile ruler cannot be implemented for quantitative data. In it's place, 
 %In each imaging timepoint of this study, the position of the neurosurgical microscope is recorded and used to obtain a flatfield reference outside the sterile field in a closely correlated position and lighting conditions. Due to the significant curvature of the brain, this may not accurately account for the full vignetting profile so is not used for flatfield correction to produce quantitative data, and instead is used to generate spectral senstivities for relative data before demosaicing, cross-talk correction, and removal of spectra containing values above 99.5\% or below 0.5\%. These spectral sensitivities are found to be similar to those pre-calculated from the light source spectrum. This dataset is manually annotated using ImFusion Labels software to identify over 30 classes. 
 
-When fitting inverse models to these datasets we use a wavelength weighting similar to that seen in Chapter~\ref{chap:2layer} and reproduced in Figure~\ref{fig:weightings}, however analysis with uniform wavelength weighting can be seen in Appendix~\ref{ap:Chapter5uniform}. We also investigate two different fitting regimes where either the literature extinction coefficients for oxygenated and deoxygenated haemoglobin are used, or these extinction coefficients are shifted by 3nm before use. This 3nm shift was determined empirically as that which aligns with the peak positions seen in the HELICoiD mean annotated spectra. This difference in peak positions is likely driven by imperfect wavelength calibration in the HELICoiD system, however it could also arise from the difference in chemical environment of the haemoglobin in biological tissue compared to the acqueous configuration the literature values are measured in as mentioned for the dyes used in Chapter~\ref{chap:1layer}. The literature and shifted extinction coefficients can be seen in Figure~\ref{fig:extinctioncoeffs}.
+When fitting inverse models to these datasets we use a wavelength weighting similar to that seen in Chapter~\ref{chap:2layer} and reproduced in Figure~\ref{fig:weightings}, however analysis with uniform wavelength weighting can be seen in Appendix~\ref{ap:Chapter5uniform}. We also investigate two different fitting regimes where either the literature extinction coefficients for oxygenated and deoxygenated haemoglobin are used, or these extinction coefficients are shifted by 3nm before use. This \selfref{12}\textcolor{red}{simplistic} 3nm shift was determined empirically as that which aligns with the peak positions seen in the HELICoiD mean annotated spectra. This difference in peak positions is likely driven by imperfect wavelength calibration in the HELICoiD system, however it could also arise from the difference in chemical environment of the haemoglobin in biological tissue compared to the aqueous configuration in which the literature values are measured. The latter effect could be similar to that seen in the dyes used in Chapter~\ref{chap:1layer}\selfref{12}\textcolor{red}{, meaning that other transformations could be necessary such as peak broadening}. The literature and shifted extinction coefficients can be seen in Figure~\ref{fig:extinctioncoeffs}.
 % \begin{enumerate}
 %     \item Wavelengths (450 - 600nm) are considered equally in the fitting of the residual. Literature extinction coefficients are used for oxyenated and deoxyenated haemoglobin. 
 %     \item All wavelengths (450 - 600nm) are considered in the fitting of the residual, however those in the region of the haemoglobin peaks (525 - 585nm) are considered more heavily. Literature extinction coefficients are used for oxyenated and deoxyenated haemoglobin. 
@@ -116,16 +117,17 @@ When fitting inverse models to these datasets we use a wavelength weighting simi
         \caption{}
         \label{fig:extinctioncoeffs}
     \end{subfigure}
-    \caption{Wavelength weighting (left) and extinction coefficient (right) options used to fit models to neurosurgical HSI data.}
+    \caption{The wavelength weighting (left) and extinction coefficient options (right) used to fit models to neurosurgical HSI data.}
     \label{fig:fittingoptions}
 \end{figure}
 
 \subsection{Evaluation of analytical models}
-The Yudovsky 2009 single and double layer models and Jacques 1999 models are evaluated as these are found to be the most effective in Chapters~\ref{chap:1layer} and \ref{chap:2layer}. These models are evaluated against datasets generated by simulating camera responses from the dermal and skin Monte Carlo datasets used in Chapters~\ref{chap:1layer} and \ref{chap:2layer} and so the diffuse reflectance prediction of these models are unchanged in this Chapter. When using these analytical models with the snapshot HSI datasets outlined in Sections~\ref{sec:MCcameras} to \ref{sec:NeuroHSIdata}, the predicted $R$ (detailed in Sections~\ref{sec:Jacques}, \ref{sec:Yudovskysingle}, and \ref{sec:Yudovsky2009}) is used to simulate noiseless camera responses as described by Equation~\eqref{eq:simulatingcam}. This simulation is not performed for the HELICoiD dataset as the camera band responses are not available in the dataset, however the authors report a very low dispersion of 0.74nm in the spectral range considered in this work so it is likely that the camera simulation would not have as significant of an impact with this system~\citep{Fabelo2018}. This allows the forwards and fitted models to be evaluated and quantified as described in Sections~\ref{sec:methodevaluate} and \ref{sec:methodevaluate2} against the Monte Carlo datasets, and similarly for the single-layer models for the gelatin-based phantom datsets. 
+The Yudovsky 2009 single and double-layer models and Jacques 1999 models are evaluated as these are found to be the most effective in Chapters~\ref{chap:1layer} and \ref{chap:2layer}. These models are evaluated against datasets generated by simulating camera responses from the dermal and skin Monte Carlo datasets used in Chapters~\ref{chap:1layer} and \ref{chap:2layer} and so the diffuse reflectance prediction of these models are unchanged in this Chapter. When using these analytical models with the snapshot HSI datasets outlined in Sections~\ref{sec:MCcameras} to \ref{sec:NeuroHSIdata}, the predicted $R$ (detailed in Sections~\ref{sec:Jacques}, \ref{sec:Yudovskysingle}, and \ref{sec:Yudovsky2009}) is used to simulate noiseless camera responses as described by Equation~\eqref{eq:simulatingcam}. This allows the forwards and fitted models to be evaluated and quantified as described in Sections~\ref{sec:methodevaluate} and \ref{sec:methodevaluate2} against the Monte Carlo datasets, and similarly the single-layer models can be evaluated using the gelatin-based phantom datsets. 
 
-For the gelatin-based phantom datasets, either the mean spectrum of the annotated region of a single frame is used, or each pixel in an annotated region from a single frame or from the temporal averaging of 5 frames is used. Both spatial and temporal averaging reduces the impact of noise on the resulting data. The mean annotated spectra are used for fitting the models (using the wavelength range 450-575nm) or to evaluate the quality of the forwards models with camera simulation. The quality of camera simulation can also be evaluated using $NRMSE$ and Pearson correlation coefficients by comparing simulated camera spectra from the spectrophotometer measurements of the gelatin-based phantoms in Section~\ref{sec:methodsphantoms}, to the measured HSI data in Section~\ref{sec:imagingphantoms}. The pixel-by-pixel analysis of the annotated region of either a single frame or the temporal average of 5 frames is used for fitting models to allow for spatially resolved results.
+For the gelatin-based phantom datasets, either the mean spectrum of the annotated region of a single frame is used, or each pixel in an annotated region from a single frame or from the temporal averaging of 5 frames is used. Both spatial and temporal averaging reduces the impact of noise on the resulting data. The mean annotated spectra are used for fitting the models (using the wavelength range 450-575nm) or to evaluate the quality of the forwards models with camera simulation. The quality of camera simulation can also be evaluated %using $NRMSE$ and Pearson correlation coefficients 
+by comparing simulated camera spectra from the spectrophotometer measurements of the gelatin-based phantoms in Section~\ref{sec:methodsphantoms}, to the measured HSI data in Section~\ref{sec:imagingphantoms}. The pixel-by-pixel analysis of the annotated region of either a single frame or the temporal average of 5 frames is used for fitting models to allow for spatially resolved results. All evaluation parameters used for this replicate those detailed in Sections~\ref{sec:methodevaluate} and \ref{sec:methodevaluate2}.
 
-Finally, for each neurosurgical dataset image, the mean spectrum of each class annotation is calculated and the inverse analytical models are fitted to this (using the wavelength range 450-600cm). This provides a set of physiological parameters for each class of each image which are then collated to provide a range of values which are considered for plausibility. % Need to find better academic phrasing here 
+Finally, for each neurosurgical dataset image, the mean spectrum of each class annotation is calculated and the inverse analytical models are fitted to this (using the wavelength range 450-600nm). This provides a set of physiological parameters for each class of each image which are then collated to provide a range of $StO_2$ values which are compared to typical jugular venous oxygen saturation (JVOS) and cerebral oximetry values. The camera simulation is not performed when fitting models to the HELICoiD dataset as the camera band responses are not available in the dataset, however the authors report a very low dispersion of 0.74nm in the spectral range considered in this work so it is likely that the camera simulation would not have as significant of an impact with this system~\citep{Fabelo2018}. % Need to find better academic phrasing here 
 
 The most effective model is chosen to evaluate exemplary HELICoiD and phantom images on a pixel-by-pixel level. Where a phantom image is evaluated, the $APE$ of $AR1$ compared to the ground truth value is also displayed; however, where a HELICoiD image is evaluated the $APE$ of $StO_2$ compared to that obtained from the mean annotated spectrum is shown for pixels within the annotated regions. 
 
@@ -134,10 +136,10 @@ The most effective model is chosen to evaluate exemplary HELICoiD and phantom im
 \subsection{Monte Carlo}\label{sec:MCHSI}
 The forwards analytical models are assessed using simulated camera responses generated from Monte Carlo data. 
 %The Yudovsky 2009 and Jacques 1999 single-layer models are evaluated for three refractive indices, whereas the Yudovsky 2009 double-layer model is evaluated for $n=1.44$ only as in Chapters~\ref{chap:1layer} and~\ref{chap:2layer}. 
-These are evaluated in Table~\ref{tb:forwardsHSIMC} for $n=1.44$ (further refractive indices can be found in Appendices~\ref{ap:forwardsHSIMCq} and \ref{ap:forwardsHSIMCr}). Examples of the quality of fitting for the single and double layer configurations with noiseless camera simulations are shown in Figure~\ref{fig:forwardsHSIMC}. Visual examples of the impact of noise on simulated MC spectra are seen in Figure~\ref{fig:forwardsMCnoise}.
+These are evaluated in Table~\ref{tb:forwardsHSIMC} for $n=1.44$ (further refractive indices can be found in Appendices~\ref{ap:forwardsHSIMCq} and \ref{ap:forwardsHSIMCr}). Examples of the quality of fitting for the single and double-layer configurations with noiseless camera simulations are shown in Figure~\ref{fig:forwardsHSIMC}. Visual examples of the impact of noise on simulated MC spectra are seen in Figure~\ref{fig:forwardsMCnoise}.
 \begin{table}[h!] %could remove noise levels here
     \centering
-    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for quantitative and relative data at a variety of noise levels (0, 1pp, 3pp). This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
+    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from each model and each of 100 Monte Carlo simulated spectra using the same ground truth variable parameters for quantitative (Q) and relative (R) data at a variety of noise levels (0pp, 1pp, 3pp). This is presented with the Pearson $r$ (bold if $p < 0.05$) for the linear regression between all forwards spectra against Monte Carlo simulated spectra for each refractive index dataset and each analytical model. All metrics are evaluated for the wavelength region of 450-600nm.}
     \begin{tabular}{|cc|c|ccc|ccc|}
         \hline
         Model & Layers & Quantitative & \multicolumn{3}{|c}{$NRMSE$} & \multicolumn{3}{|c|}{$r$} \\
@@ -161,22 +163,22 @@ These are evaluated in Table~\ref{tb:forwardsHSIMC} for $n=1.44$ (further refrac
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_cam_Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:egforwardsnoiseQ}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_cam_R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:egforwardsnoiseR}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_cam2_Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:egforwards2noiseQ}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_cam2_R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:egforwards2noiseR}
     \end{subfigure}
     \caption{Top: Example of the simulated camera response spectra from each forward single-layer analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}) and Jacques 1999 (\textcolor{MyOrange}{orange dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted by Monte Carlo %with (\textcolor{purple}{purple dash-dotted} and 
@@ -189,25 +191,25 @@ These are evaluated in Table~\ref{tb:forwardsHSIMC} for $n=1.44$ (further refrac
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_noise_Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:egforwardsnoiseMCQ}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_noise_R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:egforwardsnoiseMCR}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_noise2_Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:egforwards2noiseMCQ}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{forwards_noise2_R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:egforwards2noiseMCR}
     \end{subfigure}
-    \caption{Examples of the simulated camera response spectra from a single layer (top) or double layer (bottom) Monte Carlo simulated spectrum with noise levels of \textcolor{MyBlue}{0pp (solid)}, \textcolor{purple}{1pp (dash-dotted)}, and \textcolor{pink}{3pp (dotted)} for quantitative (left) and relative (right) data.}
+    \caption{Examples of the simulated camera response spectra from a single-layer (top) or double-layer (bottom) Monte Carlo simulated spectrum with noise levels of \textcolor{MyBlue}{0pp (blue solid)}, \textcolor{purple}{1pp (purple dash-dotted)}, and \textcolor{pink}{3pp (pink dotted)} for quantitative (left) and relative (right) data.}
     \label{fig:forwardsMCnoise}
 \end{figure}
 
@@ -215,7 +217,7 @@ Each model is used to analyse the inverse problem of each of these varying noise
 
 \begin{table}[h!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative (Q) or relative (R) Monte-Carlo datasets for $n=1.44$ at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single-layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double-layer (Y2) to the quantitative (Q) or relative (R) Monte-Carlo datasets for $n=1.44$ at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         Parameter & Model & Quantitative & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median} \\
@@ -273,35 +275,35 @@ Each model is used to analyse the inverse problem of each of these varying noise
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0Q}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsn0R}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.01Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0.01Q}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.01R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsm0.01R}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.03Q.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0.03Q}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.03R.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsm0.03R}
     \end{subfigure}
-    \caption{An example of the quality of parameter recovery by fitting each inverse analytical model (Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$})) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1pp$ (middle) or $\sigma = 3pp$ (bottom).}
+    \caption{An example of the quality of parameter recovery by fitting the single-layer models Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$}) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1pp$ (middle) or $\sigma = 3pp$ (bottom).}
     \label{fig:backwardsHSIMC1}
 \end{figure}
 
@@ -309,35 +311,35 @@ Each model is used to analyse the inverse problem of each of these varying noise
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0Q2.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0Q2}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0R2.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsn0R2}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.01Q2.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0.01Q2}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.01R2.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsm0.01R2}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.03Q2.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsn0.03Q2}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsn0.03R2.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsm0.03R2}
     \end{subfigure}
-    \caption{An example of the quality of parameter recovery by fitting the double-layer inverse analytical model Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1pp$ (middle) or $\sigma = 3pp$ (bottom).}
+    \caption{An example of the quality of parameter recovery by fitting the double-layer analytical model Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) to the quantitative (left) or relative (right) simulated camera responses from the Monte Carlo simulations and their associated trend lines for a refractive index of 1.44 for $StO_2$. This is shown for data with either no added noise (top) or added noise with $\sigma = 1pp$ (middle) or $\sigma = 3pp$ (bottom).}
     \label{fig:backwardsHSIMC2}
 \end{figure}
 \FloatBarrier
@@ -347,7 +349,7 @@ To evaluate the quality of camera response simulation, the mean spectrum from th
 
 \begin{table}[h!] %could remove noise levels here
     \centering
-    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards spectrum from the Yudovsky 2009 single-layer model (Y1), the Jacques 1999 model (J), or using spectrophotometer measurements of each phantom (S) and each mean spectrum from an annotated HSI image of each phantom using the same ground truth variable parameters for quantitative and relative data. This is presented with the Pearson $r$ (bold if Pearson $p < 0.05$) for the linear regression between all forwards spectra against mean HSI phantom spectra for each analytical model or spectrophotometer measurements. All metrics are evaluated for the wavelength region of 450-575nm.}
+    \caption{Mean (standard deviation) $NRMSE$ (3.d.p.) between the simulated camera responses of each forwards single-layer model Yudovsky 2009 (Y1) and Jacques 1999 (J), or using spectrophotometer measurements of each phantom (S) compared to each mean spectrum from an annotated HSI image of each phantom using the same ground truth variable parameters for quantitative (Q) and relative (R) data. This is presented with the Pearson $r$ (bold if $p < 0.05$) for the linear regression between all forwards spectra against mean HSI phantom spectra for each analytical model or spectrophotometer measurements. All metrics are evaluated for the wavelength region of 450-575nm.}
     \begin{tabular}{|c|c|cc|}
         \hline
         Model & Quantitative (Q) & $NRMSE$ & $r$ \\
@@ -378,17 +380,17 @@ To evaluate the quality of camera response simulation, the mean spectrum from th
         \caption{}
         \label{fig:egforwardsHSIR}
     \end{subfigure}
-    \caption{Example of the simulated camera response spectra from each forward single-layer analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}) and Jacques 1999 (\textcolor{MyOrange}{orange dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted using spectrophotometer measurements (\textcolor{purple}{purple dash-dotted} and the mean spectrum from an HSI image of the same phantom (\textcolor{MyBlue}{blue solid}) for quantitative (left) and relative (right) data.}
+    \caption{Example of the simulated camera response spectra from each forward single-layer analytical model: Yudovsky 2009 (\textcolor{MyGreen}{green dotted}) and Jacques 1999 (\textcolor{MyOrange}{orange dashed}), using ground truth variables for a refractive index of 1.44 compared to that predicted using spectrophotometer measurements (\textcolor{purple}{purple dash-dotted} compared to the mean spectrum from an HSI image of the same phantom (\textcolor{MyBlue}{blue solid}) for quantitative (left) and relative (right) data.}
     \label{fig:forwardsHSIphantoms}
 \end{figure}
 
 Each single-layer model is also fitted to the mean spectrum of each annotated image, with results shown in Table~\ref{tb:backwardsHSIphantomsann} and examples of $AR1$ parameter extraction shown in Figure~\ref{fig:backwardsHSIphantomsann}. A similar analysis is performed on a pixelwise basis on annotated regions of each phantom using either a single frame or the mean of 5 frames of the hyperspectral video. The results of this can also be seen in Table~\ref{tb:backwardsHSIphantomsann} and Figure~\ref{fig:backwardsHSIphantomsann}.
 %Since Yudovsky 2009 has shown to perform better than Jacques 1999 in both Chapter~\ref{chap:1layer} and this chapter, the inverse of this model is tested on a pixel-by-pixel basis. % on relative data for comparison with the performance on neurosurgical HSI data. 
-An example sRGB reconstruction with the annotated region shown alongside the pixel-by-pixel $AR1$ recovery and the pixel-by-pixel $APE$ is shown in Figure~\ref{fig:gelatinpbpeg} using Yudovsky 2009 on relative data from a single frame, and \ref{fig:gelatinpbpeg5} when fitted to relative data from the mean of 5 frames. The mean annotated spectrum ($\pm$ standard deviation) for each case is also presented alongside the modelled spectrum using ground-truth parameters and parameters fitted to the mean annotated spectrum in Figure~\ref{fig:gelatinpbpeg}. Similar figures can be found fitting to quantitative data or using the Jacques 1999 model in Appendices~\ref{ap:MoreHSIPhantomEgs}.
+An example sRGB reconstruction with the annotated region shown alongside the pixel-by-pixel $AR1$ recovery and the pixel-by-pixel $APE$ is shown in Figure~\ref{fig:gelatinpbpeg} using Yudovsky 2009 single-layer model on relative data from a single frame of a single gelatin-based phantom video, and \ref{fig:gelatinpbpeg5} when fitted to relative data from the mean of 5 frames from the same video. The mean annotated spectrum ($\pm$ standard deviation) for each case is also presented alongside the modelled spectrum using ground-truth parameters and modelled spectrum using parameters fitted to the mean annotated spectrum in Figure~\ref{fig:gelatinpbpeg}. Similar figures can be found fitting to quantitative data or using the Jacques 1999 model in Appendices~\ref{ap:MoreHSIPhantomEgs}.
 
 \begin{table}[h!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted phantom parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to each quantitative (Q) or relative (R) mean annotated spectra or pixel-by-pixel in the annotated regions of data from 1 frame or the mean of 5 frames of each hyperspectral video from the HSI phantom dataset using $n=1.35$. All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted phantom parameters and their ground truth displayed with their median absolute percentage errors ($APE$). This is shown for each variable when extracted by fitting Yudovsky 2009 single-layer (Y) or Jacques 1999 (J) to each quantitative (Q) or relative (R) mean annotated spectra or pixel-by-pixel in the annotated regions of data from 1 frame or the mean of 5 frames of each hyperspectral video from the HSI phantom dataset using $n=1.35$. All presented to 3s.f.}
     \begin{tabular}{|ccc|cc|cc|cc|}
         \hline
         &  &   & \multicolumn{2}{c|}{Annotated} & \multicolumn{2}{c|}{Pixel-by-pixel} & \multicolumn{2}{c|}{Pixel-by-pixel} \\
@@ -427,35 +429,35 @@ An example sRGB reconstruction with the annotated region shown alongside the pix
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPQann.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsPQann}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPRann.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsPRann}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPQpbp.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsPQpbp}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPRpbp.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsPRpbp}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPQpbp5.pdf}
-        \caption{}
+        \caption{Quantitative}
         \label{fig:backwardsPQpbp5}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{backwardsPRpbp5.pdf}
-        \caption{}
+        \caption{Relative}
         \label{fig:backwardsPRpbp5}
     \end{subfigure}
-    \caption{An example of the quality of parameter recovery by fitting each inverse analytical model (Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$})) to the quantitative (left) or relative (right) mean annotated spectra from 1 frame (top) or pixel-by-pixel in the annotated region from 1 frame (middle) or the mean of 5 frames (bottom) from each video of the HSI phantom dataset and their associated trend lines using a refractive index of 1.35 for $AR1$.}
+    \caption{An example of the quality of parameter recovery by fitting each inverse analytical model (Yudovsky 2009 (\textcolor{MyGreen}{green $+$}) and Jacques 1999 (\textcolor{MyOrange}{orange $\times$})) to the quantitative (left) or relative (right) mean annotated spectra from 1 frame (top), pixel-by-pixel in the annotated region from 1 frame (middle), or pixel-by-pixel in the annotated region from the mean of 5 frames (bottom) from each video of the HSI phantom dataset using a refractive index of 1.35 for $AR1$.}
     \label{fig:backwardsHSIphantomsann}
 \end{figure}
 
@@ -475,15 +477,15 @@ An example sRGB reconstruction with the annotated region shown alongside the pix
 
 \FloatBarrier
 \subsection{Neurosurgical HSI data}
-The Yudovsky 2009 and Jacques 1999 single layer models are fitted to neurosurgical HSI data since Chapters~\ref{chap:1layer} and \ref{chap:2layer} and Section~\ref{sec:MCHSI} shows these are more robust.
+The Yudovsky 2009 and Jacques 1999 single-layer models are fitted to neurosurgical HSI data since Chapters~\ref{chap:1layer} and \ref{chap:2layer} and Section~\ref{sec:MCHSI} shows these are more robust.
 %to reduction in the number of available wavelengths 
 %and meningial layers in these images are largely considered sufficiently low scattering, absorbance, and thickness as to be negligible \textcolor{red}{try to reference this}. 
 This makes the assumption that the impact of the meninges is sufficiently small as to be negligible. Whilst the arachnoid and pia layers are known to have scattering and absorbance properties, they are very thin layers and so appear highly transparent allowing this assumption to be made~\citep{Ghannam2023}.
-The relative mean annotated spectra for each tissue type of each image in the HELICoiD dataset is used for fitting each model using the literature or shifted extinction coefficients and the resulting mean (standard deviation) physiological parameters are shown in Table~\ref{tb:HELICoiD}. Examples of fitted spectra using each model and the distribution for $StO_2$ are shown in Figure~\ref{fig:HELICoiDann}. These show very large variation in the extracted $StO_2$. Since there are no known ground truth values for these images, these ranges are compared to jugular venous oxygen saturation (JVOS) and cerebral oximetry values. Typical JVOS values are quoted to be 55-75\%~\citep{Raith2020, Zhong2021} and would be the lowest $StO_2$ values to be expected as this venous blood is measured after having delivered oxygen to the brain. There is no consensus on typical cerebral oximetry values, however it has been suggested that values below 59\% would indicate cerebral ischaemia~\citep{Zhong2021} and studies have shown ranges of around 60-75\% to be within the normal range~\citep{Lian2020}. This measure does not discriminate between tissue types as there is no spatial resolution, therefore it can be influenced by any tissue type. As displayed in Figure~\ref{fig:HELICoiDann}, many recovered values are below these ranges suggesting that the optical modelling of these tissues should be improved. Similar results when analysing the same data using a uniform wavelength weighting function can be found in Appendix~\ref{ap:Chapter5uniform}.
+The relative mean annotated spectra for each tissue type of each image in the HELICoiD dataset is used for fitting each model using the literature or shifted extinction coefficients and the resulting mean (standard deviation) physiological parameters are shown in Table~\ref{tb:HELICoiD}. Examples of fitted spectra using each model and the distribution for $StO_2$ are shown in Figure~\ref{fig:HELICoiDann}. These show very large variation in the extracted $StO_2$. Since there are no known ground truth values for these images, these ranges are compared to JVOS and cerebral oximetry values. Typical JVOS values are quoted to be 55-75\%~\citep{Raith2020, Zhong2021} and would be the lowest $StO_2$ values to be expected as this venous blood is measured after having delivered oxygen to the brain. There is no consensus on typical cerebral oximetry values, however it has been suggested that values below 59\% would indicate cerebral ischaemia~\citep{Zhong2021} and studies have shown ranges of around 60-75\% to be within the normal range~\citep{Lian2020}. This measure does not discriminate between tissue types as there is no spatial resolution, therefore it can be influenced by any tissue type. As displayed in Figure~\ref{fig:HELICoiDann}, many recovered values are below these ranges suggesting that the optical modelling of these tissues should be improved. Similar results when analysing the same data using a uniform wavelength weighting function can be found in Appendix~\ref{ap:Chapter5uniform}.
 
 \begin{table}[h!]
     \centering
-    \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients and $n=1.44$. All presented to 3s.f.}
+    \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single-layer (Y) or Jacques 1999 (J) model to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients and $n=1.44$. All presented to 3s.f.}
     \begin{tabular}{|ccc|cccc|}
         \hline
         \multirow{2}{*}{Tissue type} & \multirow{2}{*}{Model} & \multirow{2}{*}{Method} & $StO_2$ & $f_{blood}$ & $a$ & $b$ \\
@@ -515,12 +517,12 @@ The relative mean annotated spectra for each tissue type of each image in the HE
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{012-02Normal_spectra_Y.pdf}
-        \caption{}
+        \caption{Model = Y}
         \label{fig:backwardsHSIHeliY}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{012-02Normal_spectra_J.pdf}
-        \caption{}
+        \caption{Model = J}
         \label{fig:backwardsHSIHeliJ}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
@@ -528,7 +530,7 @@ The relative mean annotated spectra for each tissue type of each image in the HE
         \caption{}
         \label{fig:boxplotsHeli}
     \end{subfigure}
-    \caption{An example of the visual fitting quality of the Yudovsky 2009 (\ref{fig:backwardsHSIHeliY}) and Jacques 1999 (\ref{fig:backwardsHSIHeliJ}) single layer models when fitting to the relative mean annotated spectrum ($\pm$1 standard deviation, \textcolor{blue}{blue solid}) of the normal tissue class of HELICoiD image 12-02 using literature (L) or shifted (S) extinction coefficients. The distribution of the fitted physiological parameters retrieved by fitting each model to each relative mean annotated spectrum of the tissue classes of each HELICoiD image is shown in Figure~\ref{fig:boxplotsHeli}.}
+    \caption{An example of the visual fitting quality of the Yudovsky 2009 (a) and Jacques 1999 (b) single-layer models when fitting to the relative mean annotated spectrum ($\pm$ standard deviation, \textcolor{blue}{blue solid}) of the normal tissue class of HELICoiD image 12-02 using literature (L) or shifted (S) extinction coefficients. The distribution of the fitted physiological parameters retrieved by fitting each model to each relative mean annotated spectrum of the tissue classes of each HELICoiD image is shown in c.}
     \label{fig:HELICoiDann}
 \end{figure}
 
@@ -537,7 +539,7 @@ The relative mean annotated spectra for each tissue type of each image in the HE
 %
 % \begin{table}[h!]
 %     \centering
-%     \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each mean annotated spectrum in each image from the NeuroHSI dataset using each method in~\ref{sec:NeuroHSIdata} aggregated across all tissue types. All presented to 3s.f.}
+%     \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single-layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each mean annotated spectrum in each image from the NeuroHSI dataset using each method in~\ref{sec:NeuroHSIdata} aggregated across all tissue types. All presented to 3s.f.}
 %     \begin{tabular}{|cc|cccc|}
 %         \hline
 %         \multirow{2}{*}{Model} & \multirow{2}{*}{Method} & $StO_2$ & $f_{blood}$ & $a$ & $b$ \\
@@ -574,49 +576,49 @@ The relative mean annotated spectra for each tissue type of each image in the HE
 %         \caption{}
 %         \label{fig:boxplotsNHSI}
 %     \end{subfigure}
-%     \caption{An example of the visual fitting quality of each method in~\ref{sec:NeuroHSIdata} used for the Yudovsky 2009 (\ref{fig:backwardsHSINHSIY}) and Jacques 1999 (\ref{fig:backwardsHSINHSIJ}) single layer models when fitting to the relative mean annotated spectrum ($\pm$1 standard deviation, \textcolor{blue}{blue solid}) of the cortex tissue class of NeuroHSI image P010010-T02. The distribution of the fitted physiological parameters retrieved by fitting each model using each method to each relative mean annotated spectrum of the tissue classes of each NeuroHSI image is shown in~\ref{fig:boxplotsNHSI}.}
+%     \caption{An example of the visual fitting quality of each method in~\ref{sec:NeuroHSIdata} used for the Yudovsky 2009 (\ref{fig:backwardsHSINHSIY}) and Jacques 1999 (\ref{fig:backwardsHSINHSIJ}) single-layer models when fitting to the relative mean annotated spectrum ($\pm$1 standard deviation, \textcolor{blue}{blue solid}) of the cortex tissue class of NeuroHSI image P010010-T02. The distribution of the fitted physiological parameters retrieved by fitting each model using each method to each relative mean annotated spectrum of the tissue classes of each NeuroHSI image is shown in~\ref{fig:boxplotsNHSI}.}
 %     \label{fig:NHSIann}
 % \end{figure}
 
-The Yudovsky 2009 model is fitted using the Yudovsky 2009 single-layer model with shifted extinction coefficients to HELICoiD image 12-02 on a pixel-by-pixel basis. Figure~\ref{fig:HELICoiDpixelY} depicts the resulting $StO_2$ image alongside the sRGB reconstruction of the image and the $APE$ of the $StO_2$ from that obtained by fitting to the mean annotated spectrum within the annotated regions, however this error metric is only calculated in the annotated regions. In all of these plots regions beyond the 99.5\% and 0.5\% thresholds are indicated as white with this extending to all regions outside of the annotated regions in the $APE$ plot. The mean annotated spectrum ($\pm$ standard deviation) for each tissue type in this image is also presented alongside the modelled spectrum using parameters fitted to the mean annotated spectrum in Figure~\ref{fig:HELICoiDpixelY}. A similar figure for the Jacques 1999 single-layer model can be seen in Appendix~\ref{ap:HELICoiDpixelJ}.
+The Yudovsky 2009 single-layer model is fitted using the shifted extinction coefficients to HELICoiD image 12-02 on a pixel-by-pixel basis. Figure~\ref{fig:HELICoiDpixelY} depicts the resulting $StO_2$ image alongside the sRGB reconstruction of the image and the $APE$ of the $StO_2$ from that obtained by fitting to the mean annotated spectrum within the annotated regions, however this error metric is only calculated in the annotated regions. In all of these plots regions beyond the 99.5\% and 0.5\% thresholds are indicated as white with this extending to all regions outside of the annotated regions in the $APE$ plot. The mean annotated spectrum ($\pm$ standard deviation) for each tissue type in this image is also presented alongside the modelled spectrum using parameters fitted to the mean annotated spectrum in Figure~\ref{fig:HELICoiDpixelY}. A similar figure for the Jacques 1999 single-layer model can be seen in Appendix~\ref{ap:HELICoiDpixelJ}.
 
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.9\textwidth]{012-02_StO2_Y.pdf}
-    \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Middle left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Yudovsky 2009 single-layer model and shifted extinction coefficients. Middle right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region, however this is only computed in the annotated regions. Bottom shows the mean annotated spectra of each tissue type ($\pm$ standard deviation) plotted with the modelled spectra using parameters fitted to the mean annotated spectrum.}
+    \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Middle left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Yudovsky 2009 single-layer model and shifted extinction coefficients. Middle right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region, however this is only computed in the annotated regions. Bottom shows the mean annotated spectra of each tissue type ($\pm$ standard deviation) plotted with the modelled spectra using parameters fitted to the mean annotated spectra.}
     \label{fig:HELICoiDpixelY}
 \end{figure}
 
 \FloatBarrier
 \section{Discussion} \label{sec:discussion5}
-When simulating camera responses from Monte Carlo data and the analytical models, there remains very high similarity (as shown by the $NRMSE$ and $r$) when there is no simulated noise. This confirms the expectation that using the same camera simulation for the forwards models and the Monte Carlo data, results in the similarity of these spectra being retained. When the noise is increased for the Monte Carlo camera response simulation the similarity to the noiseless model-predicted reflectance decreases. Both Yudovsky 2009 and Jacques 1999 single-layer models behave similarly with little difference in correlation between modelled and simulated spectra as noise is increased, however the Yudovsky 2009 double-layer model shows more significant correlation reduction. For all models investigated, mean normalising the data results in poorer correlation with this reduction being more prominent for Yudovsky 2009 double-layer model. This reduction in correlation when noise is increased is expected, however the double-layer model appears more susceptible to the impact of this than the single-layer models. 
+When simulating camera responses from Monte Carlo data and the analytical models, there remains very high similarity (as shown by the $NRMSE$ and $r$) when there is no simulated noise. This confirms the expectation that using the same camera simulation for the forwards models and the Monte Carlo data, results in the similarity of these spectra being retained. When the noise is increased for the Monte Carlo camera response simulation, the similarity to the noiseless model-predicted reflectance decreases. Both Yudovsky 2009 and Jacques 1999 single-layer models behave similarly with small differences in correlation between modelled and simulated spectra as noise is increased, however the Yudovsky 2009 double-layer model shows more significant correlation reduction. For all models investigated, mean normalising the data results in poorer correlation with this reduction being more prominent for Yudovsky 2009 double-layer model. This reduction in correlation when noise is increased is expected, however the double-layer model appears more susceptible to the impact of this than the single-layer models. 
 
-By fitting the models to Monte Carlo simulations with simulated camera responses and varying noise levels, the inverse problem is investigated. This shows the quality of parameter extraction rapidly decrease on increase in noise for every parameter and model with the double-layer model showing a more pronounced effect than the single-layer models, confirming that this model is more sensitive to noise. In the event of no noise being present, the Yudovsky 2009 and Jacques 1999 single-layer models both show excellent parameter extraction for all physiological parameters for quantitative data which is retained for $StO_2$ and $b$ for relative data. When noise is introduced, however, the quality of parameter extraction is significantly reduced with the precision of the recovered parameters reduced even where their trend remains relatively preserved. This is markedly worse when relative data is used. This demonstrates the importance of noise reduction methods in HSI data acquisition in order to obtain accurate parameter extraction, particularly when relative data is used. 
+By fitting the models to Monte Carlo simulations with simulated camera responses and varying noise levels, the inverse problem is investigated. This shows the quality of parameter extraction rapidly decrease on increase in noise for every parameter and model, with the double-layer model showing a more pronounced effect than the single-layer models, confirming that this model is more sensitive to noise. In the event of no noise being present, the Yudovsky 2009 and Jacques 1999 single-layer models both show excellent parameter extraction for all physiological parameters for quantitative data which is retained for $StO_2$ and $b$ for relative data. When noise is introduced, however, the quality of parameter extraction is significantly reduced with the precision of the recovered parameters reduced even where their trend remains relatively preserved. This is markedly worse when relative data is used. This demonstrates the importance of \annref{56}\textcolor{red}{spatial and spectral} noise reduction methods in HSI data acquisition in order to obtain accurate parameter extraction, particularly when relative data is used. 
 
-When simulating the camera response for the forwards single-layer models or the spectrophotometer measurements compared to the mean annotated spectrum from HSI snapshot frames of the gelatin-based phantoms, the correlation of the spectra remain high (as shown by $r$), however the absolute errors increase in comparison to Table~\ref{tb:NRMSEphantom}. This can be seen by slight changes in all camera simulated spectra from the mean annotated spectra, most notably in the 525-575nm region where $StO_2$ or $AR1$ has a large impact on the spectral shape. This demonstrates that the simple approach to camera simulation may require improvement. In these statistics, only bands with central wavelengths less than 575nm are considered since Chapter~\ref{chap:1layer} shows poor performance of the models beyond this meaning only 13 bands are used. The impact of this poor performance, however, may not be fully eliminated as bands with lower central wavelengths may be sensitive to wavelengths above 575nm due to cross-talk effects seen in Figure~\ref{fig:bandresponses}, however this should then be corrected using the correction matrix. This would, however, not be problematic in the spectrophotometer response suggesting there are also other factors impacting the poorer camera simulation. 
+When simulating the camera response for the forwards single-layer models or the spectrophotometer measurements compared to the mean annotated spectrum from HSI snapshot frames of the gelatin-based phantoms, the correlation of the spectra remain high (as shown by $r$), however the absolute errors increase in comparison to Table~\ref{tb:NRMSEphantom}. This can be seen by slight changes in all camera simulated spectra from the mean annotated spectra, most notably in the 525-575nm region where $StO_2$ or $AR1$ has a large impact on the spectral shape. This demonstrates that the simple approach to camera simulation may require improvement. In these statistics, only bands with central wavelengths less than 575nm are considered since Chapter~\ref{chap:1layer} shows poor performance of the models beyond this meaning only 13 bands are used. The impact of the poor performance of higher bands, however, may not be fully eliminated as bands with lower central wavelengths may be sensitive to wavelengths above 575nm due to cross-talk effects \annref{57}\textcolor{red}{from neighbouring pixels in the sensor} or secondary peaks \annref{57}\textcolor{red}{in the band responses} seen in Figure~\ref{fig:bandresponses}, however this should then be corrected using the correction matrix as described in Chapter~\ref{chap:SWB}. This problem would not be encountered in the spectrophotometer response suggesting there are also other factors impacting the poorer camera simulation. 
 
-Fitting the single-layer models to the mean annotated spectrum of each gelatin-based phantom, shows the quality of parameter extraction is overall lower than when fitting to spectrophotometer responses as in Table~\ref{tb:phantomparams}. Similar to the results of fitting to spectrophotometer responses, only $AR1$ and $AR14$ are extracted well, with $c_{tot}$ and $I$ very poorly recovered so only the former are discussed. Yudovsky 2009 recovers these parameters with better quality than Jacques 1999 in all cases, however the use of relative data dramatically increases the mean $APE$ despite preserving the overall trends demonstrating an offset compared to the ground-truth values. This is likely to reflect the flawed camera simulation used in fitting to these spectra which is mismatched in regions where the dyes have significant impact. When fitting, instead, to each pixel spectrum of the annotated regions it can be seen that the errors follow similar trends but are inflated when using a single, likely due to noise which is present in this regime but largely removed when the mean spectrum is taken or when the mean of 5 frames is used. Whilst some trends and mean $APE$ are relatively well preserved, the precision of the parameter recovery is sacrificed when a single frame is analysed pixelwise due to the increased noise. For this reason, it is clear that effective denoising strategies are necessary to obtain high quality results. 
+Fitting the single-layer models to the mean annotated spectrum of each gelatin-based phantom, shows the quality of parameter extraction is overall lower than when fitting to spectrophotometer responses as in Table~\ref{tb:phantomparams}. Similar to the results of fitting to spectrophotometer responses, only $AR1$ and $AR14$ are extracted well, with $c_{tot}$ and $I$ very poorly recovered so only the former are discussed. Yudovsky 2009 recovers these parameters with better quality than Jacques 1999 in all cases, however the use of relative data dramatically increases the mean $APE$ despite preserving the overall trends, demonstrating an offset compared to the ground-truth values. This is likely to reflect the flawed camera simulation used in fitting to these spectra which is mismatched in regions where the dyes have significant impact. When fitting, instead, to each pixel spectrum of the annotated regions it can be seen that the errors follow similar trends but are inflated when using a single frame, likely due to noise which is present in this regime. These errors are significantly reduced when the mean spectrum is taken or when the mean of 5 frames is used correlating to the reduction in noise in these processing methods. Whilst some trends and mean $APE$ are relatively well preserved, the precision of the parameter recovery is sacrificed when a single frame is analysed pixelwise due to the increased noise. For this reason, it is clear that effective denoising strategies are necessary to obtain high quality results from snapshot HSI data. 
 
-When fitting to HELICoiD neurosurgical linescan HSI relative mean annotated spectra, it is noticeable that the literature Haemoglobin peaks appear offset from those measured. When shifting these peaks by 3nm they appear more in line with the mean annotated spectra, suggesting that the wavelength calibration of this data may not be fully accurate or the environment of the haemoglobin is impacting its absorption spectra as seen for the dyes used in Chapter~\ref{chap:1layer}. It is also noted that the spectrum forms a closer fit to the region of the spectrum associated most strongly with Hemoglobin when this region is weighted in the residual. There appears to be some decrease in mean fitted $StO_2$ as fitting is improved to this region of the spectrum, however the distribution of values appears very similar and lower than those considered typical by JVOS or cerebral oximetry for all methods tested. This demonstrates the importance of accurate optical modelling of the tissue for quality parameter extraction. 
+When fitting to HELICoiD neurosurgical, linescan HSI, relative, mean annotated spectra, it is noticeable that the literature haemoglobin peaks appear offset from those measured. \annref{58}\textcolor{red}{By visual examination of mean HELICoiD spectra, we identified that} shifting these peaks by 3~nm they appear to have improved alignment \annref{58}\textcolor{red}{as can be seen in Figure~\ref{fig:HELICoiDann}}, suggesting that the wavelength calibration of this data may not be fully accurate or the environment of the haemoglobin is impacting its absorption spectra perhaps similarly to that seen for the dyes used in Chapter~\ref{chap:1layer}. It is also noted that the spectrum forms a closer fit to the region of the spectrum associated most strongly with haemoglobin when this region is weighted in the residual. There appears to be some decrease in mean fitted $StO_2$ as fitting is improved to this region of the spectrum, however the distribution of values appears very similar and lower than those considered typical by JVOS or cerebral oximetry for all methods tested. This demonstrates the importance of accurate optical modelling of the tissue for quality parameter extraction. 
 %These methods are also applied with a simulated camera response to relative mean annotated NeuroHSI neurosurgical snapshot HSI data. This reduction in bands and introduction of simulated camera response returns very poor parameter extraction, despite excellent visual fits to the spectra. This may be linked to the poor camera simulation in the region of largest $StO_2$ impact (525-575nm) as seen with the gelatin-based phantoms. 
 
-Finally, the Yudovsky 2009 single-layer model is applied using the shifted extinction coefficients to an exemplary HELICoiD image (012-02) on a pixel-by-pixel basis. This results in an $StO_2$ image demonstrating difference between tissues and vessels with spatial resolution. This may demonstrate potential for this technology in future work, however there are no ground truth values here with which to evaluate the success of this analysis.
+Finally, the Yudovsky 2009 single-layer model is applied using the shifted extinction coefficients to an exemplary HELICoiD image (012-02) on a pixel-by-pixel basis. This results in an $StO_2$ image demonstrating difference between tissues and vessels with spatial resolution. This may demonstrate potential for this technology in future work, however there are no ground truth values here with which to evaluate the success of this analysis. \annref{59}\textcolor{red}{By investigating the expected trends in $StO_2$ for different tissues, some confidence can be gained in the relative results despite having no quantitative evaluation. An example of this for the image in Figure~\ref{fig:HELICoiDann} may be that the primary grade 4 glioblastoma visualised~\cite{Fabelo2019} would be expected to have a necrotic core with low $StO_2$ which can be seen in the extracted $StO_2$. }
 
 \subsection{Limitations}
-The most notable limitation of this work is the computational time associated as pixel-by-pixel analysis taking many hours per image using the current implementation. This would not be feasible in a clinical environment and limits the use of this technology. 
+The most notable limitation of this work is the computational time associated, as pixel-by-pixel analysis requires many hours per image using the current implementation. \annref{60}\textcolor{red}{This renders this implementation of the technology to be unsuited to a neurosurgical environment where local ischemia can rapidly result in detrimental patient impact~\citep{Zhou2016}.}
 
-Other limitations (as mentioned in Section~\ref{sec:discussion5}) include possibility of the poorer regions of model prediction to be impacting the more successful regions when modelling gelatin-based phantoms due to cross-talk between snapshot bands, the need for further validation of the optical characterisation of tissues, and unknown ground truth values of $StO_2$ for these tissues and images for rigorous evaluation. Another limitation is that, whilst temporal averaging provided significant improvement of the results shown for the static videos of gelatin-based phantoms, the use of temporal averaging in surgical videos would likely result in motion artefacts thus suggesting that improved noise reduction methods should be investigated. 
+Other limitations (as mentioned in Section~\ref{sec:discussion5}) include possibility of the poorer regions of model prediction to be impacting the more successful regions when modelling gelatin-based phantoms due to cross-talk or secondary peak effects in the snapshot bands. This is compounded by the need for further validation of the optical characterisation of tissues, and unknown ground truth values of $StO_2$ for these tissues and images for rigorous evaluation. Another limitation is that, whilst temporal averaging provided significant improvement of the results shown for the static videos of gelatin-based phantoms, the use of temporal averaging in surgical videos would likely result in motion artefacts thus suggesting that improved noise reduction methods should be investigated. 
 
 Additionally, whilst the HELICoiD dataset is able to provide high spectral resolution neurosurgical HSI images, the associated annotations only determine a small number of classes. This results in limited distinction between regions expected to have large variation in $StO_2$, such as arterial or venous vessels. This may result in unusual mean annotated spectra which aggregate these tissue types. These annotations also make use of spectral angle mapper which results in only pixels of the same tissue with high spectral similarity being annotated, while there may be pixels of the same class with greater variation that are not included. This may result in artificially low variation in the spectrum of each class which may then not capture the full variety of spectra associated with that tissue type. This may result in fitted parameters on a pixel-by-pixel level showing larger variation from the annotated values for both the reasons that the class encompasses multiple sub-types of tissue, and that the mean spectrum may not encompass the full variation in the spectrum of each tissue type which may be captured by the manual annotation of a clinician. % as in the NeuroHSI dataset. 
 
 Further to this point, these models should be tested on neurosurgical data taken with a similar configuration to that used for the phantom analysis with sufficient denoising performed. 
 
-Finally, only single-layer models are used to analyse these neurosurgical datasets, however it is clear that Arachnoid or Pia Mater tissues may be present in a layered manner here. Arachnoid is known to show some absorbance, whereas Pia Mater is known to contain significant collagen which would indicate a likely scattering effect~\citep{Ghannam2023}. Whilst these layers usually have low thickness~\citep{Ghannam2023}, these effects may impact the diffuse reflectance spectrum measured and so two-layer modelling may be necessary to fully capture this. 
+Finally, only single-layer models are used to analyse these neurosurgical datasets, however it is clear that arachnoid or pia tissues may be present in a layered manner here. arachnoid is known to show some absorbance, whereas pia is known to contain significant collagen which would indicate a likely scattering effect~\citep{Ghannam2023}. Whilst these layers usually have low thickness~\citep{Ghannam2023}, these effects may impact the diffuse reflectance spectrum measured and so two-layer modelling may be necessary to fully capture this. 
 
 \subsection{Conclusion and future work}
-In conclusion, this chapter shows that these models are able to obtain good quality results from quantitative snapshot hyperspectral data using well-defined optical properties, despite some oversimplification in the camera simulation. Relative data, however should be used with more caution demonstating a much larger impact of this camera simulation. When applied to neurosurgical hyperspectral linescan data, quantitative evaluation is more challenging due to the lack of known ground truth values. From visual inspection of this data, it appears that further work must be done to validate the modelling of the optical properties of these tissues. There is, however, promise that with an increased prior knowledge, these models may be able to provide valuable clinical parameters. 
+In conclusion, this chapter shows that these models are able to obtain good quality results from quantitative snapshot hyperspectral data using well-defined optical properties, despite some oversimplification in the camera simulation. Relative data, however should be used with more caution demonstrating a much larger impact of this camera simulation. When applied to neurosurgical hyperspectral linescan data, quantitative evaluation is more challenging due to the lack of known ground truth values. From visual inspection of this data, it appears that further work must be done to validate the modelling of the optical properties of these tissues. There is, however, promise that with an increased prior knowledge, these models may be able to provide valuable clinical parameters. 
 
-Future work should include improving the computation time to allow for faster processing. This could be done by parallelising the computation of pixels using GPU processing, or by training a deep-learning network using the forwards models to generate training data. The bands chosen for the snapshot mosaic camera should be optimised to be most informative on the optical properties and to minimise cross-talk. This should be informed by well-characterised optical properties of these tissues which should be investigated further. The algorithm established in Chapter~\ref{chap:SWB} should be used in it's extensive version to obtain intra-operative, quantitative, snapshot data. This should be combined with denoising techniques that preserve the spatial, spectral, and temporal resolution of the data to allow the possibility of good quality parameter extraction in real-time. Finally, the two-layer model should be explored for improvement in quality and this should be used to account for the meninges of the brain when analysing neurosurgical data. 
+Future work should include improving the computation time to allow for faster processing. This could be done by parallelising the computation of pixels using GPU processing, or by training a deep-learning network using the forwards models to generate training data. The bands chosen for the snapshot mosaic camera should be optimised to be most informative of the optical properties and to minimise cross-talk. \selfref{11}\textcolor{red}{The camera simulation model should also be updated to include the optical transmission of other components, such as the coupler or exoscope, in the system and to consider the light source spectrum fully.} This should be informed by well-characterised optical properties of these tissues which should be investigated further. The algorithm established in Chapter~\ref{chap:SWB} should be used in it's extensive version to obtain intra-operative, quantitative, snapshot data. This should be combined with denoising techniques that preserve the spatial, spectral, and temporal resolution of the data to allow the possibility of good quality parameter extraction in real-time. Finally, the two-layer model should be explored for improvement in quality and this should be used to account for the meninges of the brain when analysing neurosurgical data. 
 
 \clearpage
 \begin{subappendices}
@@ -670,7 +672,7 @@ Future work should include improving the computation time to allow for faster pr
 
 \begin{table}[htb!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors (APE). This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the quantitative Monte-Carlo datasets at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors (APE). This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single-layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double-layer (Y2) to the quantitative Monte-Carlo datasets at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         \rot{Parameter} & \rot{Model} & Refractive & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median (inter-quartile } \\
@@ -717,7 +719,7 @@ Future work should include improving the computation time to allow for faster pr
         \cline{2-9}
         & Y2 & 1.44 & \textbf{0.735} & 0.169 & -0.00249 & 16.8 (19.3) & 56.4 (48.2) & 61.3 (54.9) \\
         \hline
-        $f_mel$ & Y2 & 1.44 & \textbf{0.852} & \textbf{0.622} & \textbf{0.477} & 28.0 (31.7) & 85.1 (128) & 90.1 (120) \\
+        $f_{mel}$ & Y2 & 1.44 & \textbf{0.852} & \textbf{0.622} & \textbf{0.477} & 28.0 (31.7) & 85.1 (128) & 90.1 (120) \\
         \hline
         $L_1$ & Y2 & 1.44 & \textbf{0.824} & \textbf{0.401} & 0.123 & 36.7 (40.9) & 69.5 (83.1) & 84.5 (96.0) \\
         \hline
@@ -727,7 +729,7 @@ Future work should include improving the computation time to allow for faster pr
 
 \begin{table}[htb!]
     \centering
-    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors (APE). This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double layer (Y2) to the relative Monte-Carlo datasets at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
+    \caption{The Pearson $r$ values (bold if $p<0.05$) of the linear regression line between the fitted tissue parameters and their ground truth displayed with their median (inter-quartile range) absolute percentage errors (APE). This is shown for each variable and for each refractive index dataset when extracted by fitting Yudovsky 2009 single-layer (Y1), Jacques 1999 (J), or Yudovsky 2009 double-layer (Y2) to the relative Monte-Carlo datasets at each noise level (0pp, 1pp, 3pp). All presented to 3s.f.}
     \begin{tabular}{|ccc|ccc|ccc|}
         \hline
         \rot{Parameter} & \rot{Model} & Refractive & \multicolumn{3}{c}{$r$} & \multicolumn{3}{|c|}{median (inter-quartile } \\
@@ -774,7 +776,7 @@ Future work should include improving the computation time to allow for faster pr
         \cline{2-9}
         & Y2 & 1.44 & \textbf{0.360} & 0.0441 & -0.0711 & 33.2 (34.3) & 61.7 (50.2) & 63.6 (47.3) \\
         \hline
-        $f_mel$ & Y2 & 1.44 & \textbf{0.517} & 0.166 & \textbf{0.201} & 35.3 (26.4) & 108 (119) & 132 (210) \\
+        $f_{mel}$ & Y2 & 1.44 & \textbf{0.517} & 0.166 & \textbf{0.201} & 35.3 (26.4) & 108 (119) & 132 (210) \\
         \hline
         $L_1$ & Y2 & 1.44 & \textbf{0.806} & 0.0777 & -0.0675 & 38.1 (37.0) & 65.4 (54.8) & 76.6 (86.8) \\
         \hline
@@ -808,7 +810,7 @@ Future work should include improving the computation time to allow for faster pr
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.9\textwidth]{012-02_StO2_J.pdf}
-    \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Middle left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Jacques 1999 single-layer model and method 4 (from~\ref{sec:NeuroHSIdata}). Middle right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region. Bottom shows the mean annotated spectra of each tissue type ($\pm$ standard deviation) plotted with the modelled spectra using parameters fitted to the mean annotated spectrum.}
+    \caption{Top left shows an sRGB reconstruction of the HELICoiD image 012-02 with the regions beyond thresholds shown as white. Top right shows an annotation of the same image. Middle left shows the fitted $StO_2$ on a pixel-by-pixel basis using the Jacques 1999 single-layer model and shifted extinction coefficients. Middle right shows the $APE$ of the fitted $StO_2$ of each pixel in each annotated region compared to the fitted $StO_2$ from the mean spectrum of the annotated region. Bottom shows the mean annotated spectra of each tissue type ($\pm$ standard deviation) plotted with the modelled spectra using parameters fitted to the mean annotated spectra.}
     \label{ap:HELICoiDpixelJ}
 \end{figure}
 \FloatBarrier
@@ -839,7 +841,7 @@ Future work should include improving the computation time to allow for faster pr
 \section{Appendices fitting Neurosurgical HSI data with uniform weighting of wavelengths}\label{ap:Chapter5uniform}
 \begin{table}[h!]
     \centering
-    \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients with uniform weighting of the wavelengths and $n=1.44$. All presented to 3s.f.}
+    \caption{The mean (standard deviation) of the fitted physiological parameters when extracted by fitting Yudovsky 2009 single-layer (Y) or Jacques 1999 (J) to the relative mean annotated spectra for each tissue type of each image from the HELICoiD dataset using literature (L) or shifted (S) extinction coefficients with uniform weighting of the wavelengths and $n=1.44$. All presented to 3s.f.}
     \begin{tabular}{|ccc|cccc|}
         \hline
         \multirow{2}{*}{\shortstack{Tissue\\ type}} & \multirow{2}{*}{Model} & \multirow{2}{*}{Method} & $StO_2$ & $f_{blood}$ & $a$ & $b$ \\
@@ -871,12 +873,12 @@ Future work should include improving the computation time to allow for faster pr
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{012-02Normal_spectra_Y_u.pdf}
-        \caption{}
+        \caption{Model = Y}
         \label{fig:backwardsHSIHeliYuniform}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{012-02Normal_spectra_J_u.pdf}
-        \caption{}
+        \caption{Model = J}
         \label{fig:backwardsHSIHeliJuniform}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
@@ -884,7 +886,7 @@ Future work should include improving the computation time to allow for faster pr
         \caption{}
         \label{fig:boxplotsHeliuniform}
     \end{subfigure}
-    \caption{An example of the visual fitting quality of the Yudovsky 2009 (\ref{fig:backwardsHSIHeliY}) and Jacques 1999 (\ref{fig:backwardsHSIHeliJ}) single layer models when fitting to the relative mean annotated spectrum ($\pm$1 standard deviation, \textcolor{blue}{blue solid}) of the normal tissue class of HELICoiD image 12-02 using literature (L) or shifted (S) extinction coefficients and a uniform wavelength weighting. The distribution of the fitted physiological parameters retrieved by fitting each model to each relative mean annotated spectrum of the tissue classes of each HELICoiD image is shown in \ref{fig:boxplotsHeli}.}
+    \caption{An example of the visual fitting quality of the Yudovsky 2009 (a) and Jacques 1999 (b) single-layer models when fitting to the relative mean annotated spectrum ($\pm$ standard deviation, \textcolor{blue}{blue solid}) of the normal tissue class of HELICoiD image 12-02 using literature (L) or shifted (S) extinction coefficients and a uniform wavelength weighting. The distribution of the fitted physiological parameters retrieved by fitting each model to each relative mean annotated spectrum of the tissue classes of each HELICoiD image is shown in c.}
     \label{fig:HELICoiDannuniform}
 \end{figure}
 \FloatBarrier

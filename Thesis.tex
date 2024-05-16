@@ -46,6 +46,15 @@
 \newcommand{\tabref}[1]{\tablename~\ref{#1}}
 \NewDocumentCommand{\rot}{O{90} O{0.25em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
 
+\usepackage{marginnote}
+%\newcommand{\revref}[2]{\marginnote{$R_{#1}C_{#2}$}}
+%\newcommand{\revref}[2]{\marginpar[$R_{#1}C_{#2}$]{}}
+\newcommand{\revref}[1]{\marginnote{\textcolor{purple}{$EC_{#1}$}}}
+\newcommand{\annref}[1]{\marginnote{\textcolor{purple}{$AC_{#1}$}}}
+\newcommand{\selfref}[1]{\marginnote{\textcolor{purple}{$SC_{#1}$}}}
+%\setlength{\marginparsep}{10mm}
+\setlength{\marginparwidth}{15mm}
+
 
 \DeclareMathOperator{\NRMSE}{NRMSE}
 % \DeclareMathOperator{\argmin}{argmin}
@@ -75,7 +84,7 @@
 \include{FormatAndDefsBasic}
 
 % Do we want a draft note? Uncomment if not
-\newcommand{\draftnote}{\textcolor[gray]{0.5}{\textbf{DRAFT -- \today}}}
+% \newcommand{\draftnote}{\textcolor[gray]{0.5}{\textbf{DRAFT -- \today}}}
 \include{FormatAndDefsThesisExtra}
 
 

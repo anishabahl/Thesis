@@ -8,10 +8,9 @@
 \textbf{Foreword\,}
 This chapter is an \emph{in extenso} reproduction of \citet{Bahl2023} and has formed the basis of the patent application 2309106.9. 
 \newline
-AB identified the separable spatial and spectral model, utilised this to create a synthetic white balancing algorithm, collected the testing dataset of the coloured checkerboard target, and evaluated the algorithm in this context under the supervision of TV, MB, and JS. JS identified the sterile ruler as a potential imaging target. AB and OM collected the cadaveric hyperspectral data which was analysed utilising the algorithm by AB. CH developed the sRGB reconstruction algorithms and some of the software toolkit used for data processing. MJ aided AB in the conception of the utilisation of the temporal hypercube in the algorithm, this was then developed by AB. PN developed the core of the software used to capture hyperspectral data. This was combined by AB with the software developed by MH for maneuvering the seven degree of freedom robot. The cadaveric procedure was facilitated by NC and PF as part of the FAROS project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 101016985. The light source spectra were measured by JQ and the spectrometer set-up used for this was developed by YX. 
+AB identified the separable spatial and spectral model, utilised this to create a synthetic white balancing algorithm, collected the testing dataset of the coloured checkerboard target, and evaluated the algorithm in this context under the supervision of TV, MB, and JS. JS identified the sterile ruler as a potential imaging target. AB and OM collected the cadaveric hyperspectral data which was analysed utilising the algorithm by AB. CH developed the sRGB reconstruction algorithms and some of the software toolkit used for data processing. MJ aided AB in the conception of the utilisation of the temporal hypercube in the algorithm, this was then developed by AB. PN developed the core of the software used to capture hyperspectral data. This was combined by AB with the software developed by MH for maneuvering the seven degree of freedom robot. The cadaveric procedure was facilitated by NC and PF as part of the FAROS project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 101016985. The light source spectra were measured by JQ and the spectrometer set-up used for this was developed by YX. \footnote{\annref{18}\textcolor{red}{AB:~Anisha Bahl, TV:~Tom Vercauteren, MB:~Mads Bergholt, JS:~Jonathan Shapey, OM:~Oscar MacCormac, CH:~Conor Horgan, MJ:~Mirek Janatka, PN:~Philip Noonan, MH:~Martin Huber, NC:~Nicola Cavalcanti, PF:~Philipp F\"urnstahl JQ:~Jianrong Qiu, YX:~Yijing Xie}}
 \end{minipage}
 \end{center}
-
 \minitoc
 
 % \begin{comment}
@@ -101,7 +100,7 @@ As discussed in Chapter \ref{chap:intro}, Hyperspectral imaging (HSI) has shown 
 %not sure how to choose which studies to reference so included review as well 
 Chapter \ref{chap:intro} also discusses that not all HSI approaches are able to provide real-time data as their respective scanning mechanisms result in long acquisition times, which can also be prone to motion artefacts. In contrast, snapshot mosaic cameras utilize sensors where each pixel has a dedicated band pass filter. This provides information on one band per pixel but captures all pixels in a single shot~\citep{Geelen2014}. This allows highly time resolved data to be obtained, at the cost of lower spatial and spectral resolution. To obtain a full hypercube from a snapshot mosaic camera, the data must be demosaiced with the remaining information inferred using classical or learning-based interpolation~\citep{Li2021}, followed by spectral cross-talk correction due to the parasitic neighboring bands effects~\citep{Pichette2017}, as discussed in chapter \ref{chap:intro}. The increased temporal resolution given by effective snapshot mosaic image demosaicing provides the opportunity to aid surgical guidance~\citep{Ayala2021, Ebner2021}.
 
-To enable physiological parameter extraction from any of these imaging methods, accurate spectra must be extracted from hyperspectral images. This requires white balancing as an initial step. White balancing uses a white and dark reference to account for lighting conditions, vignetting, and optical transmission through the set-up.
+To enable physiological parameter extraction from any of these imaging methods, accurate spectra must be extracted from hyperspectral images. annref{19}\textcolor{red}{This requires white balancing to account for lighting conditions, vignetting, and optical transmission through the set-up using a white and dark reference.}
 The white reference image is typically taken using a well characterized, uniform, highly reflective, Lambertian surface~\citep{Lu2014}.
 However existing established references, such as 95\% reflective Spectralon tiles, cannot be sterilized and are very sensitive, making them challenging to integrate into a surgical environment.
 This necessitates that the white reference is acquired outside 
@@ -119,8 +118,8 @@ specular highlight analysis for spectral correction.
 This requires additional low exposure images to be obtained to prevent saturation in the specular reflection regions.
 This allows illuminant spectra to be determined intraoperatively without the need for a reference, however it is unable to directly account for vignetting and can only be used to provide relative data as specular reflections cannot quantitatively be related by Lambertian reflections.
 %
-These relative data can be used to extract ratiometric clinical parameters such as oxygen saturation~\citep{Giannoni2018,MacKenzie2018}.
-However, this may not allow quantitative measurement of all parameters such as chromophore concentrations, including haemoglobin which is therefore often provided on a relative scale~\citep{Kulcke2018}.
+These relative data can be used to extract ratiometric clinical parameters such as oxygen saturation~\citep{Giannoni2018,MacKenzie2018} \annref{20}\textcolor{red}{, where ratiometric parameters are not dependent on the absolute reflectance intensity due to their calculation being dependent on ratios of measurements.}
+However, this may not allow quantitative measurement of all parameters such as chromophore concentrations, including haemoglobin which is therefore often provided on a \annref{21}\textcolor{red}{scale relative to an initial measurement as trend data}~\citep{Kulcke2018}.
 
 Vignetting correction can be performed following spectral correction. For hyperspectral images, this assumes a constant optical configuration and requires significant characterisation before use~\citep{Jiang2019}. In surgical settings, there are often adjustable focal lengths changing the optical configuration meaning this is challenging to apply. Single image vignetting correction models are available for RGB imaging~\citep{Cho2014}, however these also assume natural images with a variety of colors which is not an appropriate assumption for surgical imaging.
 
@@ -194,7 +193,7 @@ As detailed by \citet{Pichette2017}, estimating reflectance from hyperspectral m
 %
 %
 Our white balancing approach is detailed in the subsequent sections.
-For demosaicing purposes, in this work, we rely on bilinear interpolation to maintain the spatial resolution of the raw mosaic image but more advanced approaches such as the learning-based one of \citet{Li2021} could also be employed with the work presented here.
+For demosaicing purposes, in this work, we rely on bilinear interpolation to maintain the spatial resolution of the raw mosaic image but more advanced approaches such as the learning-based one of \citet{Li2021} \annref{23}\textcolor{red}{or more simplistic linear interpolation} could also be employed with the work presented here.
 The demosaiced hypercube is then corrected pixel by pixel to account for parasitic spectral cross-talk effects and secondary peaks in the band responses within the sensor to return the final hypercube~\citep{Pichette2017}.
 
 %\FloatBarrier
@@ -333,16 +332,16 @@ A measured white reference image $W$ can be demosaiced to a hypercube where ther
 %
 %
 %
-Additionally, noise $N(i,j,n)$ should be accounted for in both the spatial and spectral domains:
+Additionally, noise \selfref{5}\textcolor{red}{$X(i,j,n)$} should be accounted for in both the spatial and spectral domains:
 % 
 \begin{linenomath*}
 \begin{equation}
-	W(i,j,n) = MS(n)V(i,j) + N(i,j,n)
+	W(i,j,n) = MS(n)V(i,j) + \selfref{5}\textcolor{red}{X(i,j,n)}
 \label{eq:modelling white references}
 \end{equation}
 \end{linenomath*}
 
-The assumption of separability is intuitive from the discussion of vignetting and color constancy being addressed separately in literature~\citep{Cho2014,Ayala2020,Jiang2019,Yu2004,Foster2011}.
+The assumption of separability is \selfref{6}\textcolor{red}{commonly used to allow the discussion of vignetting and color constancy to be} addressed separately in literature~\citep{Cho2014,Ayala2020,Jiang2019,Yu2004,Foster2011}.
 %
 %
 %
@@ -363,7 +362,7 @@ For simplicity, this model neglects chromatic aberrations in the optics, and ass
 Since a sterile standard reference equivalent to a uniformly reflective Lambertian surface is not commercially available, a standard sterile ruler shown in \figref{fig:setup}c is used. This can be placed in the sterile surgical field on the subject to ensure the imaging conditions are identical. The reverse of the ruler has a matt white appearance without markings.
 This ruler does not cover the full field of view and so images must be composited to estimate the vignetting over the entire field of view.
 % 
-To ensure full coverage, a short video of the sterile ruler crossing the field of view is captured to create a synthetic white reference. This allows the readily available, inexpensive reference to be used in a wide variety of operative cavity dimensions.
+To ensure full coverage, a short video of the sterile ruler crossing the field of view is captured to create a synthetic white reference. This allows the readily available, inexpensive reference to be used in a wide variety of operative cavity dimensions. \annref{24}\textcolor{red}{By repeating this at each change of imaging configuration, quantitative data can be recovered accurately.}
 % 
 % 
 %    
@@ -413,7 +412,13 @@ The video frames are stacked to create a spatio-spectral $x,y$ plane due to the 
 %
 %
 Because of the sweeping motion of the bright ruler,
-for each spatio-spectral pixel in the $x, y$ plane there is a temporal distribution of measured intensities, which alternates between background and sterile reference intensities in the $z$ axis.
+for each spatio-spectral pixel in the $x, y$ plane there is a temporal distribution of measured intensities, which alternates between background and sterile reference intensities in the $z$ axis. \selfref{4}\textcolor{red}{An example of the sRGB reconstruction of some frames showing the movement of a ruler across the field of view of the camera in a short video can be seen in Figure~\ref{fig:videoframes}.}
+\begin{figure}[h]
+    \centering \selfref{4}
+    \includegraphics[width=\textwidth]{Video_frames.pdf}
+    \caption{sRGB reconstructions of three frames taken from a short video of a sterile ruler being passed across the field of view to demonstrate the motion of the ruler.}
+ \label{fig:videoframes}
+\end{figure}
 The temporal regions corresponding to the sterile reference are isolated, as detailed below, and the median of these chosen as the value for that spatio-spectral location in the composite reference.
 To segment these temporal regions,
 %
@@ -472,7 +477,7 @@ Each pixel of the initial composite reference $W^{\textrm{ic}}(i,j,n)$ is then d
 %
 We note that this correction captures the sensor band responses and the spectrum of the ruler as known a priori but does not account for the unknown spectrum of the light source used intraoperatively. This provides an essential step in the generation of synthetic references or the spectral sensitivities. 
 %
-In the generation of synthetic references, this correction is performed on a composite reference which may also present important imperfections due to noise and video input processing. We aim to mitigate these through our separable model fitting.
+In the generation of synthetic references, this correction is performed on a composite reference which may also present important imperfections due to noise and video input processing\annref{26}\textcolor{red}{, including flaws in pixels not reached by the ruler in the video or due to specular reflection}. We aim to mitigate these through our separable model fitting.
 %
 %
 
@@ -487,7 +492,7 @@ A variety of methods can be used to calculate the factors in Equation~\eqref{eq:
 
 \paragraph{Vignetting modelled non-parametrically}
 The first method only makes use of the separability assumption, models the vignetting as a non-parametric function, and calculates the spectral sensitivities and scalar factor. Since vignetting is modelled as independent of wavelength, it should be identical for all bands.
-Making use of our convention that $\frac{1}{N} \sum_{n}S(n) = 1$, and assuming a zero mean noise pattern $N(i,j,n)$, we find that, up to residual noise, Equation~\eqref{eq:modelling white references} leads to:
+Making use of our convention that $\frac{1}{N} \sum_{n}S(n) = 1$, and assuming a zero mean noise pattern \selfref{5}\textcolor{red}{$X(i,j,n)$}, we find that, up to residual noise, Equation~\eqref{eq:modelling white references} leads to:
 %
 %
 \begin{linenomath*}
@@ -549,6 +554,8 @@ least squares approach on the Gaussian parameters only:
 \end{linenomath*}
 %
 %
+\selfref{7}\textcolor{red}{In both cases, the least squares fitting routine chosen is SciPy v1.8.1 \newline
+\href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html}{\texttt{scipy.optimize.least\_squares}} function using it's associated default settings.}
 As will be apparent from our experiments, this third method provides advantageous benefits due to the Gaussian fit mitigating imperfections in the composite reference, whilst minimising the computational time.
 
 %
@@ -1027,7 +1034,7 @@ For relative data, the spectral sensitivities are calculated from a single image
 \subsubsection{Integration into a surgical environment}
 \label{resultsintegration}
 Our proposed synthetic reference algorithm was easily integrated into surgical workflow of a human cadaveric spine surgery. The study was approved by the local ethics committee of the canton of Zurich, Switzerland, under the number BASEC 202-01196. The video capture was adjusted to use a snipped section of the ruler to fit within the surgical cavity and the camera was moved in contrast to the ruler to capture the video. In this setting this is an appropriate adjustment due to the near uniformity of the background tissue and even illumination of the cavity using a single light source.
-The measured white reference was taken for comparison, where distance was judged based on a visual assessment of image focus. The mean absolute percentage errors in the spectral sensitivities is 0.852\% and median absolute percentage pixel-by-pixel errors is 4.77\% between the synthetic and Spectralon references, which show that the synthetic reference is very similar to the best case intraoperative measured Spectralon reference. The $\NRMSE$ between the quantitative spectra constructed using the Spectralon and synthetic references were calculated between the spectrum of each pixel in the content area. This had a range of 0\% to 0.356\% with a median of 0.055\% showing that these are extremely similar. sRGB reconstructions of the image balanced with both Spectralon white reference and a synthetic white reference are shown in \figref{fig:ZurichRGB}. The $\Delta E$ values were calculated for each pixel between CIELAB reconstructions of these images and displayed in \figref{fig:ZurichRGB} with a range between 0 and 16.17 and a median of 1.37 in the content area indicating a barely perceptible difference to the human eye. This suggests that a synthetic white reference performs similarly to the best case intraoperative Spectralon white reference, however it is much more easily integrated into surgical workflow allowing for changing conditions to be better accounted for. 
+The measured white reference was taken for comparison, where distance was judged based on a visual assessment of image focus. The mean absolute percentage errors in the spectral sensitivities is 0.852\% and median absolute percentage pixel-by-pixel errors is 4.77\% between the synthetic and Spectralon references, which show that the synthetic reference is very similar to the best case intraoperative measured Spectralon reference. The $\NRMSE$ between the quantitative spectra constructed using the Spectralon and synthetic references were calculated between the spectrum of each pixel in the content area. This had a range of 0\% to 0.356\% with a median of 0.055\% showing that these are extremely similar. sRGB reconstructions of the image balanced with both Spectralon white reference and a synthetic white reference are shown in \figref{fig:ZurichRGB}. The $\Delta E$ values were calculated for each pixel between CIELAB reconstructions of these images and displayed in \figref{fig:ZurichRGB} with a range between 0 and 16.17 and a median of 1.37 in the content area indicating a barely perceptible difference to the human eye. 
 
 \begin{figure}[h!]
 	\centering
@@ -1043,7 +1050,7 @@ This chapter first examined the limitations of white balancing under different c
 
 The change in distance primarily has an effect on quantitative data which is seen clearly at large differences in distance, however these changes are not seen in the sRGB reconstructions. The relative data is robust to changes in distance as this does not change the shape of the spectra, only the absolute intensity which is not relevant in calculation of ratiometric parameters. 
 
-The change in lighting conditions has a severe effect on both quantitative and relative data as the shape of the spectra are altered. This effect is significant enough to be easily visually apparent in the sRGB reconstruction. 
+The change in lighting conditions has a severe effect on both quantitative and relative data as the shape of the spectra are altered. This effect is significant enough to be easily visually apparent in the sRGB reconstruction. \annref{25}\textcolor{red}{Unstable light sources may present challenges here, however in our work we note that the light sources used show very stable behaviour allowing a single light source characterisation to be used across multiple measurements.}
 
 The ability to model white references by separating the spatial and spectral components was then investigated. This produced relatively low inherent errors for all methods investigated. The approximation method modelling the vignetting as a two-dimensional isotropic Gaussian with the scalar factor and spectral sensitivities calculated was chosen to allow for imperfections in the composite reference whilst maximising computational efficiency. The spectral sensitivities in all three approximation methods showed no trends with distance, consistent with the assumption that the spatial and spectral effects can be treated separately. 
 
@@ -1053,9 +1060,9 @@ When these synthetic references were used to balance the datasets at various dis
 
 For relative data, only the shape of the spectra is relevant so only spectral sensitivities are required to white balance the data. For this the relevant spectral sensitivities are calculated once and used to balance the data across all datasets which results in very low errors. This shows that this simplified method of white balancing can be used in the case that relative data alone is required, however it is not possible to generate good sRGB reconstructions with only spectral sensitivities, since absolute intensity information is lost. 
 
-The application of this method in a surgical environment was tested in a human cadaveric spine surgery. This demonstrated a simple integration into a surgical environment whilst producing similar spectra and sRGB reconstructions, with median $\NRMSE$ of 0.055\% and median $\Delta E$ of 1.37, and a synthetic reference that closely replicates the best case scenario using a standard reference. 
+The application of this method in a surgical environment was tested in a human cadaveric spine surgery. This demonstrated a simple integration into a surgical environment whilst producing similar spectra and sRGB reconstructions, with median $\NRMSE$ of 0.055\% and median $\Delta E$ of 1.37, and a synthetic reference that closely replicates the best case scenario using a standard reference. \annref{27}\textcolor{red}{This suggests that a synthetic white reference performs similarly to the best case intraoperative Spectralon white reference, however it is much more easily integrated into surgical workflow allowing for changing conditions to be better accounted for. }
 
-It is expected that this method can be integrated to a wide range of surgical applications where the exoscope can be held at a constant distance for the short ruler video, and the imaging of interest. This has been investigated for fronto-parallel distances of 20-35cm, which facilitates good ergonomics for neurosurgery by enabling the capture of a sufficiently wide field of view as well as resolving regions of interest in the depths of cavities, based on experience from the lead clinician on our neurosurgical study. Exposure should be set to prevent saturation of any wavelengths, however changes in exposure could be corrected linearly. If lighting is uniform across the field of view, this allows the video to be taken by movement of camera instead of reference, however shadows in the cavity can only be accounted for by movement of the reference itself.
+It is expected that this method can be integrated to a wide range of surgical applications where the exoscope can be held at a constant distance for the short ruler video, and the imaging of interest. This has been investigated for fronto-parallel distances of 20-35cm, which facilitates good ergonomics for neurosurgery by enabling the capture of a sufficiently wide field of view as well as resolving regions of interest in the depths of cavities, based on experience from the lead clinician on our neurosurgical study. Exposure should be set to prevent \annref{27}\textcolor{red}{sensor }saturation of any wavelengths, however \annref{27}\textcolor{red}{low exposures can be counteracted using linear scaling albeit at the expense of increased specular noise}. If lighting is uniform across the field of view, this allows the video to be taken by movement of camera instead of reference, however shadows in the cavity can only be accounted for by movement of the reference itself.
 
 This indicates a promising novel method for synthetic white balancing within the restricted intraoperative environment provided the assumption that spatial and spectral independence is held. This assumption is often met using a single, uniform light source. The quantitative model is currently limited to fronto-parallel imaging with the assumption that imaging geometry does not deviate significantly from this, which also introduces a limitation in its application, however relative data can be obtained at any angle in principle using the spectral sensitivities independently.
 
@@ -1064,7 +1071,7 @@ These data demonstrate a novel sterile synthetic white balancing algorithm capab
 
 Future work should include improvement of the computational efficiency of the composite ruler reference construction for a real-time integration of this method. It should be confirmed that this construction is robust to movement in the background as this enables the video to be obtained by movement of the camera in contrast to movement of the ruler, allowing this method to be more easily used in more restricted surgical cavities assuming an even illumination from a single light source. This method should also be adapted to be able to account for any dust in the system, multiple light sources, validation for the replacement of the exoscope with other operating scopes, validation for distances applicable to other open surgery geometries, and adaptation to use at different imaging angles.
 
-The work in this chapter informs the clinical HSI data collection protocols used in the remainder of this thesis. 
+\annref{29}\textcolor{red}{The following chapters show that using quantitative data can allow for lower errors in $StO_2$ estimation. By providing a method for quantitative data extraction which can be easily integrated into a surgical environment, more accurate $StO_2$ could be extracted from clinical data, however this should be further investigated.}
 
 % \begin{comment}
 % \section*{Acknowledgements}
